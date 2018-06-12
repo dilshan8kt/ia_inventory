@@ -14,15 +14,25 @@
 	<link href="{{ asset('plugins/ionicons/css/ionicons.min.css') }}" rel="stylesheet" />
 	<link href="{{ asset('css/apple/style.min.css') }}" rel="stylesheet" />
 	<link href="{{ asset('css/apple/style-responsive.min.css') }}" rel="stylesheet" />
+	<link href="{{ asset('plugins/gritter/css/jquery.gritter.css') }}" rel="stylesheet" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
-	<link href="{{ asset('plugins/jquery-jvectormap/jquery-jvectormap.css') }}" rel="stylesheet" />
+	@yield('css')
 	<!-- ================== END PAGE LEVEL STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="{{ asset('plugins/pace/pace.min.js') }}"></script>
 	<!-- ================== END BASE JS ================== -->
+
+	<style>
+		.gritter-center{
+			position: fixed;
+			left: 74%;
+			right: 1%;
+			top: 86%;
+		}
+	</style>
 </head>
 <body>
 	<!-- begin #page-loader -->
@@ -60,26 +70,14 @@
 	<script src="{{ asset('plugins/bootstrap/4.1.0/js/bootstrap.bundle.min.js') }}"></script>
 	<script src="{{ asset('plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 	<script src="{{ asset('js/theme/apple.min.js') }}"></script>
+	<script src="{{ asset('plugins/gritter/js/jquery.gritter.js') }}"></script>
 	<script src="{{ asset('js/apps.min.js') }}"></script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-	<script src="{{ asset('plugins/flot/jquery.flot.min.js') }}"></script>
-	<script src="{{ asset('plugins/flot/jquery.flot.time.min.js') }}"></script>
-	<script src="{{ asset('plugins/flot/jquery.flot.resize.min.js') }}"></script>
-	<script src="{{ asset('plugins/flot/jquery.flot.pie.min.js') }}"></script>
-	<script src="{{ asset('plugins/sparkline/jquery.sparkline.js') }}"></script>
-	<script src="{{ asset('plugins/jquery-jvectormap/jquery-jvectormap.min.js') }}"></script>
-	<script src="{{ asset('plugins/jquery-jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-	<script src="{{ asset('js/demo/dashboard.min.js') }}"></script>
+	@yield('js')
+	@yield('gritter')
 	<!-- ================== END PAGE LEVEL JS ================== -->
-	
-	<script>
-		$(document).ready(function() {
-			App.init();
-			Dashboard.init();
-		});
-	</script>
 </body>
 </html>
 

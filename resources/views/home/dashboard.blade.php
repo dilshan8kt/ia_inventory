@@ -4,6 +4,10 @@
   Dashboard
 @endsection
 
+@section('css')
+<link href="{{ asset('plugins/jquery-jvectormap/jquery-jvectormap.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content')
 <!-- begin row -->
 <div class="row">
@@ -154,4 +158,22 @@
     <!-- end col-4 -->
 </div>
 <!-- end row -->
+@endsection
+
+@section('js')
+<script src="{{ asset('plugins/flot/jquery.flot.min.js') }}"></script>
+<script src="{{ asset('plugins/flot/jquery.flot.time.min.js') }}"></script>
+<script src="{{ asset('plugins/flot/jquery.flot.resize.min.js') }}"></script>
+<script src="{{ asset('plugins/flot/jquery.flot.pie.min.js') }}"></script>
+<script src="{{ asset('plugins/sparkline/jquery.sparkline.js') }}"></script>
+<script src="{{ asset('plugins/jquery-jvectormap/jquery-jvectormap.min.js') }}"></script>
+<script src="{{ asset('plugins/jquery-jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+<script src="{{ asset('js/demo/dashboard.min.js') }}"></script>
+
+<script>
+    $(document).ready(function() {
+        App.init();
+        Dashboard.init();
+    });
+</script>
 @endsection

@@ -18,7 +18,7 @@ Route::post('signin',[
 Route::get('signout',[
     'uses' => 'AuthController@signout',
     'as' => 'signout'
-]);
+])->middleware('auth');
 
 Route::get('userimage/{filename}',[
     'uses' => 'UserController@getUserImage',
@@ -27,9 +27,16 @@ Route::get('userimage/{filename}',[
     'roles' => ['Admin','Employee']
 ])->middleware('auth');
 
-Route::get('suplier.category',[
-    'uses' => 'SupplierController@getSupplierCategoryForm',
-    'as' => 'suplier.category',
+Route::get('supplier.category',[
+    'uses' => 'SupplierCategoryController@getSupplierCategory',
+    'as' => 'supplier.category',
+    'middleware' => 'roles',
+    'roles' => ['Admin']
+])->middleware('auth');
+
+Route::post('supplier.category',[
+    'uses' => 'SupplierCategoryController@postSupplierCategory',
+    'as' => 'supplier.category',
     'middleware' => 'roles',
     'roles' => ['Admin']
 ])->middleware('auth');

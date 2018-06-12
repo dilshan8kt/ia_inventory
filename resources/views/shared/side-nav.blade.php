@@ -40,7 +40,7 @@
                 <span>Master Details</span> 
             </a>
             <ul class="sub-menu">
-                <li><a href="{{ route('suplier.category') }}">Supplier Category</a></li>
+                <li><a href="{{ route('supplier.category') }}">Supplier Category</a></li>
                 <li><a href="">Supplier Master</a></li>
                 <li><a href="">Customer Master</a></li>
                 <li><a href="">Customer Master</a></li>
