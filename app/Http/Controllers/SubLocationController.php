@@ -15,7 +15,6 @@ class SubLocationController extends Controller
 
     public function getSubLocation(){
         $sublocations = Company::find(Auth::user()->company_id)->sublocation;
-        // dd($sublocation);
         return view('home.master.sub-location')->with('sublocations', $sublocations);
     }
 

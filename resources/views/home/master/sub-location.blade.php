@@ -24,103 +24,27 @@
 
 <!-- begin panel -->
 <div class="panel panel-inverse">
-     <!-- begin panel-heading -->
-     <div class="panel-heading">
+    <!-- begin panel-heading -->
+    <div class="panel-heading">
         <div class="panel-heading-btn">
             <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
         </div>
         <h4 class="panel-title">Add New Sub Location</h4>
     </div>
     <!-- end panel-heading -->
-
-    <div class="panel-body">
-        <form class="form-horizontal" method="POST" action="{{ route('sublocation') }}" data-parsley-validate="true">
-            @csrf
-            <div class="form-group row m-b-15">
-                <label class="col-md-4 col-sm-4 col-form-label" for="location_name">Location Name * :</label>
-                <div class="col-md-8 col-sm-8">
-                    <input class="form-control {{ $errors->has('location_name') ? ' parsley-error' : '' }}" value="{{ old('location_name') }}" type="text" id="location_name" name="location_name" placeholder="Sub Location Name" data-parsley-required="true" />
-                    
-                    @if ($errors->has('location_name'))
-                        <ul class="parsley-errors-list filled" id="parsley-id-5">
-                            <li class="parsley-required">{{ $errors->first('location_name') }}</li>
-                        </ul>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group row m-b-15">
-                <label class="col-md-4 col-sm-4 col-form-label" for="description">Description :</label>
-                <div class="col-md-8 col-sm-8">
-                    <textarea class="form-control {{ $errors->has('description') ? ' parsley-error' : '' }}" id="description" name="description" rows="2" placeholder="Description">{{ old('description') }}</textarea>
-                    
-                    @if ($errors->has('description'))
-                        <ul class="parsley-errors-list filled" id="parsley-id-5">
-                            <li class="parsley-required">{{ $errors->first('description') }}</li>
-                        </ul>
-                    @endif
-                </div>
-            </div>
-            
-            <div class="form-group row m-b-15">
-                <label class="col-md-4 col-sm-4 col-form-label" for="telephone">Telephone No :</label>
-                <div class="col-md-8 col-sm-8">
-                    <input class="form-control {{ $errors->has('telephone_no') ? ' parsley-error' : '' }}" value="{{ old('telephone_no') }}" type="text" id="telephone_no" name="telephone_no" placeholder="(999) 999-9999" />
-                    
-                    @if ($errors->has('telephone_no'))
-                    <ul class="parsley-errors-list filled" id="parsley-id-5">
-                        <li class="parsley-required">{{ $errors->first('telephone_no') }}</li>
-                    </ul>
-                    @endif
-                </div>
-            </div>
-            
-            <div class="form-group row m-b-15">
-                <label class="col-md-4 col-sm-4 col-form-label" for="address">Address :</label>
-                <div class="col-md-8 col-sm-8">
-                    <textarea class="form-control {{ $errors->has('address') ? ' parsley-error' : '' }}" id="address" name="address" rows="2" placeholder="Address">{{ old('address') }}</textarea>
-                    
-                    @if ($errors->has('address'))
-                        <ul class="parsley-errors-list filled" id="parsley-id-5">
-                            <li class="parsley-required">{{ $errors->first('address') }}</li>
-                        </ul>
-                    @endif
-                </div>
-            </div>
-            
-            <div class="form-group row m-b-15">
-                <label class="col-md-4 col-sm-4 col-form-label">Staus :</label>
-                <div class="col-md-8 col-sm-8">
-                    <select class="form-control" id="select-required" name="status" data-parsley-required="true">
-                        <option value="1">Active</option>
-                        <option value="0">Deactive</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row m-b-0">
-                <label class="col-md-4 col-sm-4 col-form-label">&nbsp;</label>
-                <div class="col-md-8 col-sm-8">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- end panel -->
-
-<!-- begin panel -->
-<div class="panel panel-inverse">
+    
     <div class="panel-body">
         <table id="data-table-default" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th class="text-nowrap">Location Name</th>
                     <th class="text-nowrap">Description</th>
-                    <th class="text-nowrap">Status</th>
+                    <th class="text-nowrap" width="15%">Status</th>
                     <th class="text-nowrap" width="15%">Option</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($sublocations as $sl)
+                @foreach($sublocations as $sl)
                 <tr class="odd gradeX">
                     <td>{{ $sl->location_name }}</td>
                     <td>{{ $sl->description }}</td>
@@ -133,8 +57,24 @@
                     </td>
                     <td>
                         <a href="" class="btn btn-success fa fa-eye"></a>
-                        <a href="" class="btn btn-info fa fa-edit"></a>
-                        <a href="" class="btn btn-danger fa fa-trash"></a>
+                        <button type="button" 
+                            class="btn btn-info fa fa-edit" 
+                            data-backdrop="static"
+                            data-toggle="modal"
+                            data-target="#editSubLocation"
+                            data-id="{{ $sl->id }}"
+                            data-name="{{ $sl->location_name }}"
+                            data-description="{{ $sl->description }}"
+                            data-telephone="{{ $sl->telephone_no }}"
+                            data-address="{{ $sl->address }}"
+                            data-status="{{ $sl->status }}"></button>
+                        <button type="button" 
+                            id="aa"
+                            class="btn btn-danger fa fa-trash"
+                            data-toggle="modal"
+                            data-target="#deleteSubLocation"
+                            data-backdrop="static"
+                            data-id="{{ $sl->id }}"></button>
                     </td>
                 </tr>
                 @endforeach
@@ -143,6 +83,10 @@
     </div>
 </div>
 <!-- end panel -->
+
+@include('shared.modal.sublocation.add')
+@include('shared.modal.sublocation.edit')
+@include('shared.modal.sublocation.delete')
 
 @endsection
 
@@ -157,11 +101,33 @@
     $(document).ready(function() {
         App.init();
         $("#telephone_no").mask("(999) 999-9999")
+        $("#telephone_no1").mask("(999) 999-9999")
         $("#data-table-default").length && $("#data-table-default").DataTable({
             responsive: !0,
             "bLengthChange": false,
-            "pageLength": 3
-        })
+            "pageLength": 5
+        });
+        $("#data-table-default_wrapper>div:first-child>div:first-child").addClass('addnew');
+        $( ".addnew" ).append( "<button name='add-new-sublocation' data-backdrop='static' data-toggle='modal' data-target='#addSubLocation' id='add-new-sublocation' class='btn btn-primary'>Add New Sub Location</button>");
+
+        $('#editSubLocation').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+
+            var id = button.data('id')
+            var name = button.data('name')
+            var description = button.data('description')
+            var telephone = button.data('telephone')
+            var address = button.data('address')
+            var status = button.data('status')
+
+            var modal = $(this)
+            modal.find('#id').val(id)
+            modal.find('#location_name').val(name)
+            modal.find('#description').val(description)
+            modal.find('#telephone_no').val(telephone)
+            modal.find('#address').val(address)
+            modal.find('select[name="status"]').val(status)
+        });
     });
 </script>
 @endsection

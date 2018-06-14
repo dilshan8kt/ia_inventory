@@ -18,8 +18,8 @@
         <li>
             <ul class="nav nav-profile">
                 <li><a href="javascript:;"><i class="ion-ios-cog-outline"></i> Settings</a></li>
-                <!-- <li><a href="javascript:;"><i class="ion-ios-compose-outline"></i> Send Feedback</a></li>
-                <li><a href="javascript:;"><i class="ion-ios-help-outline"></i> Helps</a></li> -->
+                <li><a href="javascript:;"><i class="ion-ios-compose-outline"></i> Send Feedback</a></li>
+                <li><a href="javascript:;"><i class="ion-ios-help-outline"></i> Helps</a></li>
             </ul>
         </li>
     </ul>
@@ -27,13 +27,13 @@
     
     <!-- begin sidebar nav -->
     <ul class="nav">
-        <li class="has-sub active">
-            <a href="/dashboard">
+        <li class="has-sub {{ Request::path() == 'dashboard' ? 'active' : '' }}">
+            <a href="{{ route('dashboard') }}">
                 <i class="ion-ios-pulse-strong"></i>
                 <span>Dashboard</span>
             </a>
         </li>
-        <li class="has-sub">
+        <li class="has-sub {{ Request::path() == 'sublocation' ? 'active' : '' }}{{ Request::path() == 'supplier.category' ? 'active' : '' }}">
             <a href="javascript:;">
                 <b class="caret"></b>
                 <i class="ion-ios-briefcase-outline bg-gradient-purple"></i>
@@ -41,12 +41,12 @@
             </a>
             <ul class="sub-menu">
                 @if(Auth::user()->hasRole('Admin'))
-                <li><a href="{{ route('sublocation') }}">Sub Locations Master</a></li>
+                    <li class="{{ Request::path() == 'sublocation' ? 'active' : '' }}"><a href="{{ route('sublocation') }}">Sub Locations Master</a></li>
                 @endif
                 <li><a href="">Department Master</a></li>
                 <li><a href="">Category Master</a></li>
-                <li><a href="{{ route('supplier.category') }}">Supplier Category</a></li>
-                <li><a href="{{ route('supplier') }}">Supplier Master</a></li>
+                <li class="{{ Request::path() == 'supplier.category' ? 'active' : '' }}"><a href="{{ route('supplier.category') }}">Supplier Category</a></li>
+                <li class="{{ Request::path() == 'supplier' ? 'active' : '' }}"><a href="{{ route('supplier') }}">Supplier Master</a></li>
                 <li><a href="">Customer Master</a></li>
                 <li><a href="">Customer Master</a></li>
             </ul>
