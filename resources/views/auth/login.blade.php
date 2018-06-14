@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>IA | Login</title>
+    <title>Intel Access | Login</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -13,17 +13,18 @@
         <div class="loggedout_vcenter">
             <div style="padding: 8px;">
                 <div style="min-height:420px; max-width: 420px; padding:40px; background-color:#ffffff; margin-left: auto; margin-right: auto; border-radius:4px; overflow-x: hidden;">
-                    <a href="" style="display:block; height:58px; width:167px; margin:0 auto 30px auto; background-image:url(logo/logo_onwhite.png); background-size: auto 30px; background-repeat:no-repeat;"></a>
+                    <div>
+                        <a href="" style="display:block; height:58px; width:167px; margin:0px 121px 30px auto; background-image:url(logo/logo_onwhite.png); background-size: auto 50px; background-repeat:no-repeat;"></a>
+                        <a href="" style="display:block; height:58px; width:184px; background-image:url(logo/logo_onwhite2.png); background-size: auto 47px; background-repeat:no-repeat; margin-bottom: 24px; margin-top: -86px; margin-left: 109px;"></a>        
+                    </div>
                     
 
                     @if(session()->has('error'))
                         <div class="error_message">
                             {{ session()->get('error') }}
                         </div>
-                    @endif
-
-                    @if(session()->has('logout'))
-                        <div class="info_message">
+                    @elseif(session()->has('logout'))
+                        <div class="success_message">
                             {{ session()->get('logout') }}
                         </div>
                     @endif

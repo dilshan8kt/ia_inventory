@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function getUserImage($filename){
         $file = Storage::disk('local')->get($filename);
         return new Response($file, 200);

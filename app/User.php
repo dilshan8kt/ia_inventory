@@ -11,6 +11,11 @@ class User extends Model implements Authenticatable
     use Notifiable;
     use \Illuminate\Auth\Authenticatable;
     
+    //one user belongs to one company
+    public function company(){
+        return $this->belongsTo(Company::class);
+    }
+
     public function roles(){
         return $this->belongsToMany('App\Role', 'user_role', 'user_id', 'role_id');
     }

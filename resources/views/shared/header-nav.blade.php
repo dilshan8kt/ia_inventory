@@ -1,7 +1,10 @@
 <div id="header" class="header navbar-inverse">
     <!-- begin navbar-header -->
     <div class="navbar-header">
-        <a href="index.html" class="navbar-brand"><span class="navbar-logo"><i class="ion-ios-cloud"></i></span> <b>Intell</b> Access</a>
+        <a href="{{ route('dashboard') }}" class="navbar-brand">
+            <span class="navbar-logo">
+                <img src="{{ asset('logo/logo_onwhite.png') }}" style="margin-top: -11px; width: 28px;margin-left: -11px;">
+            </span><b>Intell</b> Access</a>
         <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>

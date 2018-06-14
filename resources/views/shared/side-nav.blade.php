@@ -11,7 +11,7 @@
                 <div class="info">
                     <b class="caret"></b>
                     {{Auth::user()->first_name}} {{Auth::user()->last_name}}
-                    <small>Admin</small>
+                    <small>{{ Auth::user()->hasRole('Admin') ? 'Admin':'User' }}</small>
                 </div>
             </a>
         </li>
@@ -40,8 +40,13 @@
                 <span>Master Details</span> 
             </a>
             <ul class="sub-menu">
+                @if(Auth::user()->hasRole('Admin'))
+                <li><a href="{{ route('sublocation') }}">Sub Locations Master</a></li>
+                @endif
+                <li><a href="">Department Master</a></li>
+                <li><a href="">Category Master</a></li>
                 <li><a href="{{ route('supplier.category') }}">Supplier Category</a></li>
-                <li><a href="">Supplier Master</a></li>
+                <li><a href="{{ route('supplier') }}">Supplier Master</a></li>
                 <li><a href="">Customer Master</a></li>
                 <li><a href="">Customer Master</a></li>
             </ul>

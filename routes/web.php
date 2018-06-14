@@ -8,7 +8,7 @@ Route::get('dashboard', [
     'as' => 'dashboard',
     'middleware' => 'roles',
     'roles' => ['Admin','User']
-])->middleware('auth');
+]);
 
 Route::post('signin',[
     'uses' => 'AuthController@signin',
@@ -18,14 +18,14 @@ Route::post('signin',[
 Route::get('signout',[
     'uses' => 'AuthController@signout',
     'as' => 'signout'
-])->middleware('auth');
+]);
 
 Route::get('userimage/{filename}',[
     'uses' => 'UserController@getUserImage',
     'as' => 'image',
     'middleware' => 'roles',
-    'roles' => ['Admin','Employee']
-])->middleware('auth');
+    'roles' => ['Admin','User']
+]);
 
 Route::get('supplier.category',[
     'uses' => 'SupplierCategoryController@getSupplierCategory',
@@ -39,4 +39,23 @@ Route::post('supplier.category',[
     'as' => 'supplier.category',
     'middleware' => 'roles',
     'roles' => ['Admin']
+]);
+
+Route::get('supplier',[
+    'uses' => 'SupplierController@getSupplier',
+    'as' => 'supplier',
+    'middleware' => 'roles',
+    'roles' => ['Admin']
 ])->middleware('auth');
+
+Route::get('sublocation',[
+    'uses' => 'SubLocationController@getSubLocation',
+    'as' => 'sublocation',
+    'roles' => ['Admin']
+]);
+
+Route::post('sublocation',[
+    'uses' => 'SubLocationController@postSubLocation',
+    'as' => 'sublocation',
+    'roles' => ['Admin']
+]);

@@ -18,7 +18,7 @@ class AuthController extends Controller
             $company = Company::find(Auth::user()->company_id);
             if($company->status == 1){
                 if($user->status){
-                    return redirect()->route('dashboard');
+                    return redirect()->route('dashboard')->with('loggedin','Welcome back');
                 }
                 return redirect()->back()->with('error','Login Error, Account Deactivated.');
             }else{

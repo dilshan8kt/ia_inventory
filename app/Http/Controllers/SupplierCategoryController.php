@@ -8,6 +8,10 @@ use App\SupplierCategory;
 
 class SupplierCategoryController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function getSupplierCategory(){
         $supplier_category = SupplierCategory::where('company_id', Auth::user()->company_id)->get();
         return view('home.supplier.category')->with('supplier_category',$supplier_category);

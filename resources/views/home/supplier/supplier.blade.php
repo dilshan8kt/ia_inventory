@@ -1,7 +1,7 @@
 @extends('shared.layout')
 
 @section('title')
-  Supplier Category
+  Supplier Details
 @endsection
 
 @section('css')
@@ -14,12 +14,12 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb pull-right">
     <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
-    <li class="breadcrumb-item active">Supplier Category</li>
+    <li class="breadcrumb-item active">Supplier</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h1 class="page-header">Supplier Category <small>header small text goes here...</small></h1>
+<h1 class="page-header">Supplier Details <small>header small text goes here...</small></h1>
 <!-- end page-header -->
 
 <!-- begin panel -->
@@ -29,12 +29,12 @@
         <div class="panel-heading-btn">
             <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
         </div>
-        <h4 class="panel-title">Add New Supplier Category</h4>
+        <h4 class="panel-title">Add New Supplier</h4>
     </div>
     <!-- end panel-heading -->
 
     <div class="panel-body">
-        <form class="form-horizontal" method="POST" action="{{ route('supplier.category') }}" data-parsley-validate="true">
+        <form class="form-horizontal" method="POST" action="" data-parsley-validate="true">
             @csrf
             <div class="form-group row m-b-15">
                 <label class="col-md-4 col-sm-4 col-form-label" for="name">Category Name * :</label>
@@ -93,7 +93,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($supplier_category as $sc)
+                {{-- @foreach ($supplier_category as $sc)
                 <tr class="odd gradeX">
                     <td>{{ $sc->name }}</td>
                     <td>{{ $sc->description }}</td>
@@ -104,7 +104,7 @@
                         <a href="" class="btn btn-danger fa fa-trash"></a>
                     </td>
                 </tr>
-                @endforeach
+                @endforeach --}}
             </tbody>
         </table>
     </div>
@@ -122,17 +122,17 @@
 <script>
     $(document).ready(function() {
         App.init();
-        $("#data-table-default").length && $("#data-table-default").DataTable({
-            responsive: !0,
-            "bLengthChange": false,
-            "pageLength": 3
-        })
+        // $("#data-table-default").length && $("#data-table-default").DataTable({
+        //     responsive: !0,
+        //     "bLengthChange": false,
+        //     "pageLength": 3
+        // })
     });
 </script>
 @endsection
 
 
-@if(session()->has('success'))
+{{-- @if(session()->has('success'))
     @section('gritter')
         <script>
              $.gritter.add({
@@ -143,4 +143,4 @@
             });
         </script>
     @endsection
-@endif
+@endif --}}

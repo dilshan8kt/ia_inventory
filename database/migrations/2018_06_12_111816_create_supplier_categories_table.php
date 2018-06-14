@@ -17,7 +17,7 @@ class CreateSupplierCategoriesTable extends Migration
             $table->increments('id');
             $table->integer('company_id');
             $table->string('name')->unique();
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->boolean('status');
             $table->timestamps();
         });

@@ -177,3 +177,18 @@
     });
 </script>
 @endsection
+
+
+@if(session()->has('loggedin'))
+    @section('gritter')
+        <script>
+            $.gritter.add({
+                title: "{{ session()->get('loggedin') }}, {{ Auth::user()->first_name }}",
+                text: "",
+                image: "{{ route('image', ['filename' => Auth::user()->id . '-' . Auth::user()->first_name . '.jpg']) }}",
+                time: 5000,
+                class_name: "my-sticky-class"
+            });
+        </script>
+    @endsection
+@endif
