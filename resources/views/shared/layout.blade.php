@@ -6,6 +6,7 @@
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -76,7 +77,40 @@
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 	@yield('js')
-	@yield('gritter')
+	
+	@if(session()->has('success'))
+        <script>
+			$.gritter.add({
+                title: 'SUCCESS',
+                text: '{{ session()->get('success') }}',
+                time: 8000,
+                class_name: 'gritter-info gritter-center'
+            });
+        </script>
+	@endif	
+
+	@if(session()->has('error'))
+        <script>
+			$.gritter.add({
+                title: 'ERROR',
+                text: '{{ session()->get('error') }}',
+                time: 80000,
+                class_name: 'gritter-light gritter-center'
+            });
+        </script>
+	@endif
+
+	@if(session()->has('loggedin'))
+        <script>
+            $.gritter.add({
+                title: "{{ session()->get('loggedin') }}, {{ Auth::user()->first_name }}",
+                text: "",
+                image: "{{ route('image', ['filename' => Auth::user()->id . '-' . Auth::user()->first_name . '.jpg']) }}",
+                time: 5000,
+                class_name: "my-sticky-class"
+            });
+        </script>
+	@endif
 	<!-- ================== END PAGE LEVEL JS ================== -->
 </body>
 </html>

@@ -1,7 +1,7 @@
 @extends('shared.layout')
 
 @section('title')
-  Sub Location
+  Supplier
 @endsection
 
 @section('css')
@@ -14,12 +14,12 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb pull-right">
     <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
-    <li class="breadcrumb-item active">Sub Location</li>
+    <li class="breadcrumb-item active">Supplier</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h1 class="page-header">Sub Location <small>header small text goes here...</small></h1>
+<h1 class="page-header">Supplier <small>you can Add|Edit|Update|Delete in suppliers </small></h1>
 <!-- end page-header -->
 
 <!-- begin panel -->
@@ -36,21 +36,23 @@
         <table id="data-table-default" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th class="text-nowrap">Location Name</th>
-                    <th class="text-nowrap">Description</th>
+                    <th class="text-nowrap">Supplier Code</th>
+                    <th class="text-nowrap">Ref. Name</th>
+                    <th class="text-nowrap">Company Name</th>
                     <th class="text-nowrap" width="15%">Status</th>
                     <th class="text-nowrap" width="15%">Option</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($sublocations as $sl)
+                @foreach($suppliers as $supplier)
                 <tr class="odd gradeX">
-                    <td>{{ $sl->location_name }}</td>
-                    <td>{{ $sl->description }}</td>
+                    <td>{{ $supplier->code }}</td>
+                    <td>{{ $supplier->ref_name }}</td>
+                    <td>{{ $supplier->company_name }}</td>
                     <td>
-                        @if($sl->status === 1)
+                        @if($supplier->status === 1)
                             <lable class="label label-success">Active</lable>
-                        @elseif($sl->status === 0)
+                        @elseif($supplier->status === 0)
                             <lable class="label label-danger">Deactive</lable>
                         @endif
                     </td>
@@ -59,30 +61,36 @@
                             class="btn btn-success fa fa-eye"
                             data-backdrop="static"
                             data-toggle="modal"
-                            data-target="#viewSubLocation"
-                            data-id="{{ $sl->id }}"
-                            data-name="{{ $sl->location_name }}"
-                            data-description="{{ $sl->description }}"
-                            data-telephone="{{ $sl->telephone_no }}"
-                            data-address="{{ $sl->address }}"
-                            data-status="{{ $sl->status }}"></button>
+                            data-target="#view"
+                            data-code="{{ $supplier->code }}"
+                            data-refname="{{ $supplier->ref_name }}"
+                            data-companyname="{{ $supplier->company_name }}"
+                            data-address="{{ $supplier->address }}"
+                            data-phone1="{{ $supplier->phone1 }}"
+                            data-phone2="{{ $supplier->phone2 }}"
+                            data-status="{{ $supplier->status }}"
+                        ></button>
                         <button type="button" 
                             class="btn btn-info fa fa-edit" 
                             data-backdrop="static"
                             data-toggle="modal"
-                            data-target="#editSubLocation"
-                            data-id="{{ $sl->id }}"
-                            data-name="{{ $sl->location_name }}"
-                            data-description="{{ $sl->description }}"
-                            data-telephone="{{ $sl->telephone_no }}"
-                            data-address="{{ $sl->address }}"
-                            data-status="{{ $sl->status }}"></button>
+                            data-target="#edit"
+                            data-id="{{ $supplier->id }}"
+                            data-code="{{ $supplier->code }}"
+                            data-refname="{{ $supplier->ref_name }}"
+                            data-companyname="{{ $supplier->company_name }}"
+                            data-address="{{ $supplier->address }}"
+                            data-phone1="{{ $supplier->phone1 }}"
+                            data-phone2="{{ $supplier->phone2 }}"
+                            data-status="{{ $supplier->status }}"
+                        ></button>
                         <button type="button" 
                             class="btn btn-danger fa fa-trash"
                             data-toggle="modal"
-                            data-target="#deleteSubLocation"
+                            data-target="#delete"
                             data-backdrop="static"
-                            data-id="{{ $sl->id }}"></button>
+                            data-id="{{ $supplier->id }}"
+                        ></button>
                     </td>
                 </tr>
                 @endforeach
@@ -92,10 +100,10 @@
 </div>
 <!-- end panel -->
 
-@include('shared.modal.sublocation.add')
-@include('shared.modal.sublocation.edit')
-@include('shared.modal.sublocation.delete')
-@include('shared.modal.sublocation.view')
+@include('shared.modal.supplier.add')
+@include('shared.modal.supplier.edit')
+@include('shared.modal.supplier.delete')
+@include('shared.modal.supplier.view')
 
 @endsection
 
@@ -105,7 +113,7 @@
 <script src="{{ asset('plugins/DataTables/media/js/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/media/js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('js/customJS/sublocation.js') }}"></script>
+<script src="{{ asset('js/customJS/supplier.js') }}"></script>
 
 
 <script>

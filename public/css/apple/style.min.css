@@ -5743,8 +5743,8 @@ ul.tagit li.tagit-choice .tagit-close:hover {
 }
 
 .gritter-item p {
-    font-size: 11px !important;
-    color: #aaa !important;
+    font-size: 14px !important;
+    color: rgb(255, 255, 255) !important;
     line-height: 15px
 }
 
@@ -5778,7 +5778,7 @@ ul.tagit li.tagit-choice .tagit-close:hover {
 }
 
 .gritter-light .gritter-title {
-    color: #333 !important;
+    color: rgb(255, 255, 255) !important;
     font-weight: 600 !important
 }
 
@@ -5798,7 +5798,7 @@ ul.tagit li.tagit-choice .tagit-close:hover {
 .gritter-light .gritter-item,
 .gritter-light .gritter-top {
     background: url(images/transparent/white-0.98.png) !important;
-    background: rgba(255, 255, 255, .98) !important;
+    background: rgba(238, 0, 0, 0.918) !important;
     color: #999 !important
 }
 

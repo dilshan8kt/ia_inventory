@@ -7,17 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     //one company has many users
-    public function user(){
+    public function users(){
         return $this->hasMany(User::class);
     }
 
     //one company has many sub locations
-    public function sublocation(){
+    public function sublocations(){
         return $this->hasMany(SubLocation::class);
     }
 
     //one company has many department
-    public function department(){
+    public function departments(){
         return $this->hasMany(Department::class);
+    }
+
+     //one company has many suppliers
+     public function suppliers(){
+        return $this->hasMany(Supplier::class);
     }
 }

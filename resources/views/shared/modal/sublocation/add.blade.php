@@ -50,8 +50,19 @@
                     
                     <div class="form-group row m-b-15">
                         <label class="col-md-4 col-sm-4 col-form-label" for="address">Address :</label>
+                    
                         <div class="col-md-8 col-sm-8">
-                            <textarea class="form-control {{ $errors->has('address') ? ' parsley-error' : '' }}" id="address" name="address" rows="2" placeholder="Address">{{ old('address') }}</textarea>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="addresschecked" name="addresschecked" checked />
+                                <label class="form-check-label" for="addresschecked">Same as Company address</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row m-b-15">
+                        <label class="col-md-4 col-sm-4 col-form-label" for="address"></label>
+                    
+                        <div class="col-md-8 col-sm-8">
+                            <textarea class="form-control {{ $errors->has('address') ? ' parsley-error' : '' }}" id="address" name="address" rows="2" placeholder="Address" disabled>{{ old('address') }}</textarea>
                             
                             @if ($errors->has('address'))
                                 <ul class="parsley-errors-list filled" id="parsley-id-5">
@@ -72,10 +83,9 @@
                     </div>
 
                     <div class="modal-footer form-group row m-b-0">
-                        <label class="col-md-4 col-sm-4 col-form-label">&nbsp;</label>
                         <div class="col-md-8 col-sm-8">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" id="addSubLocation" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </form>

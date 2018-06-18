@@ -33,7 +33,7 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        <li class="has-sub {{ Request::path() == 'sublocation' ? 'active' : '' }}{{ Request::path() == 'supplier.category' ? 'active' : '' }}">
+        <li class="has-sub {{ Request::path() == 'sublocation' ? 'active' : '' }}{{ Request::path() == 'supplier' ? 'active' : '' }}">
             <a href="javascript:;">
                 <b class="caret"></b>
                 <i class="ion-ios-briefcase-outline bg-gradient-purple"></i>
@@ -43,12 +43,9 @@
                 @if(Auth::user()->hasRole('Admin'))
                     <li class="{{ Request::path() == 'sublocation' ? 'active' : '' }}"><a href="{{ route('sublocation') }}">Sub Locations Master</a></li>
                 @endif
+                <li class="{{ Request::path() == 'supplier' ? 'active' : '' }}"><a href="{{ route('supplier') }}">Supplier Master</a></li>
                 <li><a href="">Department Master</a></li>
                 <li><a href="">Category Master</a></li>
-                <li class="{{ Request::path() == 'supplier.category' ? 'active' : '' }}"><a href="{{ route('supplier.category') }}">Supplier Category</a></li>
-                <li class="{{ Request::path() == 'supplier' ? 'active' : '' }}"><a href="{{ route('supplier') }}">Supplier Master</a></li>
-                <li><a href="">Customer Master</a></li>
-                <li><a href="">Customer Master</a></li>
             </ul>
         </li>
         <li class="has-sub">

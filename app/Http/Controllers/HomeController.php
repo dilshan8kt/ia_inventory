@@ -10,7 +10,7 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function getDashboardForm(){
+    public function view(){
         return view('home.dashboard');
     }
 }

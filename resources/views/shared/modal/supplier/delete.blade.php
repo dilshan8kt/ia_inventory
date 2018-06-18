@@ -1,4 +1,4 @@
-<div class="modal modal-message fade" id="deleteSubLocation" tabindex="-1" aria-hidden="true">
+<div class="modal modal-message fade" id="delete" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <h5 class="text-danger">If you delete this reord you can't bring it back</h5>
             </div>
-            <form action="{{ route('sublocation') }}" method="post">
+            <form action="{{ route('supplier') }}" method="post">
                 @method('delete')
                 @csrf
                 <input type="hidden" name="id" id="id">
