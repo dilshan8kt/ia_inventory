@@ -1,5 +1,10 @@
 <?php
 
-Route::get('api_suppliers', [
-    'uses' => 'SupplierController@apiGet'
+Route::get('getSuppliers', [
+    'uses' => 'api\SupplierController@apiGet'
+]);
+
+
+Route::post('insertSupplier', [
+    'uses' => 'api\SupplierController@apiPost'
 ]);

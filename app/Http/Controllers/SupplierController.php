@@ -74,12 +74,4 @@ class SupplierController extends Controller
         
         return redirect()->back()->with('success', 'Suppiler details updated!!');
     }
-
-
-    //api Requests
-    //get all supplier details
-    public function apiGet(){
-        $suppliers = Company::find(Auth::user()->id)->suppliers;
-        return response()->json($suppliers, 200);
-    }
 }
