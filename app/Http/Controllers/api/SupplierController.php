@@ -7,18 +7,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Company;
 use App\Supplier;
+use App\User;
+use JWTAuth;
 
 class SupplierController extends Controller
 {
+    // public function __construct(){
+    //     $user = JWTAuth::parseToken()->toUser()->id;
+    //     $company = User::find($user)->company->id;
+    //     dd($company);
+    // }
+    
     //get all supplier details
     public function apiGet(){
-        $suppliers = Company::find(1)->suppliers;
+        $suppliers = Company::find(User::find(JWTAuth::parseToken()->toUser()->id)->company->id)->suppliers;
         return response()->json($suppliers, 200);
     }
 	
-	
 	public function apiPost(Request $request){
-        
         $sup = DB::table('suppliers')->where('company_id', 1)->orderBy('id', 'desc')->first();
 
         if($sup != null){
