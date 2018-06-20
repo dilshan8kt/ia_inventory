@@ -15,4 +15,8 @@ class Supplier extends Model
     }
 
     protected $dates = ['deleted_at'];
+
+    protected $hidden = [
+        'company_id'
+    ];
 }

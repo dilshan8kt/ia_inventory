@@ -24,8 +24,8 @@ class CreateSuppliersTable extends Migration
             $table->string('phone2')->nullable();
             $table->string('email')->nullable();
             $table->boolean('status');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

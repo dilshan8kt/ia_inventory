@@ -73,3 +73,51 @@ Route::put('supplier',[
     'as' => 'supplier',
     'roles' => ['Admin']
 ]);
+
+Route::get('department',[
+    'uses' => 'DepartmentController@view',
+    'as' => 'department',
+    'roles' => ['Admin']
+]);
+
+Route::delete('department',[
+    'uses' => 'DepartmentController@delete',
+    'as' => 'department',
+    'roles' => ['Admin']
+]);
+
+Route::put('department',[
+    'uses' => 'DepartmentController@edit',
+    'as' => 'department',
+    'roles' => ['Admin']
+]);
+
+Route::post('department',[
+    'uses' => 'DepartmentController@insert',
+    'as' => 'department',
+    'roles' => ['Admin']
+]);
+
+Route::get('category',[
+    'uses' => 'CategoryController@view',
+    'as' => 'category',
+    'roles' => ['Admin']
+]);
+
+Route::post('category',[
+    'uses' => 'CategoryController@insert',
+    'as' => 'category',
+    'roles' => ['Admin']
+]);
+
+Route::delete('category',[
+    'uses' => 'CategoryController@delete',
+    'as' => 'category',
+    'roles' => ['Admin']
+]);
+
+Route::put('category',[
+    'uses' => 'CategoryController@edit',
+    'as' => 'category',
+    'roles' => ['Admin']
+]);

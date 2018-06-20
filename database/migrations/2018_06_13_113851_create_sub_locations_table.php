@@ -22,6 +22,7 @@ class CreateSubLocationsTable extends Migration
             $table->text('address')->nullable();
             $table->boolean('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -34,7 +34,7 @@ class SubLocationController extends Controller
         $sublocation->telephone_no = $request->input('telephone_no');
 
         if($request->addresschecked){
-            $sublocation->address = $company->address_line1 . '\r\n' . $company->address_line2 . '\r\n' .$company->address_line3;
+            $sublocation->address = $company->address_line1 . ' ' . $company->address_line2 . ' ' .$company->address_line3;
         }else{
             $sublocation->address = $request->input('address');
         }

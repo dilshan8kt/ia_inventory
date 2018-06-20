@@ -23,6 +23,7 @@ class CreateCompaniesTable extends Migration
             $table->string('email')->unique();
             $table->integer('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -20,6 +20,7 @@ class CreateDepartmentsTable extends Migration
             $table->string('description')->nullable();
             $table->boolean('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

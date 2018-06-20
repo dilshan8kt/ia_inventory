@@ -33,7 +33,7 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        <li class="has-sub {{ Request::path() == 'sublocation' ? 'active' : '' }}{{ Request::path() == 'supplier' ? 'active' : '' }}">
+        <li class="has-sub {{ Request::path() == 'sublocation' ? 'active' : '' }}{{ Request::path() == 'supplier' ? 'active' : '' }}{{ Request::path() == 'department' ? 'active' : '' }}{{ Request::path() == 'category' ? 'active' : '' }}">
             <a href="javascript:;">
                 <b class="caret"></b>
                 <i class="ion-ios-briefcase-outline bg-gradient-purple"></i>
@@ -44,8 +44,16 @@
                     <li class="{{ Request::path() == 'sublocation' ? 'active' : '' }}"><a href="{{ route('sublocation') }}">Sub Locations Master</a></li>
                 @endif
                 <li class="{{ Request::path() == 'supplier' ? 'active' : '' }}"><a href="{{ route('supplier') }}">Supplier Master</a></li>
-                <li><a href="">Department Master</a></li>
-                <li><a href="">Category Master</a></li>
+                <li class="has-sub {{ Request::path() == 'department' ? 'active' : '' }}{{ Request::path() == 'category' ? 'active' : '' }}">
+                    <a href="javascript:;"><b class="caret"></b> Item Details</a>
+                    <ul class="sub-menu">
+                        <li class="{{ Request::path() == 'department' ? 'active' : '' }}"><a href="{{ route('department') }}">Department Master</a></li>
+                        <li class="{{ Request::path() == 'category' ? 'active' : '' }}"><a href="{{ route('category') }}">Category Master</a></li>
+                        <li><a href="">Item Master</a></li>
+                        <li><a href="">Item Price</a></li>
+                    </ul>
+                </li>
+                
             </ul>
         </li>
         <li class="has-sub">

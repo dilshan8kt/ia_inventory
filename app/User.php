@@ -6,10 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model implements Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
     use \Illuminate\Auth\Authenticatable;
     
     //one user belongs to one company
