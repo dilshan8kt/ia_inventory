@@ -33,7 +33,7 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        <li class="has-sub {{ Request::path() == 'sublocation' ? 'active' : '' }}{{ Request::path() == 'supplier' ? 'active' : '' }}{{ Request::path() == 'department' ? 'active' : '' }}{{ Request::path() == 'category' ? 'active' : '' }}">
+        <li class="has-sub {{ Request::path() == 'sublocation' ? 'active' : '' }}{{ Request::path() == 'supplier' ? 'active' : '' }}{{ Request::path() == 'department' ? 'active' : '' }}{{ Request::path() == 'category' ? 'active' : '' }}{{ Request::path() == 'item' ? 'active' : '' }}">
             <a href="javascript:;">
                 <b class="caret"></b>
                 <i class="ion-ios-briefcase-outline bg-gradient-purple"></i>
@@ -41,16 +41,15 @@
             </a>
             <ul class="sub-menu">
                 @if(Auth::user()->hasRole('Admin'))
-                    <li class="{{ Request::path() == 'sublocation' ? 'active' : '' }}"><a href="{{ route('sublocation') }}">Sub Locations Master</a></li>
+                    <li class="{{ Request::path() == 'sublocation' ? 'active' : '' }}"><a href="{{ route('sublocation') }}">Sub Locations</a></li>
                 @endif
-                <li class="{{ Request::path() == 'supplier' ? 'active' : '' }}"><a href="{{ route('supplier') }}">Supplier Master</a></li>
-                <li class="has-sub {{ Request::path() == 'department' ? 'active' : '' }}{{ Request::path() == 'category' ? 'active' : '' }}">
+                <li class="{{ Request::path() == 'supplier' ? 'active' : '' }}"><a href="{{ route('supplier') }}">Suppliers</a></li>
+                <li class="has-sub {{ Request::path() == 'department' ? 'active' : '' }}{{ Request::path() == 'category' ? 'active' : '' }}{{ Request::path() == 'item' ? 'active' : '' }}">
                     <a href="javascript:;"><b class="caret"></b> Item Details</a>
                     <ul class="sub-menu">
-                        <li class="{{ Request::path() == 'department' ? 'active' : '' }}"><a href="{{ route('department') }}">Department Master</a></li>
-                        <li class="{{ Request::path() == 'category' ? 'active' : '' }}"><a href="{{ route('category') }}">Category Master</a></li>
-                        <li><a href="">Item Master</a></li>
-                        <li><a href="">Item Price</a></li>
+                        <li class="{{ Request::path() == 'department' ? 'active' : '' }}"><a href="{{ route('department') }}">Departments</a></li>
+                        <li class="{{ Request::path() == 'category' ? 'active' : '' }}"><a href="{{ route('category') }}">Categories</a></li>
+                        <li class="{{ Request::path() == 'item' ? 'active' : '' }}"><a href="{{ route('item') }}">Items</a></li>
                     </ul>
                 </li>
                 
@@ -63,15 +62,22 @@
                 <span>Inventory</span>
             </a>
             <ul class="sub-menu">
-                <li><a href="table_basic.html">Basic Tables</a></li>
+                <li><a href="">Operning Stock</a></li>
                 <li class="has-sub">
-                    <a href="javascript:;"><b class="caret"></b> Managed Tables</a>
+                    <a href="javascript:;"><b class="caret"></b>Purchase Order [PO]</a>
                     <ul class="sub-menu">
-                        <li><a href="table_manage.html">Default</a></li>
-                        <li><a href="table_manage_autofill.html">Autofill</a></li>
-                        <li><a href="table_manage_buttons.html">Buttons</a></li>
+                        <li><a href="">New PO</a></li>
+                        <li><a href="">View All PO</a></li>
                     </ul>
                 </li>
+                <li class="has-sub">
+                    <a href="javascript:;"><b class="caret"></b>Goods Receive Note [GRN]</a>
+                    <ul class="sub-menu">
+                        <li><a href="">New GRN</a></li>
+                        <li><a href="">View All GRN</a></li>
+                    </ul>
+                </li>
+                <li><a href="">Stock Adjustment Note [SAN]</a></li>
             </ul>
         </li>
         <li class="has-sub">

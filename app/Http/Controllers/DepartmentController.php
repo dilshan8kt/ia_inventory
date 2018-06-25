@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Company;
 use App\Department;
@@ -25,8 +26,22 @@ class DepartmentController extends Controller
             'status' => 'required',
         ]);
 
+        $dep = DB::table('departments')->where('company_id', Auth::user()->company_id)->orderBy('id', 'desc')->first();
+
+        if($dep != null){
+            $split_depcode = explode('-', $dep->code, 2);
+            $code = $split_depcode[1];
+            $code = $code + 1;
+            if(strlen($code) === 1){
+                $code = '0'.$code;
+            }
+        }else{
+            $code = '01';
+        }
+
         $department = new Department();
         $department->company_id = Auth::user()->company_id;
+        $department->code = 'DEP-'.$code;
         $department->name =  $request->input('name');
         $department->description = $request->input('description');
         $department->status = $request->input('status');

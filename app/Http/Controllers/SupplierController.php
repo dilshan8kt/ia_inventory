@@ -21,7 +21,6 @@ class SupplierController extends Controller
 
     public function insert(Request $request){
         $request->validate([
-            'ref_name' => 'required|unique:suppliers|max:25',
             'status' => 'required',
         ]);
         
@@ -31,7 +30,6 @@ class SupplierController extends Controller
             $split_supcode = explode('-', $sup->code, 2);
             $code = $split_supcode[1];
             $code = $code + 1;
-            // dd($code);
             if(strlen($code) === 1){
                 $code = '0'.$code;
             }

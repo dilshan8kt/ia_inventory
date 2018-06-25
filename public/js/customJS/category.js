@@ -13,7 +13,6 @@ $( ".addnew" ).append( "<button name='add-new-category' data-backdrop='static' d
 $('#view').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
 
-
     var department = button.data('dept');
     var name = button.data('name');
     var description = button.data('description');

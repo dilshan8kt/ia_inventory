@@ -32,7 +32,7 @@
     </div>
     <!-- end panel-heading -->
     
-    <div class="panel-body">
+    <div class="panel-body" id="ajax">
         <table id="data-table-default" class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -59,7 +59,7 @@
                             class="btn btn-success fa fa-eye"
                             data-backdrop="static"
                             data-toggle="modal"
-                            data-target="#viewSubLocation"
+                            data-target="#view"
                             data-id="{{ $sl->id }}"
                             data-name="{{ $sl->location_name }}"
                             data-description="{{ $sl->description }}"
@@ -70,7 +70,7 @@
                             class="btn btn-info fa fa-edit" 
                             data-backdrop="static"
                             data-toggle="modal"
-                            data-target="#editSubLocation"
+                            data-target="#edit"
                             data-id="{{ $sl->id }}"
                             data-name="{{ $sl->location_name }}"
                             data-description="{{ $sl->description }}"
@@ -80,7 +80,7 @@
                         <button type="button" 
                             class="btn btn-danger fa fa-trash"
                             data-toggle="modal"
-                            data-target="#deleteSubLocation"
+                            data-target="#delete"
                             data-backdrop="static"
                             data-id="{{ $sl->id }}"></button>
                     </td>
@@ -108,6 +108,54 @@
 <script src="{{ asset('js/customJS/sublocation.js') }}"></script>
 
 
+{{-- <script>
+    $(document).ready(function() {   
+        $('#error').hide();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $("#frmAdd").submit(function(e) {
+            e.preventDefault();
+
+            var name = $('#location_name').val();
+            var description = $('#description').val();
+            var telephone = $('#telephone_no').val();
+            var address = $('#address').val();
+            var status = $('#status').val();
+            
+            $.ajax({
+                type:'POST',
+                url:'/sublocation',
+                data:"location_name=" + name + "&description=" + description + "&telephone_no=" + telephone + "&address=" + address + "&status=" + status,
+                success:function(data){
+                    console.log(data);
+                    $("#ajax").html(data);
+                    $('#error').hide();
+                    $('#location_name').removeClass('parsley-error')
+                    $('#addSubLocation').modal('hide');
+                    $.gritter.add({
+                        title: 'SUCCESS',
+                        text: data,
+                        time: 8000,
+                        class_name: 'gritter-info gritter-center'
+                    });
+                    // location.reload();
+                },
+                error:function(data){
+                    $('#location_name').removeClass('parsley-success')
+                    $('#location_name').addClass('parsley-error')
+                    $('#error').show();
+                    $('#error>ul>li').append(data.responseJSON.errors.location_name[0]);
+                }
+            });
+        });
+    });
+</script> --}}
+
+
 <script>
     $(document).ready(function() {
         App.init();
@@ -117,8 +165,7 @@
 @if($errors->any())
 <script>
     $(window).on('load',function(){
-        console.log('ahgsd');
-        $('#addSubLocation').modal('show');
+        $('#add').modal('show');
     });
 </script>
 @endif

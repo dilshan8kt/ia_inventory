@@ -1,4 +1,4 @@
-<div class="modal fade" id="addSubLocation" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="add" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" method="POST" action="{{ route('sublocation') }}" data-parsley-validate="true">
+                <form class="form-horizontal" id="frmAdd" method="POST" action="{{ route('sublocation') }}" data-parsley-validate="true">
                     @csrf
                     <div class="form-group row m-b-15">
                         <label class="col-md-4 col-sm-4 col-form-label" for="location_name">Location Name * :</label>

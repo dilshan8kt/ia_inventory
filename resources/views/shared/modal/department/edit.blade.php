@@ -13,6 +13,12 @@
                     @csrf
                     <input type="hidden" name="id" id="id">
                     <div class="form-group row m-b-15">
+                        <label class="col-md-4 col-sm-4 col-form-label" for="code">Department Code :</label>
+                        <div class="col-md-8 col-sm-8">
+                            <input class="form-control" type="text" id="code" name="code" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group row m-b-15">
                         <label class="col-md-4 col-sm-4 col-form-label" for="name">Department Name * :</label>
                         <div class="col-md-8 col-sm-8">
                             <input class="form-control {{ $errors->has('name') ? ' parsley-error' : '' }}" value="{{ old('name') }}" type="text" id="name" name="name" placeholder="Department Name" data-parsley-required="true" />

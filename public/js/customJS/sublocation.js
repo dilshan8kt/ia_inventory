@@ -11,10 +11,10 @@ $("#data-table-default").length && $("#data-table-default").DataTable({
 
 //add new button to datatable area
 $("#data-table-default_wrapper>div:first-child>div:first-child").addClass('addnew');
-$( ".addnew" ).append( "<button name='add-new-sublocation' data-backdrop='static' data-toggle='modal' data-target='#addSubLocation' id='add-new-sublocation' class='btn btn-primary'>Add New Sub Location</button>");
+$( ".addnew" ).append( "<button name='add-new-sublocation' data-backdrop='static' data-toggle='modal' data-target='#add' id='add-new-sublocation' class='btn btn-primary'>Add New Sub Location</button>");
 
 //edit sub location modal
-$('#editSubLocation').on('show.bs.modal', function (event) {
+$('#edit').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
 
     var id = button.data('id');
@@ -34,7 +34,7 @@ $('#editSubLocation').on('show.bs.modal', function (event) {
 });
 
 //delete sublocation modal
-$('#deleteSubLocation').on('show.bs.modal', function (event) {
+$('#delete').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
 
     var id = button.data('id');
@@ -55,7 +55,7 @@ $('input[type="checkbox"]').click(function () {
 
 
 //view sub location modal
-$('#viewSubLocation').on('show.bs.modal', function (event) {
+$('#view').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
 
     var id = button.data('id');

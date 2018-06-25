@@ -24,9 +24,14 @@ class Company extends Model
         return $this->hasMany(Department::class);
     }
 
-     //one company has many suppliers
-     public function suppliers(){
+    //one company has many suppliers
+    public function suppliers(){
         return $this->hasMany(Supplier::class);
+    }
+
+    //one company has many units
+    public function units(){
+        return $this->hasMany(Unit::class);
     }
 
     public function category(){

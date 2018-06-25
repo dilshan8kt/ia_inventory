@@ -1,7 +1,7 @@
 @extends('shared.layout')
 
 @section('title')
-  Item Department
+  Item Details
 @endsection
 
 @section('css')
@@ -14,12 +14,12 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb pull-right">
     <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
-    <li class="breadcrumb-item active">Item Department</li>
+    <li class="breadcrumb-item active">Item</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h1 class="page-header">Item Department <small>header small text goes here...</small></h1>
+<h1 class="page-header">Item <small>header small text goes here...</small></h1>
 <!-- end page-header -->
 
 <!-- begin panel -->
@@ -36,17 +36,16 @@
         <table id="data-table-default" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th class="text-nowrap">Department Code</th>
-                    <th class="text-nowrap">Department Name</th>
+                    <th class="text-nowrap">Item Code</th>
+                    <th class="text-nowrap">Item Name</th>
                     <th class="text-nowrap">Description</th>
                     <th class="text-nowrap" width="15%">Status</th>
                     <th class="text-nowrap" width="15%">Option</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($departments as $dep)
+                {{-- @foreach($departments as $dep)
                 <tr class="odd gradeX">
-                    <td>{{ $dep->code }}</td>
                     <td>{{ $dep->name }}</td>
                     <td>{{ $dep->description }}</td>
                     <td>
@@ -62,7 +61,6 @@
                             data-backdrop="static"
                             data-toggle="modal"
                             data-target="#view"
-                            data-code="{{ $dep->code }}"
                             data-name="{{ $dep->name }}"
                             data-description="{{ $dep->description }}"
                             data-status="{{ $dep->status }}"
@@ -73,7 +71,6 @@
                             data-toggle="modal"
                             data-target="#edit"
                             data-id="{{ $dep->id }}"
-                            data-code="{{ $dep->code }}"
                             data-name="{{ $dep->name }}"
                             data-description="{{ $dep->description }}"
                             data-status="{{ $dep->status }}"
@@ -87,17 +84,17 @@
                         ></button>
                     </td>
                 </tr>
-                @endforeach
+                @endforeach --}}
             </tbody>
         </table>
     </div>
 </div>
 <!-- end panel -->
 
-@include('shared.modal.department.add')
-@include('shared.modal.department.edit')
-@include('shared.modal.department.delete')
-@include('shared.modal.department.view')
+@include('shared.modal.item.add')
+{{-- @include('shared.modal.item.edit') --}}
+{{-- @include('shared.modal.item.delete') --}}
+{{-- @include('shared.modal.item.view') --}}
 
 @endsection
 
@@ -107,7 +104,7 @@
 <script src="{{ asset('plugins/DataTables/media/js/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/media/js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('js/customJS/department.js') }}"></script>
+<script src="{{ asset('js/customJS/item.js') }}"></script>
 
 
 <script>
@@ -115,14 +112,4 @@
         App.init();
     });
 </script>
-
-{{-- @if($errors->any())
-<script>
-    $(window).on('load',function(){
-        console.log('ahgsd');
-        $('#addSubLocation').modal('show');
-    });
-</script>
-@endif --}}
-
 @endsection

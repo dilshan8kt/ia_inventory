@@ -36,6 +36,7 @@
         <table id="data-table-default" class="table table-striped table-bordered">
             <thead>
                 <tr>
+                    <th class="text-nowrap">Category Code</th>
                     <th class="text-nowrap">Department Name</th>
                     <th class="text-nowrap">Category Name</th>
                     <th class="text-nowrap">Description</th>
@@ -46,6 +47,7 @@
             <tbody>
                 @foreach($categories as $cat)
                 <tr class="odd gradeX">
+                    <td>{{ $cat->code }}</td>
                     <td>
                         @foreach ($departments as $dep)
                             @if($cat->department_id === $dep->id)

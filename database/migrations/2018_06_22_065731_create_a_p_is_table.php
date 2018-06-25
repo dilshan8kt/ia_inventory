@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDepartmentsTable extends Migration
+class CreateAPIsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('a_p_i_s', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('company_id');
-            $table->string('code');
-            $table->string('name')->unique();
-            $table->string('description')->nullable();
-            $table->boolean('status');
+            $table->string('api_username');
+            $table->string('api_password');
+            $table->boolean('api_status');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -32,6 +30,6 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('a_p_i_s');
     }
 }

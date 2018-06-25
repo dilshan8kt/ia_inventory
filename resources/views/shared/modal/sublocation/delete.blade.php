@@ -1,4 +1,4 @@
-<div class="modal modal-message fade" id="deleteSubLocation" tabindex="-1" aria-hidden="true">
+<div class="modal modal-message fade" id="delete" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

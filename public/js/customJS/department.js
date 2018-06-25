@@ -14,6 +14,7 @@ $( ".addnew" ).append( "<button name='add-new-department' data-backdrop='static'
 $('#view').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
 
+    var code = button.data('code');
     var name = button.data('name');
     var description = button.data('description');
     var status;
@@ -25,6 +26,7 @@ $('#view').on('show.bs.modal', function (event) {
     }
     
     var modal = $(this);
+    modal.find('#code').val(code);
     modal.find('#name').val(name);
     modal.find('#description').val(description);
     modal.find('#status').val(status);
@@ -45,12 +47,14 @@ $('#edit').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
 
     var id = button.data('id');
+    var code = button.data('code');
     var name = button.data('name');
     var description = button.data('description');
     var status = button.data('status');
     
     var modal = $(this);
     modal.find('#id').val(id);
+    modal.find('#code').val(code);
     modal.find('#name').val(name);
     modal.find('#description').val(description);
     modal.find('select[name="status"]').val(status);

@@ -41,6 +41,11 @@ class SubLocationController extends Controller
         $sublocation->status = $request->input('status');
         $sublocation->save();
 
+        // if($request->ajax()){
+        //     $sublocations = Company::find(Auth::user()->company_id)->sublocations;
+        //     // return "New Sub Location added successfully!!";
+        //     return view('shared.ajax.data',compact('sublocations'));
+        // }
         return redirect()->back()->with('success', 'New Sub Location added successfully!!');
     }
 

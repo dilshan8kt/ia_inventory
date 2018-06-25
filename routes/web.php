@@ -121,3 +121,15 @@ Route::put('category',[
     'as' => 'category',
     'roles' => ['Admin']
 ]);
+
+Route::get('item',[
+    'uses' => 'ItemController@view',
+    'as' => 'item',
+    'roles' => ['Admin','User']
+]);
+
+Route::post('item',[
+    'uses' => 'ItemController@insert',
+    'as' => 'item',
+    'roles' => ['Admin','User']
+]);

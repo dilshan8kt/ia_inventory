@@ -13,13 +13,7 @@
                     <div class="form-group row m-b-15">
                         <label class="col-md-4 col-sm-4 col-form-label" for="name">Ref. Name * :</label>
                         <div class="col-md-8 col-sm-8">
-                            <input class="form-control {{ $errors->has('ref_name') ? ' parsley-error' : '' }}" value="{{ old('ref_name') }}" type="text" id="ref_name" name="ref_name" placeholder="Ref. Name" data-parsley-required="true" />
-                            
-                            @if ($errors->has('ref_name'))
-                                <ul class="parsley-errors-list filled" id="parsley-id-5">
-                                    <li class="parsley-required">{{ $errors->first('ref_name') }}</li>
-                                </ul>
-                            @endif
+                            <input class="form-control {{ $errors->has('ref_name') ? ' parsley-error' : '' }}" value="{{ old('ref_name') }}" type="text" id="ref_name" name="ref_name" placeholder="Ref. Name" />
                         </div>
                     </div>
 
