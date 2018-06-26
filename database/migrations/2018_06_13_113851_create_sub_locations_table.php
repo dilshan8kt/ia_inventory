@@ -16,7 +16,7 @@ class CreateSubLocationsTable extends Migration
         Schema::create('sub_locations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('company_id');
-            $table->string('location_name')->unique();
+            $table->string('location_name');
             $table->string('description')->nullable();
             $table->string('telephone_no')->nullable();
             $table->text('address')->nullable();

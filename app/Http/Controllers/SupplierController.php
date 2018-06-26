@@ -24,7 +24,7 @@ class SupplierController extends Controller
             'status' => 'required',
         ]);
         
-        $sup = DB::table('suppliers')->where('company_id', Auth::user()->company_id)->orderBy('id', 'desc')->first();
+        $sup = Supplier::withTrashed()->where('company_id', Auth::user()->company_id)->get()->last();
 
         if($sup != null){
             $split_supcode = explode('-', $sup->code, 2);

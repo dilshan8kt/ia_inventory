@@ -21,7 +21,7 @@ class SubLocationController extends Controller
 
     public function insert(Request $request){
         $request->validate([
-            'location_name' => 'required|unique:sub_locations|max:25',
+            'location_name' => 'required|max:50',
             'status' => 'required',
         ]);
 

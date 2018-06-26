@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Company;
 use App\Category;
+use App\Department;
 
 class CategoryController extends Controller
 {
@@ -22,26 +23,41 @@ class CategoryController extends Controller
 
     public function insert(Request $request){
         $request->validate([
-            'name' => 'required|unique:categories|max:25',
+            'name' => 'required|max:25',
             'status' => 'required',
         ]);
+
+        $cat =Category::withTrashed()
+            ->where([
+                'company_id' => Auth::user()->company_id,
+                'department_id' => $request->department_id
+            ])->get()->last();
         
-        $dep = DB::table('departments')->where('id', $request->department_id)->first();
-        
-        $cat = DB::table('categories')->where('department_id', $dep->id)->orderBy('id', 'desc')->first();
+        $dep = Department::where('id', $request->department_id)->first();
+        $split_depcode = explode('-', $dep->code, 2);
+        $depcode = ($split_depcode[1] * 1);
         
         if($cat != null){
             $split_catcode = explode('-', $cat->code, 2);
             $code = $split_catcode[1];
-            $code = $code + 1;
+            // dd($code);
+            $code = explode($depcode, $code, 2);
+
+            $code = $code[1] + 1;
+            
             if(strlen($code) === 1){
-                $code = '0'.$code;
+                $code =$depcode. '00'.$code;
+            }elseif(strlen($code) === 2){
+                $code = $depcode. '0'.$code;
+            }else{
+                $code = $depcode.''.$code;
             }
         }else{
-            $code = '01';
+            $code = $depcode.'001';
         }
 
         $category = new Category(); 
+        $category->company_id = Auth::user()->company_id;
         $category->department_id = $request->input('department_id');
         $category->code =  'CAT-'.$code;
         $category->name =  $request->input('name');

@@ -37,54 +37,65 @@
             <thead>
                 <tr>
                     <th class="text-nowrap">Item Code</th>
+                    <th class="text-nowrap">Barcode</th>
                     <th class="text-nowrap">Item Name</th>
-                    <th class="text-nowrap">Description</th>
+                    <th class="text-nowrap">Unit</th>
                     <th class="text-nowrap" width="15%">Status</th>
                     <th class="text-nowrap" width="15%">Option</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach($departments as $dep)
+                @foreach($items as $itm)
                 <tr class="odd gradeX">
-                    <td>{{ $dep->name }}</td>
-                    <td>{{ $dep->description }}</td>
+                    <td>{{ $itm->code }}</td>
                     <td>
-                        @if($dep->status === 1)
-                            <lable class="label label-success">Active</lable>
-                        @elseif($dep->status === 0)
-                            <lable class="label label-danger">Deactive</lable>
+                        <h5><span class="label label-warning">{{ $itm->barcode_1 }}</span></h5>
+                        @if($itm->barcode_2 != null)
+                            <h5><span class="label label-warning">{{ $itm->barcode_2 }}</span></h5>
+                        @endif
+                    </td>
+                    <td>
+                        {{ $itm->name_eng }} <br>
+                        {{ $itm->name_sin }}
+                    </td>
+                    <td>{{ $itm->unit }}</td>
+                    <td>
+                        @if($itm->status === 1)
+                            <h5><lable class="label label-success">Active</lable></h5>
+                        @elseif($itm->status === 0)
+                            <h5><lable class="label label-danger">Deactive</lable></h5>
                         @endif
                     </td>
                     <td>
                         <button type="button" 
                             class="btn btn-success fa fa-eye"
-                            data-backdrop="static"
+                            {{-- data-backdrop="static"
                             data-toggle="modal"
                             data-target="#view"
-                            data-name="{{ $dep->name }}"
-                            data-description="{{ $dep->description }}"
-                            data-status="{{ $dep->status }}"
+                            data-name="{{ $itm->name }}"
+                            data-description="{{ $itm->description }}"
+                            data-status="{{ $itm->status }}" --}}
                         ></button>
                         <button type="button" 
                             class="btn btn-info fa fa-edit" 
-                            data-backdrop="static"
+                            {{-- data-backdrop="static"
                             data-toggle="modal"
                             data-target="#edit"
-                            data-id="{{ $dep->id }}"
-                            data-name="{{ $dep->name }}"
-                            data-description="{{ $dep->description }}"
-                            data-status="{{ $dep->status }}"
+                            data-id="{{ $itm->id }}"
+                            data-name="{{ $itm->name }}"
+                            data-description="{{ $itm->description }}"
+                            data-status="{{ $itm->status }}" --}}
                         ></button>
                         <button type="button" 
                             class="btn btn-danger fa fa-trash"
-                            data-toggle="modal"
+                            {{-- data-toggle="modal"
                             data-target="#delete"
                             data-backdrop="static"
-                            data-id="{{ $dep->id }}"
+                            data-id="{{ $itm->id }}" --}}
                         ></button>
                     </td>
                 </tr>
-                @endforeach --}}
+                @endforeach
             </tbody>
         </table>
     </div>

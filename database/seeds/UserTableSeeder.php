@@ -29,7 +29,7 @@ class UserTableSeeder extends Seeder
         $admin->roles()->attach($role_admin);
 
         $user = new User();
-        $user->company_id = 1;
+        $user->company_id = 2;
         $user->first_name = 'Sajana';
         $user->middle_name = 'Suvisitha';
         $user->last_name = 'Maddegoda';
@@ -38,6 +38,6 @@ class UserTableSeeder extends Seeder
         $user->password = bcrypt('12345');
         $user->status = 1;
         $user->save();
-        $user->roles()->attach($role_user);
+        $user->roles()->attach($role_admin);
     }
 }

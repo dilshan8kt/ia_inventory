@@ -26,5 +26,20 @@ class UnitTableSeeder extends Seeder
         $unit3->company_id = 1;
         $unit3->unit_name = 'LITER';
         $unit3->save();
+
+        $unit4 = new Unit();
+        $unit4->company_id = 2;
+        $unit4->unit_name = 'NOS';
+        $unit4->save();
+
+        $unit5 = new Unit();
+        $unit5->company_id = 2;
+        $unit5->unit_name = 'KG';
+        $unit5->save();
+
+        $unit6 = new Unit();
+        $unit6->company_id = 2;
+        $unit6->unit_name = 'LITER';
+        $unit6->save();
     }
 }

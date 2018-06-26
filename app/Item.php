@@ -5,16 +5,18 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class Item extends Model
 {
     use SoftDeletes;
 
-    public function department(){
-        return $this->belongsTo(Department::class);
-    }
-
+    //one item belongs to one company
     public function company(){
         return $this->belongsTo(Company::class);
+    }
+
+    public function reorder()
+    {
+        return $this->hasOne(ReOrder::class);
     }
 
     protected $dates = ['deleted_at'];

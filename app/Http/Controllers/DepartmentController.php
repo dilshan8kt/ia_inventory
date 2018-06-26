@@ -22,11 +22,11 @@ class DepartmentController extends Controller
 
     public function insert(Request $request){
         $request->validate([
-            'name' => 'required|unique:departments|max:25',
+            'name' => 'required|max:25',
             'status' => 'required',
         ]);
 
-        $dep = DB::table('departments')->where('company_id', Auth::user()->company_id)->orderBy('id', 'desc')->first();
+        $dep = Department::withTrashed()->where('company_id', Auth::user()->company_id)->get()->last();
 
         if($dep != null){
             $split_depcode = explode('-', $dep->code, 2);

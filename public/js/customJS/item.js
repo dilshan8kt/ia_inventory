@@ -7,7 +7,7 @@ $("#data-table-default").length && $("#data-table-default").DataTable({
 
 $('#if-hide').hide();
 
-$('#re-order').change(function(){
+$('#re_order').change(function(){
     if($(this).is(":checked")){
         $('#if-hide').show();
     }else{

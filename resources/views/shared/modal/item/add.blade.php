@@ -77,10 +77,10 @@
                     <div class="form-group row m-b-15">
                         <label class="col-md-4 col-sm-4 col-form-label">Unit :</label>
                         <div class="col-md-8 col-sm-8">
-                            <select class="form-control" id="unit_id" name="unit_id" data-parsley-required="true">
+                            <select class="form-control" id="unit_name" name="unit_name" data-parsley-required="true">
                                 <option value="">Please choose unit</option>
                                 @foreach($units as $uni)
-                                    <option value="{{ $uni->id }}">{{ $uni->unit_name }}</option>
+                                    <option value="{{ $uni->unit_name }}">{{ $uni->unit_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -91,8 +91,8 @@
                     
                         <div class="col-md-8 col-sm-8">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="re-order" name="re-order" />
-                                <label class="form-check-label" for="re-order">Enable Re-Order Option</label>
+                                <input class="form-check-input" type="checkbox" id="re_order" name="re_order" />
+                                <label class="form-check-label" for="re_order">Enable Re-Order Option</label>
                             </div>
                         </div>
                     </div>
@@ -100,21 +100,21 @@
                     <div id="if-hide">
                         <hr>
                         <div class="form-group row m-b-15">
-                            <label class="col-md-4 col-sm-4 col-form-label" for="re-order-level">Re-Order Level :</label>
+                            <label class="col-md-4 col-sm-4 col-form-label" for="re_order_level">Re-Order Level :</label>
                             <div class="col-md-8 col-sm-8">
-                                <input class="form-control" value="{{ old('re-order-level') }}" type="text" id="re-order-level" name="re-order-level" placeholder="Re-order level" />
+                                <input class="form-control" value="{{ old('re_order_level') }}" type="text" id="re_order_level" name="re_order_level" placeholder="level" />
                             </div>
                         </div>
                         <div class="form-group row m-b-15">
-                            <label class="col-md-4 col-sm-4 col-form-label" for="re-order-quantity">Re-Order Quantity :</label>
+                            <label class="col-md-4 col-sm-4 col-form-label" for="re_order_quantity">Re-Order Quantity :</label>
                             <div class="col-md-8 col-sm-8">
-                                <input class="form-control" value="{{ old('re-order-quantity') }}" type="text" id="re-order-quantity" name="re-order-quantity" placeholder="Re-order quantity" />
+                                <input class="form-control" value="{{ old('re_order_quantity') }}" type="text" id="re_order_quantity" name="re_order_quantity" placeholder="quantity" />
                             </div>
                         </div>
                         <div class="form-group row m-b-15">
-                            <label class="col-md-4 col-sm-4 col-form-label" for="re-order-max">Re-Order Max :</label>
+                            <label class="col-md-4 col-sm-4 col-form-label" for="re_order_max">Re-Order Max :</label>
                             <div class="col-md-8 col-sm-8">
-                                <input class="form-control" value="{{ old('re-order-max') }}" type="text" id="re-order-max" name="re-order-max" placeholder="Re-order max" />
+                                <input class="form-control" value="{{ old('re_order_max') }}" type="text" id="re_order_max" name="re_order_max" placeholder="max" />
                             </div>
                         </div>
                         <hr>

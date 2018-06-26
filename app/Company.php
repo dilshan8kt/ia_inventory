@@ -24,6 +24,11 @@ class Company extends Model
         return $this->hasMany(Department::class);
     }
 
+    //one company has many categories
+    public function categories(){
+        return $this->hasMany(Category::class);
+    }
+
     //one company has many suppliers
     public function suppliers(){
         return $this->hasMany(Supplier::class);
@@ -36,5 +41,10 @@ class Company extends Model
 
     public function category(){
         return $this->hasManyThrough(Category::class,Department::class);
+    }
+
+    //one company has many items
+    public function items(){
+        return $this->hasMany(Item::class);
     }
 }

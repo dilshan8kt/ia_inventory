@@ -51,7 +51,7 @@
                     <td>
                         @foreach ($departments as $dep)
                             @if($cat->department_id === $dep->id)
-                                {{ $dep->name }}
+                                {{ $dep->code }} {{ $dep->name }}
                             @endif
                         @endforeach
                     </td>
