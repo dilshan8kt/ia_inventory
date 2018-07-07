@@ -43,8 +43,13 @@ class Company extends Model
         return $this->hasManyThrough(Category::class,Department::class);
     }
 
-    //one company has many items
-    public function items(){
-        return $this->hasMany(Item::class);
+    //one company has many products
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
+
+    //one company has many purchase order
+    public function purchaseorders(){
+        return $this->hasMany(PurchaseOrder::class);
     }
 }

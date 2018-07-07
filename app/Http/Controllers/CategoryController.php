@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function view(){
         $categories = Company::find(Auth::user()->company_id)->category;
         $departments = Company::find(Auth::user()->company_id)->departments;
-        return view('home.master.items.category')
+        return view('home.master.products.category')
             ->with([
                 'categories' => $categories,
                 'departments' => $departments

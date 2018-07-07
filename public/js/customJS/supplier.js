@@ -26,6 +26,7 @@ $('#edit').on('show.bs.modal', function (event) {
     var address = button.data('address');
     var phone1 = button.data('phone1');
     var phone2 = button.data('phone2');
+    var email = button.data('email');
     var status = button.data('status');
 
     var modal = $(this);
@@ -36,6 +37,7 @@ $('#edit').on('show.bs.modal', function (event) {
     modal.find('#eaddress').val(address);
     modal.find('#ephone1').val(phone1);
     modal.find('#ephone2').val(phone2);
+    modal.find('#eemail').val(email);
     modal.find('select[name="status"]').val(status);
 });
 
@@ -61,6 +63,7 @@ $('#view').on('show.bs.modal', function (event) {
     var address = button.data('address');
     var phone1 = button.data('phone1');
     var phone2 = button.data('phone2');
+    var email = button.data('email');
     var status;
 
     if(button.data('status')==1){
@@ -76,5 +79,6 @@ $('#view').on('show.bs.modal', function (event) {
     modal.find('#address').val(address);
     modal.find('#phone1').val(phone1);
     modal.find('#phone2').val(phone2);
+    modal.find('#email').val(email);
     modal.find('#status').val(status);
 });

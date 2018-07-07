@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReOrdersTable extends Migration
+class CreateItemPricesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateReOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('re_orders', function (Blueprint $table) {
+        Schema::create('item_prices', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('item_id')->unique();
-            $table->double('level');
+            $table->integer('sublocation_id');
+            $table->integer('item_id');
+            $table->double('cost_price');
+            $table->double('whoe_sale_price');
+            $table->double('sale_price');
             $table->double('quantity');
-            $table->double('max');
+            $table->double('grn_date');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +34,6 @@ class CreateReOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('re_orders');
+        Schema::dropIfExists('item_prices');
     }
 }

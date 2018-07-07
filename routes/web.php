@@ -10,6 +10,18 @@ Route::get('dashboard', [
     'roles' => ['Admin','User']
 ]);
 
+Route::get('profile', [
+    'uses' => 'UserController@profile',
+    'as' => 'profile',
+    'roles' => ['Admin','User']
+]);
+
+Route::post('changepassword',[
+    'uses' => 'UserController@changePassword',
+    'as' => 'changepassword',
+    'roles' => ['Admin']
+]);
+
 Route::post('signin',[
     'uses' => 'AuthController@signin',
     'as' => 'signin'
@@ -122,14 +134,38 @@ Route::put('category',[
     'roles' => ['Admin']
 ]);
 
-Route::get('item',[
-    'uses' => 'ItemController@view',
-    'as' => 'item',
+Route::get('product',[
+    'uses' => 'ProductController@view',
+    'as' => 'product',
     'roles' => ['Admin','User']
 ]);
 
-Route::post('item',[
-    'uses' => 'ItemController@insert',
-    'as' => 'item',
+Route::post('product',[
+    'uses' => 'ProductController@insert',
+    'as' => 'product',
+    'roles' => ['Admin','User']
+]);
+
+Route::put('product',[
+    'uses' => 'ProductController@edit',
+    'as' => 'product',
+    'roles' => ['Admin','User']
+]);
+
+Route::delete('product',[
+    'uses' => 'ProductController@delete',
+    'as' => 'product',
+    'roles' => ['Admin','User']
+]);
+
+Route::get('stock',[
+    'uses' => 'StockController@view',
+    'as' => 'stock',
+    'roles' => ['Admin','User']
+]);
+
+Route::get('purchase-order',[
+    'uses' => 'PurchaseOrderController@view',
+    'as' => 'purchase-order',
     'roles' => ['Admin','User']
 ]);

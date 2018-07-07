@@ -16,7 +16,7 @@ class DepartmentController extends Controller
     
     public function view(){
         $departments = Company::find(Auth::user()->company_id)->departments;
-        return view('home.master.items.department')
+        return view('home.master.products.department')
             ->with('departments', $departments);
     }
 

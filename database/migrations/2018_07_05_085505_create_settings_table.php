@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReOrdersTable extends Migration
+class CreateSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateReOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('re_orders', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('item_id')->unique();
-            $table->double('level');
-            $table->double('quantity');
-            $table->double('max');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +26,6 @@ class CreateReOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('re_orders');
+        Schema::dropIfExists('settings');
     }
 }

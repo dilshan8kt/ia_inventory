@@ -1,7 +1,7 @@
 @extends('shared.layout')
 
 @section('title')
-  Item Details
+  Product Details
 @endsection
 
 @section('css')
@@ -14,12 +14,12 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb pull-right">
     <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
-    <li class="breadcrumb-item active">Item</li>
+    <li class="breadcrumb-item active">Product</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h1 class="page-header">Item <small>header small text goes here...</small></h1>
+<h1 class="page-header">Product <small>header small text goes here...</small></h1>
 <!-- end page-header -->
 
 <!-- begin panel -->
@@ -36,9 +36,9 @@
         <table id="data-table-default" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th class="text-nowrap">Item Code</th>
+                    <th class="text-nowrap">Product Code</th>
                     <th class="text-nowrap">Barcode</th>
-                    <th class="text-nowrap">Item Name</th>
+                    <th class="text-nowrap">Product Name</th>
                     <th class="text-nowrap">Unit</th>
                     <th class="text-nowrap" width="15%">Status</th>
                     <th class="text-nowrap" width="15%">Option</th>
@@ -69,29 +69,46 @@
                     <td>
                         <button type="button" 
                             class="btn btn-success fa fa-eye"
-                            {{-- data-backdrop="static"
+                            data-backdrop="static"
                             data-toggle="modal"
                             data-target="#view"
-                            data-name="{{ $itm->name }}"
-                            data-description="{{ $itm->description }}"
-                            data-status="{{ $itm->status }}" --}}
+                            data-id="{{ $itm->id }}"
+                            data-depid="{{ $itm->department_id }}"
+                            data-catid="{{ $itm->category_id }}"
+                            data-supid="{{ $itm->supplier_id }}"
+                            data-code="{{ $itm->code }}"
+                            data-barcode1="{{ $itm->barcode_1 }}"
+                            data-barcode2="{{ $itm->barcode_2 }}"
+                            data-nameeng="{{ $itm->name_eng }}"
+                            data-namesin="{{ $itm->name_sin }}"
+                            data-nameunit="{{ $itm->unit }}"
+                            data-status="{{ $itm->status }}"
+                            data-reorder="{{ $itm->reorder }}"
                         ></button>
                         <button type="button" 
                             class="btn btn-info fa fa-edit" 
-                            {{-- data-backdrop="static"
+                            data-backdrop="static"
                             data-toggle="modal"
                             data-target="#edit"
                             data-id="{{ $itm->id }}"
-                            data-name="{{ $itm->name }}"
-                            data-description="{{ $itm->description }}"
-                            data-status="{{ $itm->status }}" --}}
+                            data-depid="{{ $itm->department_id }}"
+                            data-catid="{{ $itm->category_id }}"
+                            data-supid="{{ $itm->supplier_id }}"
+                            data-code="{{ $itm->code }}"
+                            data-barcode1="{{ $itm->barcode_1 }}"
+                            data-barcode2="{{ $itm->barcode_2 }}"
+                            data-nameeng="{{ $itm->name_eng }}"
+                            data-namesin="{{ $itm->name_sin }}"
+                            data-nameunit="{{ $itm->unit }}"
+                            data-status="{{ $itm->status }}"
+                            data-reorder="{{ $itm->reorder }}"
                         ></button>
                         <button type="button" 
                             class="btn btn-danger fa fa-trash"
-                            {{-- data-toggle="modal"
+                            data-toggle="modal"
                             data-target="#delete"
                             data-backdrop="static"
-                            data-id="{{ $itm->id }}" --}}
+                            data-id="{{ $itm->id }}"
                         ></button>
                     </td>
                 </tr>
@@ -102,10 +119,10 @@
 </div>
 <!-- end panel -->
 
-@include('shared.modal.item.add')
-{{-- @include('shared.modal.item.edit') --}}
-{{-- @include('shared.modal.item.delete') --}}
-{{-- @include('shared.modal.item.view') --}}
+@include('shared.modal.product.add')
+@include('shared.modal.product.edit')
+@include('shared.modal.product.delete')
+@include('shared.modal.product.view')
 
 @endsection
 
@@ -115,7 +132,7 @@
 <script src="{{ asset('plugins/DataTables/media/js/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/media/js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('js/customJS/item.js') }}"></script>
+<script src="{{ asset('js/customJS/product.js') }}"></script>
 
 
 <script>

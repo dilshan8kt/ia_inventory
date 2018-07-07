@@ -94,10 +94,10 @@
                 <span class="d-none d-md-inline"> {{Auth::user()->username}}</span> <b class="caret"></b>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="javascript:;" class="dropdown-item">Edit Profile</a>
-                <a href="javascript:;" class="dropdown-item"><span class="badge badge-danger pull-right">2</span> Inbox</a>
+                <a href="{{ route('profile') }}" class="dropdown-item">Edit Profile</a>
+                {{-- <a href="javascript:;" class="dropdown-item"><span class="badge badge-danger pull-right">2</span> Inbox</a> --}}
                 <a href="javascript:;" class="dropdown-item">Calendar</a>
-                <a href="javascript:;" class="dropdown-item">Setting</a>
+                {{-- <a href="javascript:;" class="dropdown-item">Setting</a> --}}
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('signout') }}" class="dropdown-item">Log Out</a>
             </div>

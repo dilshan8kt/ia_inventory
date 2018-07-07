@@ -2,13 +2,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Item</h5>
+                <h5 class="modal-title">Product</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" method="POST" action="" data-parsley-validate="true">
+                <form class="form-horizontal" method="POST" action="{{ route('product') }}" data-parsley-validate="true">
                     @csrf
 
                     <div class="form-group row m-b-15">
@@ -22,9 +22,9 @@
                     </div>
 
                     <div class="form-group row m-b-15">
-                        <label class="col-md-4 col-sm-4 col-form-label" for="name_eng">Item Name [English]* :</label>
+                        <label class="col-md-4 col-sm-4 col-form-label" for="name_eng">Product Name [English]* :</label>
                         <div class="col-md-8 col-sm-8">
-                            <input class="form-control {{ $errors->has('name_eng') ? ' parsley-error' : '' }}" value="{{ old('name_eng') }}" type="text" id="name_eng" name="name_eng" placeholder="Item name in english" data-parsley-required="true" />
+                            <input class="form-control {{ $errors->has('name_eng') ? ' parsley-error' : '' }}" value="{{ old('name_eng') }}" type="text" id="name_eng" name="name_eng" placeholder="Product name in english" data-parsley-required="true" />
                             
                             @if ($errors->has('name_eng'))
                                 <ul class="parsley-errors-list filled" id="parsley-id-5">
@@ -35,9 +35,9 @@
                     </div>
 
                     <div class="form-group row m-b-15">
-                        <label class="col-md-4 col-sm-4 col-form-label" for="name_sin">Item Name [Sinhala] :</label>
+                        <label class="col-md-4 col-sm-4 col-form-label" for="name_sin">Product Name [Sinhala] :</label>
                         <div class="col-md-8 col-sm-8">
-                            <input class="form-control" value="{{ old('name_sin') }}" type="text" id="name_sin" name="name_sin" placeholder="Item name in sinhala" />
+                            <input class="form-control" value="{{ old('name_sin') }}" type="text" id="name_sin" name="name_sin" placeholder="Product name in sinhala" />
                         </div>
                     </div>
 

@@ -68,6 +68,7 @@
                             data-address="{{ $supplier->address }}"
                             data-phone1="{{ $supplier->phone1 }}"
                             data-phone2="{{ $supplier->phone2 }}"
+                            data-email="{{ $supplier->email }}"
                             data-status="{{ $supplier->status }}"
                         ></button>
                         <button type="button" 
@@ -82,6 +83,7 @@
                             data-address="{{ $supplier->address }}"
                             data-phone1="{{ $supplier->phone1 }}"
                             data-phone2="{{ $supplier->phone2 }}"
+                            data-email="{{ $supplier->email }}"
                             data-status="{{ $supplier->status }}"
                         ></button>
                         <button type="button" 
