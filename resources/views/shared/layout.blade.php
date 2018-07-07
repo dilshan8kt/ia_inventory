@@ -94,7 +94,7 @@
 			$.gritter.add({
                 title: 'ERROR',
                 text: '{{ session()->get('error') }}',
-                time: 80000,
+                time: 5000,
                 class_name: 'gritter-light gritter-center'
             });
         </script>

@@ -45,24 +45,24 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($items as $itm)
+                @foreach($products as $product)
                 <tr class="odd gradeX">
-                    <td>{{ $itm->code }}</td>
+                    <td>{{ $product->code }}</td>
                     <td>
-                        <h5><span class="label label-warning">{{ $itm->barcode_1 }}</span></h5>
-                        @if($itm->barcode_2 != null)
-                            <h5><span class="label label-warning">{{ $itm->barcode_2 }}</span></h5>
+                        <h5><span class="label label-warning">{{ $product->barcode_1 }}</span></h5>
+                        @if($product->barcode_2 != null)
+                            <h5><span class="label label-warning">{{ $product->barcode_2 }}</span></h5>
                         @endif
                     </td>
                     <td>
-                        {{ $itm->name_eng }} <br>
-                        {{ $itm->name_sin }}
+                        {{ $product->name_eng }} <br>
+                        {{ $product->name_sin }}
                     </td>
-                    <td>{{ $itm->unit }}</td>
+                    <td>{{ $product->unit }}</td>
                     <td>
-                        @if($itm->status === 1)
+                        @if($product->status === 1)
                             <h5><lable class="label label-success">Active</lable></h5>
-                        @elseif($itm->status === 0)
+                        @elseif($product->status === 0)
                             <h5><lable class="label label-danger">Deactive</lable></h5>
                         @endif
                     </td>
@@ -72,43 +72,43 @@
                             data-backdrop="static"
                             data-toggle="modal"
                             data-target="#view"
-                            data-id="{{ $itm->id }}"
-                            data-depid="{{ $itm->department_id }}"
-                            data-catid="{{ $itm->category_id }}"
-                            data-supid="{{ $itm->supplier_id }}"
-                            data-code="{{ $itm->code }}"
-                            data-barcode1="{{ $itm->barcode_1 }}"
-                            data-barcode2="{{ $itm->barcode_2 }}"
-                            data-nameeng="{{ $itm->name_eng }}"
-                            data-namesin="{{ $itm->name_sin }}"
-                            data-nameunit="{{ $itm->unit }}"
-                            data-status="{{ $itm->status }}"
-                            data-reorder="{{ $itm->reorder }}"
+                            data-id="{{ $product->id }}"
+                            data-depid="{{ $product->department_id }}"
+                            data-catid="{{ $product->category_id }}"
+                            data-supid="{{ $product->supplier_id }}"
+                            data-code="{{ $product->code }}"
+                            data-barcode1="{{ $product->barcode_1 }}"
+                            data-barcode2="{{ $product->barcode_2 }}"
+                            data-nameeng="{{ $product->name_eng }}"
+                            data-namesin="{{ $product->name_sin }}"
+                            data-nameunit="{{ $product->unit }}"
+                            data-status="{{ $product->status }}"
+                            data-reorder="{{ $product->reorder }}"
                         ></button>
                         <button type="button" 
                             class="btn btn-info fa fa-edit" 
                             data-backdrop="static"
                             data-toggle="modal"
                             data-target="#edit"
-                            data-id="{{ $itm->id }}"
-                            data-depid="{{ $itm->department_id }}"
-                            data-catid="{{ $itm->category_id }}"
-                            data-supid="{{ $itm->supplier_id }}"
-                            data-code="{{ $itm->code }}"
-                            data-barcode1="{{ $itm->barcode_1 }}"
-                            data-barcode2="{{ $itm->barcode_2 }}"
-                            data-nameeng="{{ $itm->name_eng }}"
-                            data-namesin="{{ $itm->name_sin }}"
-                            data-nameunit="{{ $itm->unit }}"
-                            data-status="{{ $itm->status }}"
-                            data-reorder="{{ $itm->reorder }}"
+                            data-id="{{ $product->id }}"
+                            data-depid="{{ $product->department_id }}"
+                            data-catid="{{ $product->category_id }}"
+                            data-supid="{{ $product->supplier_id }}"
+                            data-code="{{ $product->code }}"
+                            data-barcode1="{{ $product->barcode_1 }}"
+                            data-barcode2="{{ $product->barcode_2 }}"
+                            data-nameeng="{{ $product->name_eng }}"
+                            data-namesin="{{ $product->name_sin }}"
+                            data-nameunit="{{ $product->unit }}"
+                            data-status="{{ $product->status }}"
+                            data-reorder="{{ $product->reorder }}"
                         ></button>
                         <button type="button" 
                             class="btn btn-danger fa fa-trash"
                             data-toggle="modal"
                             data-target="#delete"
                             data-backdrop="static"
-                            data-id="{{ $itm->id }}"
+                            data-id="{{ $product->id }}"
                         ></button>
                     </td>
                 </tr>

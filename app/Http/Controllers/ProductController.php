@@ -14,18 +14,22 @@ use App\ReOrder;
 
 class ProductController extends Controller
 {
+    public function __construct(){
+        $this->middleware(['auth','roles']);
+    }
+ 
     public function view(Request $request){
         $departments = Company::find(Auth::user()->company_id)->departments;
         $categories = Company::find(Auth::user()->company_id)->categories;
         $suppliers = Company::find(Auth::user()->company_id)->suppliers;
         $units = Company::find(Auth::user()->company_id)->units;
-        $items = Company::find(Auth::user()->company_id)->products;
+        $products = Company::find(Auth::user()->company_id)->products;
         
         // dd($reorder);
         if($request->ajax()){
             if($request !== null){
-                if($request->item_id != null){
-                    $reorder = DB::table('re_orders')->where('item_id', '=', $request->item_id)->get();
+                if($request->product_id != null){
+                    $reorder = DB::table('re_orders')->where('product_id', '=', $request->product_id)->get();
                     if($reorder != null){
                         // return view('shared.modal.item.re-order')
                         //     ->with([
@@ -48,12 +52,12 @@ class ProductController extends Controller
                 'categories' => $categories,
                 'suppliers' => $suppliers,
                 'units' => $units,
-                'items' => $items
+                'products' => $products
             ]);
     }
 
     public function insert(Request $request){
-        $itm = Product::withTrashed()
+        $pro = Product::withTrashed()
             ->where([
                 'company_id' => Auth::user()->company_id,
                 'category_id' => $request->category_id
@@ -62,16 +66,16 @@ class ProductController extends Controller
             ->last();
 
 
-        // dd($itm);
+        // dd($pro);
         $cat = Category::where('id', $request->category_id)->get()->first();
 
         //get category code
         $split_catcode = explode('-', $cat->code, 2);
         $cat_code = $split_catcode[1];
 
-        if($itm != null){
-            $split_itmcode = explode($cat_code, $itm->code, 2);
-            $code = $split_itmcode[1];
+        if($pro != null){
+            $split_procode = explode($cat_code, $pro->code, 2);
+            $code = $split_procode[1];
             // dd($code);
             $code = $code + 1;
             $code = $cat_code.''.$code;
@@ -103,7 +107,7 @@ class ProductController extends Controller
         if($request->re_order != null){
             $product_id = Product::where('code', $code)->first();
             $reorder = new ReOrder();
-            $reorder->item_id = $product_id->id;
+            $reorder->product_id = $product_id->id;
             $reorder->level = $request->re_order_level;
             $reorder->quantity = $request->re_order_quantity;
             $reorder->max = $request->re_order_max;
@@ -120,6 +124,79 @@ class ProductController extends Controller
     }
 
     public function edit(Request $request){
-        dd($request);
+        $product = Product::where('id', $request->product_id)->get()->first();
+
+        if($request->re_order_edit != null){
+            $reorder = 1;
+        }else{
+            $reorder = 0;
+        }
+
+        // dd($request);
+
+        if($request->category_id_edit != $product->category_id){
+            $pro = Product::withTrashed()
+                ->where([
+                    'company_id' => Auth::user()->company_id,
+                    'category_id' => $request->category_id_edit
+                ])
+                ->get()
+                ->last();
+
+            $cat = Category::where('id', $request->category_id_edit)->get()->first();
+
+            //get category code
+            $split_catcode = explode('-', $cat->code, 2);
+            $cat_code = $split_catcode[1];
+
+            if($pro != null){
+                $split_procode = explode($cat_code, $pro->code, 2);
+                $code = $split_procode[1];
+                $code = $code + 1;
+                $code = $cat_code.''.$code;
+            }else{
+                $code = $cat_code.'1';
+            } 
+        }else{
+            $code = $request->code;
+        }
+
+        $product->department_id = $request->department_id_edit;
+        $product->category_id = $request->category_id_edit;
+        $product->supplier_id = $request->supplier_id;
+        $product->code = $code;
+        $product->barcode_1 = $request->barcode_1;
+        $product->barcode_2 = $request->barcode_2;
+        $product->name_eng = $request->name_eng;
+        $product->name_sin = $request->name_sin;
+        $product->unit = $request->unit_name;
+        $product->reorder = $reorder;
+        $product->status = $request->status;
+        $product->update();
+
+        if($reorder){
+            $reorder = ReOrder::withTrashed()->where('product_id', $request->product_id)->get()->first();
+            // dd($request);
+            if($reorder != null){
+                $reorder->level = $request->re_order_level;
+                $reorder->quantity = $request->re_order_quantity;
+                $reorder->max = $request->re_order_max;
+                $reorder->update();
+                $reorder->restore();
+            }else{
+                $reorder = new ReOrder();
+                $reorder->product_id = $request->product_id;
+                $reorder->level = $request->re_order_level;
+                $reorder->quantity = $request->re_order_quantity;
+                $reorder->max = $request->re_order_max;
+                $reorder->save();
+            }
+        }else{
+            $reorder = ReOrder::where('product_id', $request->product_id)->get()->first();
+            $reorder->delete();
+        }
+
+        return redirect()->back()->with('success', 'Product Details Updated!');
     }
+    
 }

@@ -12,6 +12,8 @@
                     @method('put')
                     @csrf
 
+                    <input type="hidden" name="product_id" id="product_id">
+
                     <div class="form-group row m-b-15">
                         <label class="col-md-4 col-sm-4 col-form-label" for="code">Product Code* :</label>
                         <div class="col-md-8 col-sm-8">

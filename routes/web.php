@@ -6,15 +6,23 @@ Route::view('/login', 'auth.login')->name('login');
 Route::get('dashboard', [
     'uses' => 'HomeController@view',
     'as' => 'dashboard',
-    'middleware' => 'roles',
     'roles' => ['Admin','User']
 ]);
 
+//profile
 Route::get('profile', [
     'uses' => 'UserController@profile',
     'as' => 'profile',
     'roles' => ['Admin','User']
 ]);
+
+Route::put('profile', [
+    'uses' => 'UserController@edit',
+    'as' => 'profile',
+    'roles' => ['Admin','User']
+]);
+//end profile
+
 
 Route::post('changepassword',[
     'uses' => 'UserController@changePassword',

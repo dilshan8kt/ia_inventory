@@ -14,7 +14,7 @@
     <!-- end navbar-header -->
     
     <ul class="navbar-nav navbar-right">
-        <li class="dropdown">
+        {{-- <li class="dropdown">
             <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle icon">
                 <i class="ion-ios-bell"></i>
                 <span class="label">5</span>
@@ -85,12 +85,12 @@
                     <a href="javascript:;">View more</a>
                 </li>
             </ul>
-        </li>
+        </li> --}}
         <li class="dropdown navbar-user">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                @if(Storage::disk('local')->has(Auth::user()->id . '-' . Auth::user()->first_name . '.jpg'))  
+                {{-- @if(Storage::disk('local')->has(Auth::user()->id . '-' . Auth::user()->first_name . '.jpg'))   --}}
                     <img src="{{ route('image', ['filename' => Auth::user()->id . '-' . Auth::user()->first_name . '.jpg']) }}" alt="" /> 
-                @endif
+                {{-- @endif --}}
                 <span class="d-none d-md-inline"> {{Auth::user()->username}}</span> <b class="caret"></b>
             </a>
             <div class="dropdown-menu dropdown-menu-right">

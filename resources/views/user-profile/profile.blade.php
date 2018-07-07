@@ -32,6 +32,7 @@
                 <!-- BEGIN profile-header-info -->
                 <div class="profile-header-info">
                     <h4 class="m-t-10 m-b-5">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h4>
+                    {{-- <p class="m-b-10">hghgjh</p> --}}
                     <p class="m-b-10">{{ Auth::user()->hasRole('Admin') ? 'Admin':'User' }}</p>
                     <button data-backdrop="static" data-toggle="modal" data-target="#edit-profile" class="btn btn-xs btn-yellow">Edit Profile</button>
                     <button data-backdrop="static" data-toggle="modal" data-target="#change-password" class="btn btn-xs btn-yellow">Change Password</button>

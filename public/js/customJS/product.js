@@ -76,7 +76,7 @@ $('#view').on('show.bs.modal', function (event) {
     $.ajax({
         type: "GET",
         url: '',
-        data: {"item_id": id},
+        data: {"product_id": id},
         success: function (data) {
             // $("#re-order").html(data);
             if(reorder){
@@ -106,13 +106,13 @@ $('#delete').on('show.bs.modal', function (event) {
 });
 
 
-var id;
+// var id;
 
 //edit item modal
 $('#edit').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
 
-    id = button.data('id');
+    var id = button.data('id');
     var depid = button.data('depid');
     var catid = button.data('catid');
     var supid = button.data('supid');
@@ -140,6 +140,7 @@ $('#edit').on('show.bs.modal', function (event) {
         }
     });
 
+    modal.find('#product_id').val(id);
     modal.find('#code').val(code);
     modal.find('#barcode_1').val(barcode1);
     modal.find('#barcode_2').val(barcode2);
@@ -157,7 +158,7 @@ $('#edit').on('show.bs.modal', function (event) {
         $.ajax({
             type: "GET",
             url: '',
-            data: {"item_id": id},
+            data: {"product_id": id},
             success: function (data) {
                 // console.log(data[0]);
                 modal.find('#re_order_level').val(data[0].level);

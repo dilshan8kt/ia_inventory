@@ -11,6 +11,10 @@ use App\Department;
 
 class CategoryController extends Controller
 {
+    public function __construct(){
+        $this->middleware(['auth','roles']);
+    }
+
     public function view(){
         $categories = Company::find(Auth::user()->company_id)->category;
         $departments = Company::find(Auth::user()->company_id)->departments;

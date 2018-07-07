@@ -87,7 +87,7 @@
                 <span>Reports</span>
             </a>
             <ul class="sub-menu">
-                <li><a href="">Supplier Master Reports</a></li>
+                <li><a href="">Supplier Report</a></li>
             </ul>
         </li>
         <li class="has-sub">

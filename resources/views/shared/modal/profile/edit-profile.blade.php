@@ -5,7 +5,8 @@
                 <h5 class="modal-title">Edit Profile Details</h5>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" method="POST" action="" data-parsley-validate="true">
+                <form class="form-horizontal" method="POST" action="{{ route('profile') }}" enctype="multipart/form-data" data-parsley-validate="true">
+                    @method('put')
                     @csrf
                     <div class="form-group row m-b-15">
                         <label class="col-md-4 col-sm-4 col-form-label" for="first_name">First Name * :</label>
@@ -49,6 +50,14 @@
                             @endif
                         </div>
                     </div>
+
+                    <div class="form-group row m-b-15">
+                        <label class="col-md-4 col-sm-4 col-form-label">Image :</label>
+                        <div class="col-md-8 col-sm-8">
+                            <input class="form-control-file" type="file" id="image" name="image" placeholder="Profile Picture"/>
+                        </div>
+                    </div>
+
                     <div class="form-group row m-b-15">
                         <label class="col-md-4 col-sm-4 col-form-label">Staus :</label>
                         <div class="col-md-8 col-sm-8">
@@ -62,7 +71,7 @@
                     <div class="modal-footer form-group row m-b-0">
                         <div class="col-md-8 col-sm-8">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" id="addSubLocation" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </div>
                 </form>

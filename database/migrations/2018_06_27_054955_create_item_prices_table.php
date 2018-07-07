@@ -16,7 +16,7 @@ class CreateItemPricesTable extends Migration
         Schema::create('item_prices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('sublocation_id');
-            $table->integer('item_id');
+            $table->integer('product_id');
             $table->double('cost_price');
             $table->double('whoe_sale_price');
             $table->double('sale_price');

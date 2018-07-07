@@ -8,7 +8,7 @@
 <link href="{{ asset('plugins/parsley/src/parsley.css') }}" rel="stylesheet" />
 <link href="{{ asset('plugins/DataTables/media/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" />
 <link href="{{ asset('plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css') }}" rel="stylesheet" />
-<link href="{{ asset('plugins/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -81,9 +81,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <form action="">
+                    <form action="" data-parsley-validate="true">
                     <td>
-                        <select class="form-control selectpicker" id="product_code" name="product_code" data-size="10" data-live-search="true">
+                        <select class="search-combo form-control" id="product_code" name="product_code"  data-parsley-required="true">
                             <option value="" selected>Select Product Code</option>
                             @foreach($products as $pro)
                                 <option value="{{ $pro->id }}">{{ $pro->code }}</option>
@@ -91,7 +91,7 @@
                         </select>
                     </td>
                     <td>
-                        <select class="form-control selectpicker" id="product_name" name="product_name" data-size="10" data-live-search="true">
+                        <select class="search-combo form-control" id="product_name" name="product_name"  data-parsley-required="true">
                             <option value="" selected>Select Product Name</option>
                             @foreach($products as $pro)
                                 <option value="{{ $pro->id }}">{{ $pro->name_eng }}</option>
@@ -162,13 +162,15 @@
 <script src="{{ asset('plugins/DataTables/media/js/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/media/js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
+{{-- <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script> --}}
+<script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
 <script src="{{ asset('js/customJS/po.js') }}"></script>
 
 
 <script>
     $(document).ready(function() {
         App.init();
+        $(".search-combo").select2();
     });
 </script>
 @endsection

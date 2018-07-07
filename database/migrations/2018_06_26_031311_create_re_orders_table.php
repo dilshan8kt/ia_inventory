@@ -15,7 +15,7 @@ class CreateReOrdersTable extends Migration
     {
         Schema::create('re_orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('item_id')->unique();
+            $table->integer('product_id')->unique();
             $table->double('level');
             $table->double('quantity');
             $table->double('max');

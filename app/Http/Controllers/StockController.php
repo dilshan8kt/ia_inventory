@@ -10,6 +10,10 @@ use App\Company;
 
 class StockController extends Controller
 {
+    public function __construct(){
+        $this->middleware(['auth','roles']);
+    }
+    
     public function view(Request $request){
         $items = Company::find(Auth::user()->company_id)->products;
 

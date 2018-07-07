@@ -17,7 +17,7 @@ class UserController extends Controller
     }
 
     public function getUserImage($filename){
-        $file = Storage::disk('local')->get($filename);
+        $file = Storage::disk('local')->get('users/'.$filename);
         return new Response($file, 200);
     }
 
@@ -43,5 +43,29 @@ class UserController extends Controller
                  ->back()
                  ->with('error', 'Current Password does not match');
         }
+    }
+
+    public function edit(Request $request){
+        $user = User::findOrFail(Auth::user()->id);
+        $user->first_name =  $request->input('first_name');
+        $user->middle_name =  $request->input('middle_name');
+        $user->last_name =  $request->input('last_name');
+        $user->telephone_no = $request->input('telephone_no');
+        $user->status = $request->input('status');
+        $user->update();
+
+        //store user image to laravel storage
+        $file = $request->file('image');        
+        $filename = Auth::user()->id . '-' . $request['first_name'] . '.jpg';
+
+        if($file){
+            Storage::disk('local')->put('users/'.$filename, File::get($file));
+        }
+        
+        return redirect()->back()->with('success', 'Profile Updated!!');
+    }
+
+    public function insert(Request $request){
+        dd($request);
     }
 }
