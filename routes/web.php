@@ -177,3 +177,26 @@ Route::get('purchase-order',[
     'as' => 'purchase-order',
     'roles' => ['Admin','User']
 ]);
+
+Route::get('users',[
+    'uses' => 'UserController@view',
+    'as' => 'users',
+    'roles' => ['Admin','User']
+]);
+
+Route::post('user',[
+    'uses' => 'UserController@create',
+    'as' => 'user',
+    'roles' => ['Admin']
+]);
+
+Route::delete('user',[
+    'uses' => 'UserController@delete',
+    'as' => 'user',
+    'roles' => ['Admin']
+]);
+
+Route::post('tmp-po', [
+    'uses' => 'PurchaseOrderController@tmpInsert',
+    'as' => 'tmp-po'
+]);

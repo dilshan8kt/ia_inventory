@@ -9,6 +9,8 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Company;
+use App\Role;
 
 class UserController extends Controller
 {
@@ -22,7 +24,7 @@ class UserController extends Controller
     }
 
     public function profile(){
-        return view('user-profile.profile');
+        return view('home.users.profile');
     }
 
     public function changePassword(Request $request)
@@ -45,27 +47,72 @@ class UserController extends Controller
         }
     }
 
+    public function view(){
+        $users = Company::find(Auth::user()->company_id)->users;
+        $roles = Role::all();
+        return view('home.users.users')
+            ->with([
+                'users' => $users, 
+                'roles' => $roles
+            ]);
+    }
+
     public function edit(Request $request){
-        $user = User::findOrFail(Auth::user()->id);
+        if($request->id){
+            $user = User::findOrFail($request->id);
+            $user->telephone_no = $request->input('phone_edit');
+        }else{
+            $user = User::findOrFail(Auth::user()->id);
+            $user->username = $request->input('username');
+            $user->telephone_no = $request->input('telephone_no');
+        }
         $user->first_name =  $request->input('first_name');
         $user->middle_name =  $request->input('middle_name');
         $user->last_name =  $request->input('last_name');
-        $user->telephone_no = $request->input('telephone_no');
-        $user->status = $request->input('status');
+        if($request->id){
+            $user->status = $request->input('status');
+            $user->roles()->detach();
+            $user_role = Role::where('id', $request->role)->first();
+            $user->roles()->attach($user_role);
+
+        }
         $user->update();
 
-        //store user image to laravel storage
-        $file = $request->file('image');        
-        $filename = Auth::user()->id . '-' . $request['first_name'] . '.jpg';
-
-        if($file){
-            Storage::disk('local')->put('users/'.$filename, File::get($file));
+        if(!$request->id){
+            //store user image to laravel storage
+            $file = $request->file('image');        
+            $filename = Auth::user()->id . '-' . $request['first_name'] . '.jpg';
+            
+            if($file){
+                Storage::disk('local')->put('users/'.$filename, File::get($file));
+            }
         }
         
         return redirect()->back()->with('success', 'Profile Updated!!');
     }
 
-    public function insert(Request $request){
-        dd($request);
+    public function create(Request $request){
+        $user = new User();
+        $user->company_id = Auth::user()->company_id;
+        $user->first_name = $request->first_name;
+        $user->middle_name = $request->middle_name;
+        $user->last_name = $request->last_name;
+        $user->telephone_no = $request->phone;
+        $user->username = $request->username;
+        $user->password = bcrypt('12345');
+        $user->status = $request->status;
+        $user->save();
+
+        $user_role = Role::where('id', $request->role)->first();
+        $user->roles()->attach($user_role);
+
+        return back()->with('success', 'New User Created!!');
+    }
+
+    public function delete(Request $request){
+        $user = User::findOrFail($request->input('id'));
+        $user->delete();
+
+        return redirect()->back()->with('success', 'User Deleted!');
     }
 }

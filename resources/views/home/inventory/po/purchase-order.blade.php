@@ -61,58 +61,63 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Product Code</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Cost Price</th>
-                    <th>Total Amount</th>
+                    <th style="border-right-width: 1px;border-right-style: solid;">Product Code</th>
+                    <th style="border-right-width: 1px;border-right-style: solid;">Product Name</th>
+                    <th style="border-right-width: 1px;border-right-style: solid;">Quantity</th>
+                    <th style="border-right-width: 1px;border-right-style: solid;">Cost Price</th>
+                    <th style="border-right-width: 1px;border-right-style: solid;">Total Amount</th>
                     <th>Option</th>
                 </tr>
             </thead>  
             <tbody>
-                <tr>
-                    <td>,ad</td>
-                    <td>sdfs</td>
-                    <td>sfrte</td>
-                    <td>ghjghj</td>
-                    <td>ertert</td>
-                    <td>
-                        <button type="button" class="btn btn-danger fa fa-times"></button>
-                    </td>
-                </tr>
-                <tr>
-                    <form action="" data-parsley-validate="true">
-                    <td>
-                        <select class="search-combo form-control" id="product_code" name="product_code"  data-parsley-required="true">
-                            <option value="" selected>Select Product Code</option>
-                            @foreach($products as $pro)
-                                <option value="{{ $pro->id }}">{{ $pro->code }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <select class="search-combo form-control" id="product_name" name="product_name"  data-parsley-required="true">
-                            <option value="" selected>Select Product Name</option>
-                            @foreach($products as $pro)
-                                <option value="{{ $pro->id }}">{{ $pro->name_eng }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" id="quantity" class="form-control" />
-                    </td>
-                    <td>
-                        <input type="text" id="cost_price" class="form-control" placeholder="0.00" readonly/>
-                    </td>
-                    <td>
-                        <input type="text" id="total_amount" class="form-control" readonly/>
-                    </td>
-                    <td>
-                        <button type="submit" class="btn btn-success">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                        </button>
-                    </td>
-                </tr>
+                @foreach ($tmppo as $t)
+                    <tr>
+                        <td style="border-right-width: 1px;border-right-style: solid;">{{ $t->product->code }}</td>
+                        <td style="border-right-width: 1px;border-right-style: solid;">{{ $t->product->name_eng }}</td>
+                        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;">{{ $t->quantity }} {{ $t->product->unit }}</td>
+                        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;">{{ $t->unit_price }}</td>
+                        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;">{{ $t->unit_price * $t->quantity }}</td>
+                        <td>
+                            <button type="button" class="btn btn-danger fa fa-times"></button>
+                        </td>
+                    </tr>
+                @endforeach
+                
+                <form action="{{ route('tmp-po') }}" id="tmp" method="POST" data-parsley-validate="true">
+                {{-- <form id="tmp" data-parsley-validate="true"> --}}
+                    <tr>
+                        @csrf
+                        <td>
+                            <select class="search-combo form-control" id="product_id" name="product_id"  data-parsley-required="true">
+                                <option value="" selected>Select Product Code</option>
+                                @foreach($products as $pro)
+                                    <option value="{{ $pro->id }}">{{ $pro->code }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select class="search-combo form-control" id="product_name" name="product_name"  data-parsley-required="true">
+                                <option value="" selected>Select Product Name</option>
+                                @foreach($products as $pro)
+                                    <option value="{{ $pro->id }}">{{ $pro->name_eng }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" id="quantity" name="quantity" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" id="unit_price" name="unit_price" class="form-control" placeholder="0.00" readonly/>
+                        </td>
+                        <td>
+                            <input type="text" id="total_amount" class="form-control" readonly/>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
                 </form>
             </tbody>
         </table>
@@ -135,7 +140,9 @@
             </div> --}}
         </div>
         <div class="invoice-price-right">
-            <small>TOTAL</small> <span class="f-w-600">LKR 4508.00</span>
+            <small>TOTAL</small> <span class="f-w-600">LKR 
+               {{-- {{ $total }} --}}
+            </span>
         </div>
     </div>
     <!-- end invoice-price -->
@@ -162,7 +169,6 @@
 <script src="{{ asset('plugins/DataTables/media/js/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/media/js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js') }}"></script>
-{{-- <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script> --}}
 <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
 <script src="{{ asset('js/customJS/po.js') }}"></script>
 
@@ -170,7 +176,6 @@
 <script>
     $(document).ready(function() {
         App.init();
-        $(".search-combo").select2();
     });
 </script>
 @endsection

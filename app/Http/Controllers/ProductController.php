@@ -38,10 +38,11 @@ class ProductController extends Controller
                         return new Response($reorder, 200);
                     }
                 }
-                $categories = DB::table('categories')->where('department_id', '=', $request->department_id)->get();
+                // $categories = DB::table('categories')->where('department_id', '=', $request->department_id)->get();
                 return view('shared.modal.ajax.categories')
                     ->with([
                         'categories' => $categories  
+                        // 'departments' => $departments  
                     ]);
             }
         }

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+// use Illuminate\Support\Facades\Auth;
+// use App\User;
+
 class User extends Model implements Authenticatable
 {
     use Notifiable;
@@ -38,6 +41,11 @@ class User extends Model implements Authenticatable
         return false;
     }
 
+    public function role($user_id){
+        $user_role = $this::find($user_id)->roles->first();
+        return $user_role->name;
+    }
+
     public function hasRole($role){
         if($this->roles()->where('name', $role)->first()){
             return true;
@@ -52,4 +60,6 @@ class User extends Model implements Authenticatable
     protected $hidden = [
         'company_id', 'password', 'remember_token',
     ];
+
+    protected $dates = ['deleted_at'];
 }

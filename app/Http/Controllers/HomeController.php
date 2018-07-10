@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Company;
 
 class HomeController extends Controller
 {
@@ -11,6 +13,10 @@ class HomeController extends Controller
     }
 
     public function view(){
-        return view('home.dashboard');
+        $product = Company::find(Auth::user()->company_id)->products->count();
+        return view('home.dashboard')
+            ->with([
+                'product_count' => $product
+            ]);
     }
 }

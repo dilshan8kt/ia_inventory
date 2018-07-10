@@ -37,7 +37,7 @@
             <thead>
                 <tr>
                     <th class="text-nowrap">Supplier Code</th>
-                    <th class="text-nowrap">Ref. Name</th>
+                    <th class="text-nowrap">Supplier Name</th>
                     <th class="text-nowrap">Company Name</th>
                     <th class="text-nowrap" width="15%">Status</th>
                     <th class="text-nowrap" width="15%">Option</th>

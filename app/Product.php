@@ -19,5 +19,10 @@ class Product extends Model
         return $this->hasOne(ReOrder::class);
     }
 
+    public function prices()
+    {
+        return $this->hasMany(ProductPrice::class);
+    }
+
     protected $dates = ['deleted_at'];
 }
