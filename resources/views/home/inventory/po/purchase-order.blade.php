@@ -5,10 +5,11 @@
 @endsection
 
 @section('css')
-<link href="{{ asset('plugins/parsley/src/parsley.css') }}" rel="stylesheet" />
-<link href="{{ asset('plugins/DataTables/media/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" />
-<link href="{{ asset('plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css') }}" rel="stylesheet" />
-<link href="{{ asset('plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('plugins/parsley/src/parsley.css') }}" rel="stylesheet" />
+    <link href="{{ asset('plugins/DataTables/media/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css') }}" rel="stylesheet" />
+    {{-- <link href="{{ asset('plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" /> --}}
+    <link href="{{ asset('plugins/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -25,102 +26,110 @@
 
 <!-- begin panel -->
 <div class="invoice">
+    <form action="{{ route('purchase-order') }}" method="POST" data-parsley-validate="true">
+        @csrf
+        <div class="invoice-company text-inverse f-w-600">
+            <span class="pull-left hidden-print" style="margin-top: -34px;">
+                <button type="submit" name="save" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-floppy-o  t-plus-1 text-info fa-fw fa-lg" aria-hidden="true"></i> Save</button>
+                <button type="submit" name="pdf" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-file-pdf-o t-plus-1 text-danger fa-fw fa-lg" aria-hidden="true"></i> Export as PDF</button>
+                <button type="submit" name="print" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 text-info fa-fw fa-lg" aria-hidden="true"></i> Print</button>
+                <button type="submit" name="cancel" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-ban t-plus-1 text-danger fa-fw fa-lg" aria-hidden="true"></i> Cancel</button>
+            </span>
+        </div>
+    
+        <!-- begin invoice-header -->
+        <div class="invoice-header" style="margin-top: 21px;margin-bottom: 4px;">
+            <div class="invoice-from">
+                <strong class="text-inverse">Supplier</strong><br>
+                <select class="selectpicker form-control col-sm-6" id="supplier_id" name="supplier_id" data-parsley-required="true">
+                    <option value="" selected>Select Supplier</option>
+                    @foreach($suppliers as $supplier)
+                        <option value="{{ $supplier->id }}">{{ $supplier->code }} - {{ $supplier->ref_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="invoice-date">
+                <div class="date text-inverse m-t-5">{{ \Carbon\Carbon::now()->toFormattedDateString() }}</div>
+            </div>
+        </div>
+    </form>
+    
     <!-- begin invoice-header -->
     <div class="invoice-header">
-        {{-- <div class="invoice-from">
-            <small>from</small>
-            <address class="m-t-5 m-b-5">
-                <strong class="text-inverse">Twitter, Inc.</strong><br />
-                Street Address<br />
-                City, Zip Code<br />
-                Phone: (123) 456-7890<br />
-                Fax: (123) 456-7890
-            </address>
-        </div> --}}
-        {{-- <div class="invoice-to">
-            <small>to</small>
-            <address class="m-t-5 m-b-5">
-                <strong class="text-inverse">Company Name</strong><br />
-                Street Address<br />
-                City, Zip Code<br />
-                Phone: (123) 456-7890<br />
-                Fax: (123) 456-7890
-            </address>
-        </div> --}}
-        {{-- <div class="invoice-date">
-            <small>Invoice / July period</small>
-            <div class="date text-inverse m-t-5">August 3,2012</div>
-            <div class="invoice-detail">
-                #0000123DSS<br />
-                Services Product
+        <form id="tmp" method="POST" data-parsley-validate="true">
+            @csrf
+            <div class="row">
+                <div id="p_code" class="form-group col-md-2 col-sm-12">
+                    <label class="col-form-label">P.Code</label>
+                    <select class="selectpicker form-control" data-live-search="true" id="product_id" name="product_id" data-parsley-required="true">
+                        <option value="" selected>Select Product Code</option>
+                        @foreach($products as $pro)
+                            <option value="{{ $pro->id }}">{{ $pro->code }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                
+                <div id="p_name" class="form-group col-md-3 col-sm-12">
+                    <label class="col-form-label">P.Name</label>
+                    <select class="form-control selectpicker" data-live-search="true" id="product_name" name="product_name" data-parsley-required="true">
+                        <option value="" selected>Select Product Name</option>
+                        @foreach($products as $pro)
+                            <option value="{{ $pro->id }}">{{ $pro->name_eng }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-2 col-sm-12">
+                    <label class="col-form-label">Qty</label>
+                    <input type="text" id="quantity" name="quantity" class="form-control" placeholder="0.00" data-parsley-required="true"/>
+                </div>
+                <div class="form-group col-md-2 col-sm-12">
+                    <label class="col-form-label">U.Price</label>
+                    <input type="text" id="unit_price" name="unit_price" class="form-control" placeholder="0.00" readonly/>
+                </div>
+                <div class="form-group col-md-2 col-sm-12">
+                    <label class="col-form-label">Total</label>
+                    <input type="text" id="total_amount" class="form-control" placeholder="0.00" readonly/>
+                </div>
+                <div class="form-group col-md-1 col-sm-12">
+                    <button type="submit" class="btn btn-success" style="margin-top: 32px;">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                </div>
+                @php
+                    $total = 0;
+                    
+                    foreach($tmppo as $t){
+                        $total += ($t->unit_price * $t->quantity);
+                    }
+                @endphp
+                <input type="hidden" id="h-total" value="{{ $total }}">
             </div>
-        </div> --}}
+        </form>
     </div>
     <!-- end invoice-header -->
+
     <div class="table-responsive">
         <table class="table">
             <thead>
-                <tr>
-                    <th style="border-right-width: 1px;border-right-style: solid;">Product Code</th>
-                    <th style="border-right-width: 1px;border-right-style: solid;">Product Name</th>
-                    <th style="border-right-width: 1px;border-right-style: solid;">Quantity</th>
-                    <th style="border-right-width: 1px;border-right-style: solid;">Cost Price</th>
-                    <th style="border-right-width: 1px;border-right-style: solid;">Total Amount</th>
-                    <th>Option</th>
+                <tr style="border-top-width: 1px;border-top-style: solid;">
+                    <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">Product Code</th>
+                    <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">Product Name</th>
+                    <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">Quantity</th>
+                    <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">Cost Price</th>
+                    <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">Total Amount</th>
+                    <th class="text-center">Option</th>
                 </tr>
             </thead>  
-            <tbody>
-                @foreach ($tmppo as $t)
-                    <tr>
-                        <td style="border-right-width: 1px;border-right-style: solid;">{{ $t->product->code }}</td>
-                        <td style="border-right-width: 1px;border-right-style: solid;">{{ $t->product->name_eng }}</td>
-                        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;">{{ $t->quantity }} {{ $t->product->unit }}</td>
-                        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;">{{ $t->unit_price }}</td>
-                        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;">{{ $t->unit_price * $t->quantity }}</td>
-                        <td>
-                            <button type="button" class="btn btn-danger fa fa-times"></button>
-                        </td>
-                    </tr>
-                @endforeach
-                
-                <form action="{{ route('tmp-po') }}" id="tmp" method="POST" data-parsley-validate="true">
-                {{-- <form id="tmp" data-parsley-validate="true"> --}}
-                    <tr>
-                        @csrf
-                        <td>
-                            <select class="search-combo form-control" id="product_id" name="product_id"  data-parsley-required="true">
-                                <option value="" selected>Select Product Code</option>
-                                @foreach($products as $pro)
-                                    <option value="{{ $pro->id }}">{{ $pro->code }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <select class="search-combo form-control" id="product_name" name="product_name"  data-parsley-required="true">
-                                <option value="" selected>Select Product Name</option>
-                                @foreach($products as $pro)
-                                    <option value="{{ $pro->id }}">{{ $pro->name_eng }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <input type="text" id="quantity" name="quantity" class="form-control" />
-                        </td>
-                        <td>
-                            <input type="text" id="unit_price" name="unit_price" class="form-control" placeholder="0.00" readonly/>
-                        </td>
-                        <td>
-                            <input type="text" id="total_amount" class="form-control" readonly/>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-success">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </form>
+            <tbody id="tbody">
+                @include('shared.modal.ajax.podetails')
             </tbody>
         </table>
+        <div class="loading">
+            <i class="fa fa-refresh fa-spin fa-2x fa-tw"></i>
+            <br>
+            <span>Loading</span>
+        </div>
     </div>
     <!-- begin invoice-price -->
     <div class="invoice-price">
@@ -140,27 +149,18 @@
             </div> --}}
         </div>
         <div class="invoice-price-right">
-            <small>TOTAL</small> <span class="f-w-600">LKR 
-               {{-- {{ $total }} --}}
+            <small>TOTAL</small> 
+            <span class="f-w-600" id="total">LKR 
+                {{-- {{ $total }} --}}
+               
+                {{ number_format($total,2) }}
             </span>
+            
         </div>
     </div>
     <!-- end invoice-price -->
-
-    <div class="row">
-        <div class="col-md-4">
-
-        </div>
-        <div class="col-md-8">
-            <button class="btn btn-info"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
-            <button class="btn btn-info"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export as PDF</button>
-            <button class="btn btn-info"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
-            <button class="btn btn-info"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
-        </div>
-    </div>
 </div>
 <!-- end panel -->
-
 @endsection
 
 @section('js')
@@ -169,7 +169,8 @@
 <script src="{{ asset('plugins/DataTables/media/js/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/media/js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
+{{-- <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script> --}}
+<script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('js/customJS/po.js') }}"></script>
 
 

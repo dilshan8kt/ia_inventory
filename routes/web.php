@@ -178,6 +178,12 @@ Route::get('purchase-order',[
     'roles' => ['Admin','User']
 ]);
 
+Route::post('purchase-order',[
+    'uses' => 'PurchaseOrderController@create',
+    'as' => 'purchase-order',
+    'roles' => ['Admin','User']
+]);
+
 Route::get('users',[
     'uses' => 'UserController@view',
     'as' => 'users',

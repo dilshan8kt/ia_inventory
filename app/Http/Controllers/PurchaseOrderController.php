@@ -9,6 +9,7 @@ use App\Company;
 use App\Product;
 use App\ProductPrice;
 use App\tmpPO;
+use Carbon;
 
 class PurchaseOrderController extends Controller
 {
@@ -18,8 +19,9 @@ class PurchaseOrderController extends Controller
     
     public function view(Request $request){
         $products = Company::find(Auth::user()->company_id)->products;
+        $suppliers = Company::find(Auth::user()->company_id)->suppliers;
         $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
-
+        // dd($suppliers);
         if($request->ajax()){
             if($request->product_id != null){
                 $product = Product::where('id', $request->product_id)->get();
@@ -38,12 +40,13 @@ class PurchaseOrderController extends Controller
         return view('home.inventory.po.purchase-order')
             ->with([
                 'products' => $products,
+                'suppliers' => $suppliers,
                 'tmppo' => $tmppo
             ]);
     }
 
     public function tmpInsert(Request $request){
-        // if($request->ajax()){
+        
             $tmp = tmpPO::where('product_id', $request->product_id)
                 ->where('user_id', Auth::user()->id)
                 ->get()->first();
@@ -69,14 +72,33 @@ class PurchaseOrderController extends Controller
             }
 
             // dd($total);
-            // return view('shared.modal.ajax.podetails')
-            //     ->with('tmppo', $tmppo);
-            // return new Response($tmppo, 200);
+
+            if($request->ajax()){
+                return view('shared.modal.ajax.podetails')
+                    ->with([
+                        'tmppo' => $tmppo,
+                        'total', $total
+                    ]);
+            }
+
             return redirect()->back()
                 ->with([
                     'tmppo' => $tmppo,
                     'total' => $total
                 ]);
-        // }
+        
+    }
+
+    public function create(Request $request){
+        if($request->has('save')){
+            dd('save');
+        }else if($request->has('pdf')){
+            dd('pdf');
+        }else if($request->has('print')){
+            dd('print');
+        }else if($request->has('cancel')){
+            dd('cancel');
+        }
+        dd($request);
     }
 }

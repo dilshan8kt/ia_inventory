@@ -4,40 +4,23 @@ $.ajaxSetup({
     }
 });
 
-$(".search-combo").select2();
+$('.loading').hide();
+
+$(".selectpicker").selectpicker("render");
+
+$(".bootstrap-select>button>span:last-child").removeClass("caret");
 
 $("#product_id").change(function() {
+    var x = $("#product_id>button:first-child>div:first-child").attr("title");
+    console.log(x);
     $.ajax({
         type: "GET",
         url: '',
         data: {"product_id": $(this).val()},
         success: function (data) {
-            console.log(data);
+            // console.log(data);
             $('select[name="product_name"]').val(data[0][0].id);
-            $("#select2-product_name-container").attr("title", data[0][0].name_eng);
-            $("#select2-product_name-container").text(data[0][0].name_eng);
-            if(data[1][0] != null){
-                $("#unit_price").val(data[1][0].cost_price);
-            }else{
-                $("#unit_price").val("0.00");
-            }
-        },
-        error: function(xhr, status, error){
-            alert(xhr.responseText);
-        }
-    });
-});
-
-$("#product_name").change(function() {
-    $.ajax({
-        type: "GET",
-        url: '',
-        data: {"product_id": $(this).val()},
-        success: function (data) {
-            console.log(data);
-            $("select[name='product_id']").val(data[0][0].id);
-            $("#select2-product_id-container").attr("title", data[0][0].code);
-            $("#select2-product_id-container").text(data[0][0].code);
+            $("#p_name .bootstrap-select>button>span:first-child").text(data[0][0].name_eng);
             if(data[1][0] != null){
                 $("#unit_price").val(data[1][0].cost_price);
             }else{
@@ -51,33 +34,76 @@ $("#product_name").change(function() {
     });
 });
 
-$("#quantity").change(function() {
+$("#product_name").change(function() {
+    $.ajax({
+        type: "GET",
+        url: '',
+        data: {"product_id": $(this).val()},
+        success: function (data) {
+            // console.log(data);
+            $('select[name="product_id"]').val(data[0][0].id);
+            $("#p_code .bootstrap-select>button>span:first-child").text(data[0][0].code);
+            $("#p_code .bootstrap-select>button").attr("title",data[0][0].code);
+            if(data[1][0] != null){
+                $("#unit_price").val(data[1][0].cost_price);
+            }else{
+                $("#unit_price").val("0.00");
+            }
+            $("#quantity").focus();
+        },
+        error: function(xhr, status, error){
+            alert(xhr.responseText);
+        }
+    });
+});
+
+$("#quantity").on('keyup',function() {
     var cost =$("#unit_price").val();
     $("#total_amount").val(cost * $(this).val());
 });
 
-// $("#tmp").submit(function(e) {
-//     e.preventDefault();
+$("#tmp").submit(function(e) {
+    e.preventDefault();
+    $('.loading').show();
 
-//     var product_id = $("#product_id").val();
-//     var qty = $("#quantity").val();
-//     var unit_price = $("#unit_price").val();
+    var product_id = $("#product_id").val();
+    var qty = $("#quantity").val();
+    var unit_price = $("#unit_price").val();
+    var h_total = $("#h-total").val();
+    var total = h_total+(qty*unit_price);
+    $("#h-total").val(total);
 
-//     // console.log(product_id);
-//     $.ajax({
-//         type: "POST",
-//         url: 'tmp-po',
-//         data: {
-//             "product_id": product_id,
-//             "quantity": qty,
-//             "unit_price": unit_price
-//         },
-//         success: function (data) {
-//             console.log(data);
-//             // $("tbody").html(data);
-//         },
-//         error: function(xhr, status, error){
-//             alert(xhr.responseText);
-//         }
-//     });
-// });
+    if(product_id != ""){
+        $.ajax({
+            type: "POST",
+            url: 'tmp-po',
+            data: {
+                "product_id": product_id,
+                "quantity": qty,
+                "unit_price": unit_price
+            },
+            success: function (data) {
+                // console.log(data);
+                $("#tbody").html(data);
+                $("#p_code .bootstrap-select>button>span:first-child").attr("title", "Select Product Code");
+                $("#p_code .bootstrap-select>button>span:first-child").text("Select Product Code");
+                $("#p_name .bootstrap-select>button>span:first-child").attr("title", "Select Product Name");
+                $("#p_name .bootstrap-select>button>span:first-child").text("Select Product Name");
+
+
+                $("#total").text("LKR "+ total);
+                $("#tmp")[0].reset();
+                $('.loading').hide();
+            },
+            error: function(xhr, status, error){
+                alert(xhr.responseText);
+                $('.loading').hide();
+            }
+        });
+        $('.loading').hide();
+    }
+});
+
+// setInterval(function(){
+//     $('#total').text('newtext');
+// }, 2000);
