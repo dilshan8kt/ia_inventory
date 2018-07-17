@@ -21,7 +21,7 @@ class CreatePurchaseOrdersTable extends Migration
             $table->string('code');
             $table->double('net_amount');
             $table->string('remarks');
-            $table->boolean('recived');
+            $table->boolean('recived')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -38,8 +38,8 @@ class ProductController extends Controller
                         return new Response($reorder, 200);
                     }
                 }
-                // $categories = DB::table('categories')->where('department_id', '=', $request->department_id)->get();
-                return view('shared.modal.ajax.categories')
+                $categories = DB::table('categories')->where('department_id', '=', $request->department_id)->get();
+                return view('shared.ajax.categories')
                     ->with([
                         'categories' => $categories  
                         // 'departments' => $departments  
@@ -194,7 +194,9 @@ class ProductController extends Controller
             }
         }else{
             $reorder = ReOrder::where('product_id', $request->product_id)->get()->first();
-            $reorder->delete();
+            if($reorder != null){
+                $reorder->delete();
+            }
         }
 
         return redirect()->back()->with('success', 'Product Details Updated!');

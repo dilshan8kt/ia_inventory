@@ -8,7 +8,6 @@
     <link href="{{ asset('plugins/parsley/src/parsley.css') }}" rel="stylesheet" />
     <link href="{{ asset('plugins/DataTables/media/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css') }}" rel="stylesheet" />
-    {{-- <link href="{{ asset('plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" /> --}}
     <link href="{{ asset('plugins/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet" />
 @endsection
 
@@ -41,7 +40,7 @@
         <div class="invoice-header" style="margin-top: 21px;margin-bottom: 4px;">
             <div class="invoice-from">
                 <strong class="text-inverse">Supplier</strong><br>
-                <select class="selectpicker form-control col-sm-6" id="supplier_id" name="supplier_id" data-parsley-required="true">
+                <select class="selectpicker form-control col-sm-6"  data-live-search="true" id="supplier_id" name="supplier_id" data-parsley-required="true">
                     <option value="" selected>Select Supplier</option>
                     @foreach($suppliers as $supplier)
                         <option value="{{ $supplier->id }}">{{ $supplier->code }} - {{ $supplier->ref_name }}</option>
@@ -101,6 +100,7 @@
                     
                     foreach($tmppo as $t){
                         $total += ($t->unit_price * $t->quantity);
+                        // dd($total);
                     }
                 @endphp
                 <input type="hidden" id="h-total" value="{{ $total }}">
@@ -109,12 +109,15 @@
     </div>
     <!-- end invoice-header -->
 
+   
+
     <div class="table-responsive">
-        <table class="table">
+        <table class="table border">
             <thead>
-                <tr style="border-top-width: 1px;border-top-style: solid;">
-                    <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">Product Code</th>
-                    <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">Product Name</th>
+                <tr>
+                    <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">#</th>
+                    <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">Code</th>
+                    <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">Name</th>
                     <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">Quantity</th>
                     <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">Cost Price</th>
                     <th class="text-center" style="border-right-width: 1px;border-right-style: solid;">Total Amount</th>
@@ -122,37 +125,17 @@
                 </tr>
             </thead>  
             <tbody id="tbody">
-                @include('shared.modal.ajax.podetails')
+                @include('shared.ajax.podetails')
             </tbody>
         </table>
-        <div class="loading">
-            <i class="fa fa-refresh fa-spin fa-2x fa-tw"></i>
-            <br>
-            <span>Loading</span>
-        </div>
     </div>
     <!-- begin invoice-price -->
     <div class="invoice-price">
         <div class="invoice-price-left">
-            {{-- <div class="invoice-price-row">
-                <div class="sub-price">
-                    <small>SUBTOTAL</small>
-                    <span class="text-inverse">$4,500.00</span>
-                </div>
-                <div class="sub-price">
-                    <i class="fa fa-plus text-muted"></i>
-                </div>
-                <div class="sub-price">
-                    <small>PAYPAL FEE (5.4%)</small>
-                    <span class="text-inverse">$108.00</span>
-                </div>
-            </div> --}}
         </div>
         <div class="invoice-price-right">
             <small>TOTAL</small> 
             <span class="f-w-600" id="total">LKR 
-                {{-- {{ $total }} --}}
-               
                 {{ number_format($total,2) }}
             </span>
             
@@ -169,7 +152,6 @@
 <script src="{{ asset('plugins/DataTables/media/js/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/media/js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js') }}"></script>
-{{-- <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script> --}}
 <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('js/customJS/po.js') }}"></script>
 

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Company;
 use App\Product;
 use App\ProductPrice;
+use App\PurchaseOrder;
+use App\PurchaseOrderItems;
 use App\tmpPO;
 use Carbon;
 
@@ -74,7 +76,7 @@ class PurchaseOrderController extends Controller
             // dd($total);
 
             if($request->ajax()){
-                return view('shared.modal.ajax.podetails')
+                return view('shared.ajax.podetails')
                     ->with([
                         'tmppo' => $tmppo,
                         'total', $total
@@ -90,8 +92,44 @@ class PurchaseOrderController extends Controller
     }
 
     public function create(Request $request){
+        $net_amount = 0;
+
         if($request->has('save')){
-            dd('save');
+            $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
+            
+            if($tmppo != null){
+                $purcahse_order = new PurchaseOrder();
+                $purcahse_order->company_id = Auth::user()->company_id;
+                $purcahse_order->supplier_id = $request->supplier_id;
+                $purcahse_order->location_id = 1;
+                $purcahse_order->code = 1;
+
+                foreach($tmppo as $tpo){
+                    $net_amount += ($tpo->unit_price * $tpo->quantity);
+                }
+                $purcahse_order->net_amount = $net_amount;
+                $purcahse_order->remarks = "hadsgja";
+                // dd($net_amount);
+                $purcahse_order->save();
+
+                foreach($tmppo as $tpo){
+                    $purchase_item = new PurchaseOrderItems();
+                    $purchase_item->purchase_order_id = 3;
+                    $purchase_item->product_id = $tpo->product_id;
+                    $purchase_item->quantity = $tpo->quantity;
+                    $purchase_item->unit_price = $tpo->unit_price;
+                    $purchase_item->save();
+                }
+
+                foreach($tmppo as $tmp){
+                    $del_tmp = tmpPO::where('id', $tmp->id)->get()->first();
+                    if($del_tmp != null){
+                        $del_tmp->delete();
+                    }
+                }
+
+                return redirect()->back()->with('success', 'Purchase Order Saved');
+            }
         }else if($request->has('pdf')){
             dd('pdf');
         }else if($request->has('print')){

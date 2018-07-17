@@ -4,7 +4,7 @@ $.ajaxSetup({
     }
 });
 
-$('.loading').hide();
+// $('.loading').hide();
 
 $(".selectpicker").selectpicker("render");
 
@@ -64,7 +64,6 @@ $("#quantity").on('keyup',function() {
 
 $("#tmp").submit(function(e) {
     e.preventDefault();
-    $('.loading').show();
 
     var product_id = $("#product_id").val();
     var qty = $("#quantity").val();
@@ -74,6 +73,7 @@ $("#tmp").submit(function(e) {
     $("#h-total").val(total);
 
     if(product_id != ""){
+        // $('.loading').show();
         $.ajax({
             type: "POST",
             url: 'tmp-po',
@@ -90,20 +90,12 @@ $("#tmp").submit(function(e) {
                 $("#p_name .bootstrap-select>button>span:first-child").attr("title", "Select Product Name");
                 $("#p_name .bootstrap-select>button>span:first-child").text("Select Product Name");
 
-
                 $("#total").text("LKR "+ total);
                 $("#tmp")[0].reset();
-                $('.loading').hide();
             },
             error: function(xhr, status, error){
                 alert(xhr.responseText);
-                $('.loading').hide();
             }
         });
-        $('.loading').hide();
     }
 });
-
-// setInterval(function(){
-//     $('#total').text('newtext');
-// }, 2000);

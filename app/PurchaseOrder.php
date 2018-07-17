@@ -10,4 +10,8 @@ class PurchaseOrder extends Model
     public function company(){
         return $this->belongsTo(Company::class);
     }
+
+    public function purchase_order_items(){
+        return $this->hasMany(PurchaseOrderItems::class);
+    }
 }
