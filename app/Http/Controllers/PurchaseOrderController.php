@@ -11,7 +11,7 @@ use App\ProductPrice;
 use App\PurchaseOrder;
 use App\PurchaseOrderItems;
 use App\tmpPO;
-use Carbon;
+use Carbon\Carbon;
 
 class PurchaseOrderController extends Controller
 {
@@ -94,27 +94,55 @@ class PurchaseOrderController extends Controller
     public function create(Request $request){
         $net_amount = 0;
 
-        if($request->has('save')){
-            $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
+        //po code begin
+        $carbon = Carbon::now();
+        $po = Company::find(Auth::user()->company_id)->purchaseorders->last();
+
+        $split_year = explode(0,$carbon->year, 2);
+        
+        if($po != null){
+            $split_code = explode("-",$po->code, 3);
+
+            if($split_code[1] == $split_year[1]){
+                $code = $split_code[2]+1;  
+            }else{
+                $code = "001";
+            }
             
-            if($tmppo != null){
+            if(strlen($code) === 1){
+                $code = '00'.$code;
+            }else if(strlen($code) === 2){
+                $code = '0'.$code;
+            }
+
+            $code ="PO-". $split_year[1] ."-". $code;
+        }else{
+            $code ="PO-". $split_year[1] ."-001";
+        }
+        //po code end
+
+        if($request->has('save')){
+            $item_count = tmpPO::where('user_id', Auth::user()->id)->get()->count();
+            if($item_count != null){
+                $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
                 $purcahse_order = new PurchaseOrder();
                 $purcahse_order->company_id = Auth::user()->company_id;
                 $purcahse_order->supplier_id = $request->supplier_id;
                 $purcahse_order->location_id = 1;
-                $purcahse_order->code = 1;
+                $purcahse_order->code = $code;
 
                 foreach($tmppo as $tpo){
                     $net_amount += ($tpo->unit_price * $tpo->quantity);
                 }
                 $purcahse_order->net_amount = $net_amount;
-                $purcahse_order->remarks = "hadsgja";
-                // dd($net_amount);
+                $purcahse_order->remarks = "a";
                 $purcahse_order->save();
+
+                $po_id = PurchaseOrder::where('code', $code)->first();
 
                 foreach($tmppo as $tpo){
                     $purchase_item = new PurchaseOrderItems();
-                    $purchase_item->purchase_order_id = 3;
+                    $purchase_item->purchase_order_id = $po_id->id;
                     $purchase_item->product_id = $tpo->product_id;
                     $purchase_item->quantity = $tpo->quantity;
                     $purchase_item->unit_price = $tpo->unit_price;
@@ -129,13 +157,25 @@ class PurchaseOrderController extends Controller
                 }
 
                 return redirect()->back()->with('success', 'Purchase Order Saved');
+            }else{
+                return redirect()->back()->with('error', 'Empty Item List');
             }
         }else if($request->has('pdf')){
             dd('pdf');
         }else if($request->has('print')){
             dd('print');
         }else if($request->has('cancel')){
-            dd('cancel');
+            // dd('cancel');
+            $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
+
+            foreach($tmppo as $tmp){
+                $del_tmp = tmpPO::where('id', $tmp->id)->get()->first();
+                if($del_tmp != null){
+                    $del_tmp->delete();
+                }
+            }
+
+            return redirect()->back();
         }
         dd($request);
     }

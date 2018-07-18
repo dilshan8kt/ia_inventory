@@ -4,8 +4,6 @@ $.ajaxSetup({
     }
 });
 
-// $('.loading').hide();
-
 $(".selectpicker").selectpicker("render");
 
 $(".bootstrap-select>button>span:last-child").removeClass("caret");
@@ -68,12 +66,13 @@ $("#tmp").submit(function(e) {
     var product_id = $("#product_id").val();
     var qty = $("#quantity").val();
     var unit_price = $("#unit_price").val();
-    var h_total = $("#h-total").val();
+    var h_total = parseFloat($("#h-total").val());
     var total = h_total+(qty*unit_price);
+    console.log(total.toFixed(2));
     $("#h-total").val(total);
+    // $('span.num').number( true, 2 );
 
     if(product_id != ""){
-        // $('.loading').show();
         $.ajax({
             type: "POST",
             url: 'tmp-po',
@@ -83,15 +82,15 @@ $("#tmp").submit(function(e) {
                 "unit_price": unit_price
             },
             success: function (data) {
-                // console.log(data);
                 $("#tbody").html(data);
                 $("#p_code .bootstrap-select>button>span:first-child").attr("title", "Select Product Code");
                 $("#p_code .bootstrap-select>button>span:first-child").text("Select Product Code");
                 $("#p_name .bootstrap-select>button>span:first-child").attr("title", "Select Product Name");
                 $("#p_name .bootstrap-select>button>span:first-child").text("Select Product Name");
 
-                $("#total").text("LKR "+ total);
+                $("#total").text("LKR "+ total.toFixed(2));
                 $("#tmp")[0].reset();
+                $("#product_id").focus();
             },
             error: function(xhr, status, error){
                 alert(xhr.responseText);
