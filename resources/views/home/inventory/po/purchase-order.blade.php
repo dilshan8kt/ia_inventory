@@ -20,7 +20,7 @@
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h1 class="page-header">New Purchase Order <small>header small text goes here...</small></h1>
+<h1 class="page-header">Purchase Order <small>header small text goes here...</small></h1>
 <!-- end page-header -->
 
 <!-- begin panel -->
@@ -32,7 +32,7 @@
                 <button type="submit" name="save" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-floppy-o  t-plus-1 text-info fa-fw fa-lg" aria-hidden="true"></i> Save</button>
                 <button type="submit" name="pdf" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-file-pdf-o t-plus-1 text-danger fa-fw fa-lg" aria-hidden="true"></i> Export as PDF</button>
                 <button type="submit" name="print" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 text-info fa-fw fa-lg" aria-hidden="true"></i> Print</button>
-                <button type="submit" name="cancel" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-ban t-plus-1 text-danger fa-fw fa-lg" aria-hidden="true"></i> Cancel</button>
+                <button type="submit" name="cancel" id="cancel" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-ban t-plus-1 text-danger fa-fw fa-lg" aria-hidden="true"></i> Cancel</button>
             </span>
         </div>
     
