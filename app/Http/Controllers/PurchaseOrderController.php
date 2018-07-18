@@ -179,4 +179,18 @@ class PurchaseOrderController extends Controller
         }
         dd($request);
     }
+
+    public function tmpRemove(Request $request){
+        if($request->ajax()){
+            $del_tmp = tmpPO::where('id', $request->id)->get()->first();
+            $del_tmp->delete();
+
+            $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
+
+            return view('shared.ajax.podetails')
+                    ->with([
+                        'tmppo' => $tmppo
+                    ]);
+        }
+    }
 }

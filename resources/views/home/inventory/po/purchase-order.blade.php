@@ -144,6 +144,9 @@
     <!-- end invoice-price -->
 </div>
 <!-- end panel -->
+
+@include('shared.modal.po.remove')
+
 @endsection
 
 @section('js')

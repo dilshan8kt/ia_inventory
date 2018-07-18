@@ -15,6 +15,8 @@
                 data-toggle="modal"
                 data-target="#remove"
                 data-id = "{{ $t->id }}"
+                data-qty = "{{ $t->quantity }}"
+                data-unitprice = "{{ $t->unit_price }}"
             ></button>
         </td>
     </tr>

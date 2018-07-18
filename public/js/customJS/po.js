@@ -68,9 +68,7 @@ $("#tmp").submit(function(e) {
     var unit_price = $("#unit_price").val();
     var h_total = parseFloat($("#h-total").val());
     var total = h_total+(qty*unit_price);
-    console.log(total.toFixed(2));
     $("#h-total").val(total);
-    // $('span.num').number( true, 2 );
 
     if(product_id != ""){
         $.ajax({
@@ -97,4 +95,45 @@ $("#tmp").submit(function(e) {
             }
         });
     }
+});
+
+$('#remove').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+
+    var id = button.data('id');
+    var qty = button.data('qty');
+    var unitprice = button.data('unitprice');
+    
+    var modal = $(this);
+    modal.find('#id').val(id);
+    modal.find('#qty').val(qty);
+    modal.find('#unitprice').val(unitprice);
+});
+
+$("#tmp_remove").submit(function(e){
+    e.preventDefault();
+
+
+    var id = $("#id").val();
+    var qty = $("#qty").val();
+    var unit_price = $("#unitprice").val();
+    var h_total = parseFloat($("#h-total").val());
+    var total = h_total-(qty*unit_price);
+    $("#h-total").val(total);
+
+    $.ajax({
+        type: "DELETE",
+        url: 'tmp-po',
+        data: {
+            "id": id
+        },
+        success: function (data) {
+            $('#remove').modal('toggle');
+            $("#tbody").html(data);
+            $("#total").text("LKR "+ total.toFixed(2));
+        },
+        error: function(xhr, status, error){
+            alert(xhr.responseText);
+        }
+    });
 });

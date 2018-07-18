@@ -206,3 +206,8 @@ Route::post('tmp-po', [
     'uses' => 'PurchaseOrderController@tmpInsert',
     'as' => 'tmp-po'
 ]);
+
+Route::delete('tmp-po', [
+    'uses' => 'PurchaseOrderController@tmpRemove',
+    'as' => 'tmp-po'
+]);
