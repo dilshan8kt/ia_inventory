@@ -22,12 +22,20 @@
         text-align: left;
     }
 
+    .text-center{
+        text-align: center;
+    }
+
     .m-t-0{
         margin-top: 0px;
     }
 
     .m-t-1{
         margin-top: 20px;
+    }
+    
+    .m-t-2{
+        margin-top: 35px;
     }
 
     .m-b-0{
@@ -36,19 +44,21 @@
 
     .row{
         display: flex;
-        margin: 0%;
     }
-    
-    hr{
-        margin-top: 0cm;
-        margin-bottom: 0cm;
+
+    .header{
+        color: brown;
+    }
+
+    .ab{
+        margin-top: -2cm;
     }
 </style>
 <body>
     <div class="container">
-        <div class="row m-b-0">
+        <div class="row ab">
             <div>
-                <h3 class="m-t-1 m-b-0">{{ $po->supplier->company_name }}</h3>
+                <h3 class="m-t-2 m-b-0">{{ $po->supplier->company_name }}</h3>
                 <h5 class="m-t-0 m-b-0">{{ $po->supplier->ref_name }}</h5>
 
                 @if($po->supplier->address != null)
@@ -58,7 +68,7 @@
                 <h5 class="m-t-0 m-b-0">{{ $po->supplier->email}}</h5>
             </div>
             <div>
-                <h1 class="text-right m-t-1 m-b-0">Purchase Order</h1>
+                <h1 class="text-right m-t-1 m-b-0 header">Purchase Order</h1>
                 <h3 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->company_name }}</h3>
                 <h4 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->address_line1 }}</h4>
                 <h4 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->address_line2 }}</h4>
@@ -66,44 +76,38 @@
                 <h4 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->telephone_no }}</h4>
             </div>
         </div>
-        <div class="row m-t-0">
-            <div>
-                <h4 class="text-left m-t-0 m-b-0">PO# : {{ $po->code }}</h4>
-            </div>
-            <div>
-                <h4 class="text-right m-t-0 m-b-0">Date : {{ $po->created_at }}</h4>
-            </div>
-        </div>
-        <hr>
         <div class="row">
-            <table style="width:100%">
-                <thead>
-                    <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">Code</th>
-                        <th class="text-left">Description</th>
-                        <th class="text-center">Quantity</th>
-                        <th class="text-right">Unit Price</th>
-                        <th class="text-right">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $no=0
-                    @endphp
-                    @foreach ($po->purchase_order_items as $p)
-                        <tr>
-                            <td class="text-center">{{ ++$no }}</td>
-                            <td class="text-center">{{ $p->getProduct($p->product_id)->code }}</td>
-                            <td class="text-left">{{ $p->getProduct($p->product_id)->name_eng }} - {{ $p->getProduct($p->product_id)->unit }}</td>
-                            <td class="text-center">{{ number_format($p->quantity,2) }}</td>
-                            <td class="text-right">{{ number_format($p->unit_price,2) }}</td>
-                            <td class="text-right">{{ number_format(($p->unit_price*$p->quantity),2) }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            <h4 class="text-left m-t-0 m-b-0">PO# : {{ $po->code }}</h4>
+            <h4 class="text-right m-t-0 m-b-0">Date : {{ $po->created_at }}</h4>
         </div>
+        <hr class="m-t-0 m-b-0">
+        <table style="width:100%;">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Code</th>
+                    <th class="text-center">Description</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-right">Unit Price</th>
+                    <th class="text-right">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php
+                    $no=0
+                @endphp
+                @foreach ($po->purchase_order_items as $p)
+                    <tr>
+                        <td class="text-center">{{ ++$no }}</td>
+                        <td class="text-center">{{ $p->getProduct($p->product_id)->code }}</td>
+                        <td class="text-left">{{ $p->getProduct($p->product_id)->name_eng }} - {{ $p->getProduct($p->product_id)->unit }}</td>
+                        <td class="text-center">{{ number_format($p->quantity,2) }}</td>
+                        <td class="text-right">{{ number_format($p->unit_price,2) }}</td>
+                        <td class="text-right">{{ number_format(($p->unit_price*$p->quantity),2) }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
