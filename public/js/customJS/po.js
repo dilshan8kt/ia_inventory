@@ -113,7 +113,6 @@ $('#remove').on('show.bs.modal', function (event) {
 $("#tmp_remove").submit(function(e){
     e.preventDefault();
 
-
     var id = $("#id").val();
     var qty = $("#qty").val();
     var unit_price = $("#unitprice").val();

@@ -12,6 +12,7 @@ use App\PurchaseOrder;
 use App\PurchaseOrderItems;
 use App\tmpPO;
 use Carbon\Carbon;
+use PDF;
 
 class PurchaseOrderController extends Controller
 {
@@ -78,15 +79,13 @@ class PurchaseOrderController extends Controller
             if($request->ajax()){
                 return view('shared.ajax.podetails')
                     ->with([
-                        'tmppo' => $tmppo,
-                        'total', $total
+                        'tmppo' => $tmppo
                     ]);
             }
 
             return redirect()->back()
                 ->with([
-                    'tmppo' => $tmppo,
-                    'total' => $total
+                    'tmppo' => $tmppo
                 ]);
         
     }
@@ -121,10 +120,10 @@ class PurchaseOrderController extends Controller
         }
         //po code end
 
-        if($request->has('save')){
-            $item_count = tmpPO::where('user_id', Auth::user()->id)->get()->count();
-            if($item_count != null){
-                $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
+        if($request->has('save') || $request->has('pdf') || $request->has('print')){
+            $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
+
+            if($tmppo->count() > 0){
                 $purcahse_order = new PurchaseOrder();
                 $purcahse_order->company_id = Auth::user()->company_id;
                 $purcahse_order->supplier_id = $request->supplier_id;
@@ -156,16 +155,25 @@ class PurchaseOrderController extends Controller
                     }
                 }
 
-                return redirect()->back()->with('success', 'Purchase Order Saved');
+                if($request->has('pdf')){
+                    $po = PurchaseOrder::where('code', $code)->get()->first();
+                    
+                    // dd($po);
+
+                    $data['po'] = $po;
+
+
+                    $pdf = PDF::loadView('reports.purchase_order',$data);
+                    return $pdf->stream();
+                }else if($request->has('save')){
+                    return redirect()->back()->with('success', 'Purchase Order Saved');
+                }else if($request->has('print')){
+                    dd('print');
+                }
             }else{
                 return redirect()->back()->with('error', 'Empty Item List');
             }
-        }else if($request->has('pdf')){
-            dd('pdf');
-        }else if($request->has('print')){
-            dd('print');
         }else if($request->has('cancel')){
-            // dd('cancel');
             $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
 
             foreach($tmppo as $tmp){
