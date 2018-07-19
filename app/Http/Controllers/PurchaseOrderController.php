@@ -137,7 +137,9 @@ class PurchaseOrderController extends Controller
                 $purcahse_order->remarks = "a";
                 $purcahse_order->save();
 
-                $po_id = PurchaseOrder::where('code', $code)->first();
+                $po_id = PurchaseOrder::where('company_id', Auth::user()->company_id)
+                        ->where('code', $code)
+                        ->first();
 
                 foreach($tmppo as $tpo){
                     $purchase_item = new PurchaseOrderItems();
@@ -156,12 +158,11 @@ class PurchaseOrderController extends Controller
                 }
 
                 if($request->has('pdf')){
-                    $po = PurchaseOrder::where('code', $code)->get()->first();
-                    
-                    // dd($po);
-
+                    $po = PurchaseOrder::where('company_id', Auth::user()->company_id)
+                            ->where('code', $code)
+                            ->get()
+                            ->first();
                     $data['po'] = $po;
-
 
                     $pdf = PDF::loadView('reports.purchase_order',$data);
                     return $pdf->stream();
