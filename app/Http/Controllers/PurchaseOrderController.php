@@ -97,13 +97,14 @@ class PurchaseOrderController extends Controller
         $carbon = Carbon::now();
         $po = Company::find(Auth::user()->company_id)->purchaseorders->last();
 
-        $split_year = explode(0,$carbon->year, 2);
+        // $split_year = explode(0,$carbon->year, 2);
+        $split_year = substr($carbon->year, 2);
         
         if($po != null){
             $split_code = explode("-",$po->code, 3);
 
-            if($split_code[1] == $split_year[1]){
-                $code = $split_code[2]+1;  
+            if($split_code[1] == $split_year){
+                $code = $split_code[2]+1;
             }else{
                 $code = "001";
             }
@@ -114,9 +115,9 @@ class PurchaseOrderController extends Controller
                 $code = '0'.$code;
             }
 
-            $code ="PO-". $split_year[1] ."-". $code;
+            $code ="PO-". $split_year ."-". $code;
         }else{
-            $code ="PO-". $split_year[1] ."-001";
+            $code ="PO-". $split_year ."-001";
         }
         //po code end
 

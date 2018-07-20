@@ -129,13 +129,14 @@
                             <td class="text-right">{{ number_format($p->unit_price,2) }}</td>
                             <td class="text-right">{{ number_format(($p->unit_price*$p->quantity),2) }}</td>
                         </tr>
-                    @else
-                        {{ $no = 0 }}
-                        break;
                     @endif
                 @endforeach
             </tbody>
         </table>
+
+        @php
+            $no = 0;
+        @endphp
 
         @if($po->purchase_order_items->count() > $page_break)
             <div class="page-break"></div>
