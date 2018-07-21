@@ -24,7 +24,7 @@
                     <div class="form-group row m-b-15">
                         <label class="col-md-4 col-sm-4 col-form-label" for="barcode">Barcode* :</label>
                         <div class="col-md-4 col-sm-4">
-                            <input class="form-control" value="{{ old('barcode_1') }}" type="text" id="barcode_1" name="barcode_1" placeholder="Barcode 1" data-parsley-required="true" />
+                            <input class="form-control" value="{{ old('barcode_1') }}" type="text" id="barcode_1" name="barcode_1" placeholder="Barcode 1" />
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <input class="form-control" value="{{ old('barcode_2') }}" type="text" id="barcode_2" name="barcode_2" placeholder="Barcode 2" />
