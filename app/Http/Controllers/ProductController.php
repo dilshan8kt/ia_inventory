@@ -60,59 +60,67 @@ class ProductController extends Controller
     public function insert(Request $request){
         if($request->barcode_1 != null || $request->barcode_2 != null){
             // barcode 1
-            $barcode =Product::withTrashed()
-                ->where([
-                    'company_id' => Auth::user()->company_id,
-                    'barcode_1' => $request->barcode_1
-                ])
-                ->get()
-                ->first();
-
-            if($barcode != null){
-                $err = 'Barcode '. $request->barcode_1 .' Already Used in Product '. $barcode->name_eng;
-                return redirect()->back()->with('error', $err);
+            if($request->barcode_1 != null){
+                $barcode =Product::withTrashed()
+                    ->where([
+                        'company_id' => Auth::user()->company_id,
+                        'barcode_1' => $request->barcode_1
+                    ])
+                    ->get()
+                    ->first();
+    
+                if($barcode != null){
+                    $err = 'Barcode '. $request->barcode_1 .' Already Used in Product error1 '. $barcode->name_eng;
+                    return redirect()->back()->with('error', $err);
+                }
             }
 
             // barcode 2
-            $barcode = Product::withTrashed()
-                ->where([
-                    'company_id' => Auth::user()->company_id,
-                    'barcode_2' => $request->barcode_2
-                ])
-                ->get()
-                ->first();
-
-            if($barcode != null){
-                $err = 'Barcode '. $request->barcode_2 .' Already Used in Product '. $barcode->name_eng;
-                return redirect()->back()->with('error', $err);
+            if($request->barcode_2 != null){
+                $barcode = Product::withTrashed()
+                    ->where([
+                        'company_id' => Auth::user()->company_id,
+                        'barcode_2' => $request->barcode_2
+                    ])
+                    ->get()
+                    ->first();
+                // dd($barcode);
+                if($barcode != null){
+                    $err = 'Barcode '. $request->barcode_2 .' Already Used in Product error2 '. $barcode->name_eng;
+                    return redirect()->back()->with('error', $err);
+                }
             }
             
             //barcode 2 in barcode 1
-            $barcode = Product::withTrashed()
-                ->where([
-                    'company_id' => Auth::user()->company_id,
-                    'barcode_1' => $request->barcode_2
-                ])
-                ->get()
-                ->first();
-
-            if($barcode != null){
-                $err = 'Barcode '. $request->barcode_2 .' Already Used in Product '. $barcode->name_eng;
-                return redirect()->back()->with('error', $err);
+            if($request->barcode_2 != null){
+                $barcode = Product::withTrashed()
+                    ->where([
+                        'company_id' => Auth::user()->company_id,
+                        'barcode_1' => $request->barcode_2
+                    ])
+                    ->get()
+                    ->first();
+    
+                if($barcode != null){
+                    $err = 'Barcode '. $request->barcode_2 .' Already Used in Product error3 '. $barcode->name_eng;
+                    return redirect()->back()->with('error', $err);
+                }
             }
             
             //barcode 1 in barcode 2
-            $barcode = Product::withTrashed()
-                ->where([
-                    'company_id' => Auth::user()->company_id,
-                    'barcode_2' => $request->barcode_1
-                ])
-                ->get()
-                ->first();
-
-            if($barcode != null){
-                $err = 'Barcode '. $request->barcode_1 .' Already Used in Product '. $barcode->name_eng;
-                return redirect()->back()->with('error', $err);
+            if($request->barcode_1 != null){
+                $barcode = Product::withTrashed()
+                    ->where([
+                        'company_id' => Auth::user()->company_id,
+                        'barcode_2' => $request->barcode_1
+                    ])
+                    ->get()
+                    ->first();
+    
+                if($barcode != null){
+                    $err = 'Barcode '. $request->barcode_1 .' Already Used in Product error4 '. $barcode->name_eng;
+                    return redirect()->back()->with('error', $err);
+                }
             }
         }
 
