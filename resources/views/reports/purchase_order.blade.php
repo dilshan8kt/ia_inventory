@@ -13,6 +13,11 @@
         margin-bottom: 0cm;
     }
 
+    .wrapper {
+        margin: 0 -20px 0;
+        padding: 0 15px;
+    }
+
     .text-right{
         text-align: right;
     }
@@ -45,12 +50,12 @@
         display: flex;
     }
 
-    .header{
-        color: brown;
+    .mt-2{
+        margin-top: -2cm;
     }
 
-    .ab{
-        margin-top: -2cm;
+    .header{
+        color: brown;
     }
 
     .page-break {
@@ -83,14 +88,14 @@
     @endphp
 
 
-    <div class="container">
-        <div class="row ab">
+    <div class="wrapper">
+        <div class="row mt-2">
             <div>
                 <h3 class="m-t-2 m-b-0">{{ $po->supplier->company_name }}</h3>
                 <h5 class="m-t-0 m-b-0">{{ $po->supplier->ref_name }}</h5>
                 <h5 class="m-t-0 m-b-0">{{ $po->supplier->address }}</h5>
                 <h5 class="m-t-0 m-b-0">{{ $po->supplier->phone1 }}</h5>
-                <h5 class="m-t-0 m-b-0">{{ $po->supplier->email}}</h5>
+                <h5 class="m-t-0 m-b-0">{{ $po->supplier->email }}</h5>
             </div>
             <div>
                 <h1 class="text-right m-t-1 m-b-0 header">Purchase Order</h1>
@@ -105,7 +110,6 @@
             <h4 class="text-left m-t-0 m-b-0">PO# : {{ $po->code }}</h4>
             <h4 class="text-right m-t-0 m-b-0">Date : {{ $po->created_at }}</h4>
         </div>
-        {{-- <hr class="m-t-0 m-b-0"> --}}
         <table style="width:100%;" border="1" class="table">
             <thead>
                 <tr class="b-1">
@@ -168,7 +172,7 @@
                 </tbody>
             </table>
         @endif
-        {{-- <hr> --}}
+        
         <div class="row footer">
             <table align="right" border="0" class="table">
                 <tbody>

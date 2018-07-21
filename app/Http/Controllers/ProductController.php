@@ -66,8 +66,28 @@ class ProductController extends Controller
             ->get()
             ->last();
 
+        $barcode =Product::withTrashed()
+            ->where([
+                'company_id' => Auth::user()->company_id,
+                'barcode_1' => $request->barcode_1
+            ])
+            ->orWhere([
+                'barcode_2' => $request->barcode_1
+            ])
+            ->orWhere([
+                'barcode_1' => $request->barcode_2
+            ])
+            ->orWhere([
+                'barcode_2' => $request->barcode_1
+            ])
+            ->get()
+            ->first();
 
-        // dd($pro);
+        if($barcode != null){
+            return redirect()->back()->with('error', 'Barcode Already Used!');
+        }
+        // dd($barcode);
+        
         $cat = Category::where('id', $request->category_id)->get()->first();
 
         //get category code

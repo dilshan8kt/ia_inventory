@@ -49,7 +49,9 @@
                 <tr class="odd gradeX">
                     <td>{{ $product->code }}</td>
                     <td>
-                        <h5><span class="label label-warning">{{ $product->barcode_1 }}</span></h5>
+                        @if($product->barcode_1 != null)
+                            <h5><span class="label label-warning">{{ $product->barcode_1 }}</span></h5>
+                        @endif
                         @if($product->barcode_2 != null)
                             <h5><span class="label label-warning">{{ $product->barcode_2 }}</span></h5>
                         @endif

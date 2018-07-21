@@ -20,8 +20,8 @@ class CreateProductsTable extends Migration
             $table->integer('category_id');
             $table->integer('supplier_id');
             $table->string('code');
-            $table->integer('barcode_1');
-            $table->integer('barcode_2')->nullable();
+            $table->string('barcode_1')->nullable();
+            $table->string('barcode_2')->nullable();
             $table->string('name_eng');
             $table->string('name_sin')->nullable();
             $table->string('unit');
