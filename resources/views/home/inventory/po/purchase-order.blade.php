@@ -30,8 +30,8 @@
         <div class="invoice-company text-inverse f-w-600">
             <span class="pull-left hidden-print" style="margin-top: -34px;">
                 <button type="submit" name="save" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-floppy-o  t-plus-1 text-info fa-fw fa-lg" aria-hidden="true"></i> Save</button>
-                <button type="submit" name="pdf" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-file-pdf-o t-plus-1 text-danger fa-fw fa-lg" aria-hidden="true"></i> Export as PDF</button>
-                <button type="submit" name="print" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 text-info fa-fw fa-lg" aria-hidden="true"></i> Print</button>
+                {{-- <button type="submit" name="pdf" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-file-pdf-o t-plus-1 text-danger fa-fw fa-lg" aria-hidden="true"></i> Export as PDF</button>
+                <button type="submit" name="print" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 text-info fa-fw fa-lg" aria-hidden="true"></i> Print</button> --}}
                 <button type="submit" name="cancel" id="cancel" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-ban t-plus-1 text-danger fa-fw fa-lg" aria-hidden="true"></i> Cancel</button>
             </span>
         </div>
@@ -146,6 +146,7 @@
 <!-- end panel -->
 
 @include('shared.modal.po.remove')
+@include('shared.modal.print-pdf')
 
 @endsection
 
@@ -158,10 +159,15 @@
 <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('js/customJS/po.js') }}"></script>
 
-
 <script>
     $(document).ready(function() {
         App.init();
+        @if(session()->has('print-pdf'))
+            $('#print_pdf').modal('show',function(event){
+                var id = 'bvnb';
+                console.log(id);
+            });
+        @endif	
     });
 </script>
 @endsection

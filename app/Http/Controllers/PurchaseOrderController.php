@@ -121,7 +121,7 @@ class PurchaseOrderController extends Controller
         }
         //po code end
 
-        if($request->has('save') || $request->has('pdf') || $request->has('print')){
+        if($request->has('save')){
             $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
 
             if($tmppo->count() > 0){
@@ -158,20 +158,15 @@ class PurchaseOrderController extends Controller
                     }
                 }
 
-                if($request->has('pdf')){
-                    $po = PurchaseOrder::where('company_id', Auth::user()->company_id)
-                            ->where('code', $code)
-                            ->get()
-                            ->first();
-                    $data['po'] = $po;
+                $po = PurchaseOrder::where('company_id', Auth::user()->company_id)
+                        ->where('code', $code)
+                        ->get()
+                        ->first();
 
-                    $pdf = PDF::loadView('reports.purchase_order',$data);
-                    return $pdf->stream();
-                }else if($request->has('save')){
-                    return redirect()->back()->with('success', 'Purchase Order Saved');
-                }else if($request->has('print')){
-                    dd('print');
-                }
+                return redirect()->back()->with([
+                    'success'=> 'Purchase Order Saved',
+                    'print-pdf' => $po->id
+                ]);
             }else{
                 return redirect()->back()->with('error', 'Empty Item List');
             }
@@ -186,7 +181,19 @@ class PurchaseOrderController extends Controller
             }
 
             return redirect()->back();
+        }else if($request->has('pdf')){
+            $po = PurchaseOrder::where('id', $request->id)
+                ->get()
+                ->first();
+
+            $data['po'] = $po;
+
+            $pdf = PDF::loadView('reports.rpt_purchase_order',$data);
+            return $pdf->stream();
+            // return $pdf->download($po->code.'.pdf');
         }
+
+
         dd($request);
     }
 
