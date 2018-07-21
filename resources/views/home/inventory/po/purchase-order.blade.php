@@ -80,7 +80,7 @@
                 </div>
                 <div class="form-group col-md-2 col-sm-12">
                     <label class="col-form-label">Qty</label>
-                    <input type="text" id="quantity" name="quantity" class="form-control" placeholder="0.00" data-parsley-required="true"/>
+                    <input type="text" id="quantity" name="quantity" class="form-control" placeholder="0.00" data-parsley-type="number" data-parsley-required="true"/>
                 </div>
                 <div class="form-group col-md-2 col-sm-12">
                     <label class="col-form-label">U.Price</label>
@@ -91,7 +91,7 @@
                     <input type="text" id="total_amount" class="form-control" placeholder="0.00" readonly/>
                 </div>
                 <div class="form-group col-md-1 col-sm-12">
-                    <button type="submit" class="btn btn-success" style="margin-top: 32px;">
+                    <button type="submit" class="btn btn-success" style="margin-top: 32px;" id="submit">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -163,9 +163,10 @@
     $(document).ready(function() {
         App.init();
         @if(session()->has('print-pdf'))
-            $('#print_pdf').modal('show',function(event){
-                var id = 'bvnb';
-                console.log(id);
+            $('#print_pdf').modal({
+                backdrop: 'static',
+                keyboard: false, 
+                show: true
             });
         @endif	
     });

@@ -5,7 +5,7 @@
                 <h4 class="modal-title">Purchase Order</h4>
             </div>
             <div class="modal-body">
-                <h5 class="text-danger">Export Report as PDF or Print Directly</h5>
+                <h5 class="text-info">Export Report as PDF or Print Directly</h5>
             </div>
             <form action="{{ route('purchase-order') }}" method="post">
                 @csrf

@@ -58,11 +58,19 @@ $("#product_name").change(function() {
 $("#quantity").on('keyup',function() {
     var cost =$("#unit_price").val();
     $("#total_amount").val(cost * $(this).val());
+
+    if($(this).val() != 0 && $(this).val() != null){
+        $("#submit").removeAttr("disabled"); 
+    }else{
+        $("#submit").attr("disabled","disabled");
+    }
 });
+
+$("#submit").attr("disabled","disabled");
 
 $("#tmp").submit(function(e) {
     e.preventDefault();
-
+    
     var product_id = $("#product_id").val();
     var qty = $("#quantity").val();
     var unit_price = $("#unit_price").val();
@@ -89,6 +97,7 @@ $("#tmp").submit(function(e) {
                 $("#total").text("LKR "+ total.toFixed(2));
                 $("#tmp")[0].reset();
                 $("#product_id").focus();
+                $("#submit").attr("disabled","disabled");
             },
             error: function(xhr, status, error){
                 alert(xhr.responseText);
