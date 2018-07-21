@@ -85,6 +85,7 @@
             $net_total = $net_total + ($p->unit_price*$p->quantity);
         }
 
+        $split_address = explode(',', $po->supplier->address, 4);
     @endphp
 
 
@@ -93,16 +94,22 @@
             <div>
                 <h3 class="m-t-2 m-b-0">{{ $po->supplier->company_name }}</h3>
                 <h5 class="m-t-0 m-b-0">{{ $po->supplier->ref_name }}</h5>
-                <h5 class="m-t-0 m-b-0">{{ $po->supplier->address }}</h5>
+                @for ($i = 0; $i < sizeof($split_address); $i++)
+                    @if($i == sizeof($split_address)-1)
+                        <h5 class="m-t-0 m-b-0">{{ $split_address[$i] }}</h5>
+                    @else
+                        <h5 class="m-t-0 m-b-0">{{ $split_address[$i] }},</h5>
+                    @endif
+                @endfor
                 <h5 class="m-t-0 m-b-0">{{ $po->supplier->phone1 }}</h5>
                 <h5 class="m-t-0 m-b-0">{{ $po->supplier->email }}</h5>
             </div>
             <div>
                 <h1 class="text-right m-t-1 m-b-0 header">Purchase Order</h1>
                 <h3 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->company_name }}</h3>
-                <h5 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->address_line1 }}</h5>
-                <h5 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->address_line2 }}</h5>
-                <h5 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->address_line3 }}</h5>
+                <h5 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->address_line1 }},</h5>
+                <h5 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->address_line2 }},</h5>
+                <h5 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->address_line3 }}.</h5>
                 <h5 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->telephone_no }}</h5>
             </div>
         </div>
