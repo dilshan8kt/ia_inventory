@@ -105,9 +105,6 @@ $('#delete').on('show.bs.modal', function (event) {
     modal.find('#id').val(id);
 });
 
-
-// var id;
-
 //edit item modal
 $('#edit').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
@@ -203,3 +200,37 @@ $('#re_order_edit').change(function(){
         $('#if-hide-edit').hide();
     }
 });
+
+$('#barcode_1_add').change(function(){
+    $('#barcode_1_add').removeClass('parsley-error');
+    $('#barcodeErr1').text('');
+    barcode($(this).val(), 1);
+});
+
+$('#barcode_2_add').change(function(){
+    $('#barcode_2_add').removeClass('parsley-error');
+    $('#barcodeErr2').text('');
+    barcode($(this).val(), 2);
+});
+
+function barcode($barcode,$bar){
+    $.ajax({
+        type: "GET",
+        url: '',
+        data: {"barcode": $barcode},
+        success: function (data) {
+            if(data.barcodeErr != null){
+                if($bar == 1){
+                    $('#barcode_1_add').addClass('parsley-error');
+                    $('#barcodeErr1').text(data.barcodeErr);
+                }else if($bar == 2){
+                    $('#barcode_2_add').addClass('parsley-error');
+                    $('#barcodeErr2').text(data.barcodeErr);
+                }
+            }
+        },
+        error: function(xhr, status, error){
+            alert(xhr.responseText);
+        }
+    });
+}

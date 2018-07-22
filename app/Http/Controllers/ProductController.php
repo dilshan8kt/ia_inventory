@@ -37,7 +37,29 @@ class ProductController extends Controller
                         //     ]);
                         return new Response($reorder, 200);
                     }
+                }else if($request->barcode != null){
+                    $barcode1 =Product::withTrashed()
+                        ->where([
+                            'company_id' => Auth::user()->company_id,
+                            'barcode_1' => $request->barcode
+                        ])
+                        ->get()
+                        ->first();
+                    
+                    $barcode2 =Product::withTrashed()
+                        ->where([
+                            'company_id' => Auth::user()->company_id,
+                            'barcode_2' => $request->barcode
+                        ])
+                        ->get()
+                        ->first();
+        
+                    if($barcode1 != null || $barcode2 != null){
+                        $err = 'Barcode Already Used';
+                        return new Response(['barcodeErr' => $err], 200);
+                    }
                 }
+
                 $categories = DB::table('categories')->where('department_id', '=', $request->department_id)->get();
                 return view('shared.ajax.categories')
                     ->with([
