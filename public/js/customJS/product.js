@@ -17,7 +17,7 @@ $('#re_order').change(function(){
 
 //add new button to datatable area
 $("#data-table-default_wrapper>div:first-child>div:first-child").addClass('addnew');
-$( ".addnew" ).append("<button name='add-new-item' data-backdrop='static' data-toggle='modal' data-target='#add' id='add-new-item' class='btn btn-primary'>Add New Item</button>");
+$( ".addnew" ).append("<div class='form-group'><button name='add-new-item' data-backdrop='static' data-toggle='modal' data-target='#add' id='add-new-item' class='form-control btn btn-primary'>Add New Item</button></div>");
 
 $('#category_id').prop('disabled', true);
 

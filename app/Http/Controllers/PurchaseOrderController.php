@@ -210,4 +210,24 @@ class PurchaseOrderController extends Controller
                     ]);
         }
     }
+
+    public function getPO(){
+        $po = Company::find(Auth::user()->company_id)->purchaseorders;
+
+        // dd($po);
+        return view('home.inventory.po.view-purchase-order')
+            ->with(['po' => $po]);
+    }
+
+    public function pdf($id){
+        $po = PurchaseOrder::where('id', $id)
+                ->get()
+                ->first();
+
+        $data['po'] = $po;
+
+        $pdf = PDF::loadView('reports.rpt_purchase_order',$data);
+        return $pdf->stream();
+        // return $pdf->download($po->code.'.pdf');
+    }
 }

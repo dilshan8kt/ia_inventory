@@ -13,7 +13,7 @@ $("#data-table-default").length && $("#data-table-default").DataTable({
 
 //add new button to datatable area
 $("#data-table-default_wrapper>div:first-child>div:first-child").addClass('addnew');
-$( ".addnew" ).append( "<button name='add-new-supplier' data-backdrop='static' data-toggle='modal' data-target='#addSupplier' id='add-new-supplier' class='btn btn-primary'>Add New Supplier</button>");
+$( ".addnew" ).append( "<div class='form-group'><button name='add-new-supplier' data-backdrop='static' data-toggle='modal' data-target='#addSupplier' id='add-new-supplier' class='form-control btn btn-primary'>Add New Supplier</button><div>");
 
 //edit sub location modal
 $('#edit').on('show.bs.modal', function (event) {

@@ -54,18 +54,19 @@
         {{-- end master details --}}
 
         {{-- begin inventory --}}
-        <li class="has-sub {{ Request::path() == 'purchase-order' ? 'active' : '' }}">
+        <li class="has-sub {{ Request::path() == 'purchase-order' ? 'active' : '' }}{{ Request::path() == 'purchase-orders' ? 'active' : '' }}{{ Request::path() == 'opening-stock' ? 'active' : '' }}">
             <a href="javascript:;">
                 <b class="caret"></b>
                 <i class="ion-ios-compose-outline bg-gradient-blue"></i>
                 <span>Inventory</span>
             </a>
             <ul class="sub-menu">
-                <li class="has-sub {{ Request::path() == 'purchase-order' ? 'active' : '' }}">
+                <li class="{{ Request::path() == 'opening-stock' ? 'active' : '' }}"><a href="{{ route('opening-stock') }}">Opening Stock <b>[OS]</b></a></li>                
+                <li class="has-sub {{ Request::path() == 'purchase-order' ? 'active' : '' }}{{ Request::path() == 'purchase-orders' ? 'active' : '' }}">
                     <a href="javascript:;"><b class="caret"></b>Purchase Order <b>[PO]</b></a>
                     <ul class="sub-menu">
                         <li class="{{ Request::path() == 'purchase-order' ? 'active' : '' }}"><a href="{{ route('purchase-order') }}">New PO</a></li>
-                        <li><a href="">View All PO</a></li>
+                        <li class="{{ Request::path() == 'purchase-orders' ? 'active' : '' }}"><a href="{{ route('purchase-orders') }}">View All PO</a></li>
                     </ul>
                 </li>
                 <li class="has-sub">
@@ -75,7 +76,7 @@
                         <li><a href="">View All GRN</a></li>
                     </ul>
                 </li>
-                <li class="{{ Request::path() == 'stock' ? 'active' : '' }}"><a href="{{ route('stock') }}">Stock Adjustment Note <b>[SAN]</b></a></li>
+                <li class="{{ Request::path() == 'stock-adjustment' ? 'active' : '' }}"><a href="{{ route('stock-adjustment') }}">Stock Adjustment Note <b>[SAN]</b></a></li>
             </ul>
         </li>
         {{-- end inventory --}}
@@ -88,7 +89,22 @@
                 <span>Reports</span>
             </a>
             <ul class="sub-menu">
-                <li><a href="">Supplier Report</a></li>
+                <li class="has-sub">
+                    <a href="javascript:;"><b class="caret"></b>Master Reports </a>
+                    <ul class="sub-menu">
+                        <li class="#"><a href="">Supplier List Report</a></li>
+                        <li class="#"><a href="">Department List Report</a></li>
+                        <li class="#"><a href="">Category List Report</a></li>
+                        <li class="has-sub">
+                            <a href="javascript:;"><b class="caret"></b>Product Reports </a>
+                            <ul class="sub-menu">
+                                <li class="#"><a href="">Department Wise Product Report</a></li>
+                                <li class="#"><a href="">Category Wise Product Report</a></li>
+                                <li class="#"><a href="">Supplier Wise Product Report</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </li>
         {{-- end reports --}}

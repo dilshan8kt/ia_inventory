@@ -166,15 +166,26 @@ Route::delete('product',[
     'roles' => ['Admin','User']
 ]);
 
-Route::get('stock',[
-    'uses' => 'StockController@view',
-    'as' => 'stock',
+Route::get('stock-adjustment',[
+    'uses' => 'StockAdjustmentController@view',
+    'as' => 'stock-adjustment',
     'roles' => ['Admin','User']
 ]);
 
 Route::get('purchase-order',[
     'uses' => 'PurchaseOrderController@view',
     'as' => 'purchase-order',
+    'roles' => ['Admin','User']
+]);
+
+Route::get('purchase-orders',[
+    'uses' => 'PurchaseOrderController@getPO',
+    'as' => 'purchase-orders',
+    'roles' => ['Admin','User']
+]);
+
+Route::get('purchase-order/pdf/{id}',[
+    'uses' => 'PurchaseOrderController@pdf',
     'roles' => ['Admin','User']
 ]);
 
@@ -210,4 +221,10 @@ Route::post('tmp-po', [
 Route::delete('tmp-po', [
     'uses' => 'PurchaseOrderController@tmpRemove',
     'as' => 'tmp-po'
+]);
+
+Route::get('opening-stock',[
+    'uses' => 'OpeningStockController@view',
+    'as' => 'opening-stock',
+    'roles' => ['Admin']
 ]);
