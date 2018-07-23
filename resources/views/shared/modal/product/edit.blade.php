@@ -21,13 +21,19 @@
                         </div>
                     </div>
 
-                    <div class="form-group row m-b-15">
+                    <div class="form-group row">
                         <label class="col-md-4 col-sm-4 col-form-label" for="barcode">Barcode* :</label>
                         <div class="col-md-4 col-sm-4">
-                            <input class="form-control" value="{{ old('barcode_1') }}" type="text" id="barcode_1" name="barcode_1" placeholder="Barcode 1" />
+                            <input class="form-control" value="{{ old('barcode_1') }}" type="text" id="barcode_1_edit" name="barcode_1" placeholder="Barcode 1" />
+                            <ul class="col-md-4 col-sm-4 parsley-errors-list filled" id="barcodeErr1_edit">
+                                <li class="parsley-required"></li>
+                            </ul>
                         </div>
                         <div class="col-md-4 col-sm-4">
-                            <input class="form-control" value="{{ old('barcode_2') }}" type="text" id="barcode_2" name="barcode_2" placeholder="Barcode 2" />
+                            <input class="form-control" value="{{ old('barcode_2') }}" type="text" id="barcode_2_edit" name="barcode_2" placeholder="Barcode 2" />
+                            <ul class="col-md-4 col-sm-4 parsley-errors-list filled" id="barcodeErr2_edit">
+                                <li class="parsley-required"></li>
+                            </ul>
                         </div>
                     </div>
 

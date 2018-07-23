@@ -213,6 +213,18 @@ $('#barcode_2_add').change(function(){
     barcode($(this).val(), 2);
 });
 
+$('#barcode_1_edit').change(function(){
+    $('#barcode_1_edit').removeClass('parsley-error');
+    $('#barcodeErr1_edit').text('');
+    barcode($(this).val(), 3);
+});
+
+$('#barcode_2_edit').change(function(){
+    $('#barcode_2_edit').removeClass('parsley-error');
+    $('#barcodeErr2_edit').text('');
+    barcode($(this).val(), 4);
+});
+
 function barcode($barcode,$bar){
     $.ajax({
         type: "GET",
@@ -226,6 +238,12 @@ function barcode($barcode,$bar){
                 }else if($bar == 2){
                     $('#barcode_2_add').addClass('parsley-error');
                     $('#barcodeErr2').text(data.barcodeErr);
+                }else if($bar == 3){
+                    $('#barcode_1_edit').addClass('parsley-error');
+                    $('#barcodeErr1_edit').text(data.barcodeErr);
+                }else if($bar == 4){
+                    $('#barcode_2_edit').addClass('parsley-error');
+                    $('#barcodeErr2_edit').text(data.barcodeErr);
                 }
             }
         },
