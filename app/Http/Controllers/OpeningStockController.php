@@ -90,10 +90,9 @@ class OpeningStockController extends Controller
     }
 
     public function create(Request $request){
+        $tmpos = tmpOS::where('user_id', Auth::user()->id)->get();
+        
         if($request->has('save')){
-
-            $tmpos = tmpOS::where('user_id', Auth::user()->id)->get();
-
             foreach($tmpos as $t){
                 $price = ProductPrice::where([
                         'product_id' => $t->product_id,

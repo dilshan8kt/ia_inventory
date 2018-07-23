@@ -87,3 +87,8 @@ $("#tmp_remove").submit(function(e){
         }
     });
 });
+
+$('#cancel').click(function(){
+    console.log("cancel");
+    $('#location_id').attr('data-parsley-required','false');
+});
