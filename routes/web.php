@@ -228,3 +228,19 @@ Route::get('opening-stock',[
     'as' => 'opening-stock',
     'roles' => ['Admin']
 ]);
+
+Route::post('opening-stock',[
+    'uses' => 'OpeningStockController@create',
+    'as' => 'opening-stock',
+    'roles' => ['Admin']
+]);
+
+Route::post('tmp-os', [
+    'uses' => 'OpeningStockController@tmpInsert',
+    'as' => 'tmp-os'
+]);
+
+Route::delete('tmp-os', [
+    'uses' => 'OpeningStockController@tmpRemove',
+    'as' => 'tmp-os'
+]);
