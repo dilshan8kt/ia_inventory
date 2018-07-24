@@ -92,95 +92,80 @@ class OpeningStockController extends Controller
     public function create(Request $request){
         $tmpos = tmpOS::where('user_id', Auth::user()->id)->get();
         
-        if($request->has('save')){
-            foreach($tmpos as $t){
-                $price = ProductPrice::where([
-                        'product_id' => $t->product_id,
-                        'cost_price' => $t->cost_price,
-                        'ws_price' => $t->ws_price,
-                        'sale_price' => $t->sales_price
-                    ])
-                    ->get()
-                    ->first();
+        if($tmpos->count() > 0){
 
-                if($price != null){
-                    $price->product_id = $t->product_id;
-                    $price->cost_price = $t->cost_price;
-                    $price->ws_price = $t->ws_price;
-                    $price->sale_price = $t->sales_price;
-                    $price->grn_date = Carbon::now();
-                    $price->update();
-                }else{
-                    $price = new ProductPrice();
-                    $price->product_id = $t->product_id;
-                    $price->cost_price = $t->cost_price;
-                    $price->ws_price = $t->ws_price;
-                    $price->sale_price = $t->sales_price;
-                    $price->grn_date = Carbon::now();
-                    $price->save();
-                }
-            }
-            // dd('save');
-            
-            foreach($tmpos as $t){
-                $price = ProductPrice::where([
-                        'product_id' => $t->product_id,
-                        'cost_price' => $t->cost_price,
-                        'ws_price' => $t->ws_price,
-                        'sale_price' => $t->sales_price
-                    ])
-                    ->get()
-                    ->first();
-                // dd($price->id);
-
-                $stock = Stock::where([
+            if($request->has('save')){
+                foreach($tmpos as $t){
+                    $price = ProductPrice::where([
+                            'product_id' => $t->product_id,
+                            'cost_price' => $t->cost_price,
+                            'ws_price' => $t->ws_price,
+                            'sale_price' => $t->sales_price
+                        ])
+                        ->get()
+                        ->first();
+    
+                    $price_id;
+                    
+                    if($price != null){
+                        $price_id = $price->id;
+                        $price->grn_date = Carbon::now();
+                        $price->update();
+                    }else{
+                        $price_id = ProductPrice::insertGetId([
+                            'product_id' => $t->product_id,
+                            'cost_price' => $t->cost_price,
+                            'ws_price' => $t->ws_price,
+                            'sale_price' => $t->sales_price,
+                            'grn_date' => Carbon::now(),
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now()
+                        ]);
+                    }
+    
+                    $stock = Stock::where([
                         'location_id' =>  $request->location_id,
                         'product_id' => $t->product_id,
-                        'price_id' =>  $price->id
+                        'price_id' =>  $price_id
                     ])
                     ->get()
                     ->first();
-
-
-                if($stock != null){
-                    $stock->monthly_open_qty = $t->qty;
-                    $stock->update();
-                }else{
-                    $stock = new Stock();
-                    $stock->location_id = $request->location_id;
-                    $stock->product_id = $t->product_id;
-                    $stock->price_id = $price->id;
-                    $stock->shelf_qty = $t->qty;
-                    $stock->monthly_open_qty = $t->qty;
-                    $stock->save();
+    
+    
+                    if($stock != null){
+                        $stock->shelf_qty = $stock->shelf_qty + $t->qty;
+                        $stock->monthly_open_qty = $stock->monthly_open_qty + $t->qty;
+                        $stock->update();
+                    }else{
+                        $stock = new Stock();
+                        $stock->location_id = $request->location_id;
+                        $stock->product_id = $t->product_id;
+                        $stock->price_id = $price_id;
+                        $stock->shelf_qty = $t->qty;
+                        $stock->monthly_open_qty = $t->qty;
+                        $stock->save();
+                    }
                 }
 
+                $del_tmp = tmpOS::where('user_id', Auth::user()->id)->delete();
+    
+                return redirect()->back()->with([
+                    'success'=> 'Opening Stock Added!'
+                ]);
+    
+            }else if($request->has('cancel')){
+                $del_tmp = tmpOS::where('user_id', Auth::user()->id)->delete();
+    
+                return redirect()->back();
             }
-
-            foreach($tmpos as $tmp){
-                $del_tmp = tmpOS::where('id', $tmp->id)->get()->first();
-                if($del_tmp != null){
-                    $del_tmp->delete();
-                }
-            }
-
+    
             return redirect()->back()->with([
-                'success'=> 'Opening Stock Added!'
+                'error'=> 'Oops something went wrong!!'
             ]);
-
-        }else if($request->has('cancel')){
-            foreach($tmpos as $tmp){
-                $del_tmp = tmpOS::where('id', $tmp->id)->get()->first();
-                if($del_tmp != null){
-                    $del_tmp->delete();
-                }
-            }
-
-            return redirect()->back();
+        }else{
+            return redirect()->back()->with([
+                'error'=> 'Empty Item List!!'
+            ]);
         }
-
-        return redirect()->back()->with([
-            'errors'=> 'Oops something went wrong!!'
-        ]);
     }
 }

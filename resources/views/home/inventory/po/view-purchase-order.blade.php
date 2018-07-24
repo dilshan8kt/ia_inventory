@@ -39,7 +39,7 @@
                     <th class="text-nowrap">Supplier</th>
                     <th class="text-nowrap">Date</th>
                     <th class="text-nowrap">Remarks</th>
-                    <th class="text-nowrap" width="15%">Option</th>
+                    <th class="text-nowrap" width="120px">Option</th>
                 </tr>
             </thead>
             <tbody>

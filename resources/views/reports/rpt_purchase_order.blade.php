@@ -29,7 +29,7 @@
     .m-t-1{
         margin-top: 20px;
     }
-    
+
     .m-t-2{
         margin-top: 35px;
     }
@@ -43,7 +43,7 @@
     }
 
     .mt-2{
-        margin-top: -2cm;
+        margin-top: -3cm;
     }
 
     .header{
@@ -70,7 +70,7 @@
 
 @php
     $no=0;
-    $page_break = 5;
+    $page_break = 20;
     $net_total=0;
 
     foreach ($po->purchase_order_items as $p) {
@@ -143,7 +143,7 @@
 
     @if($po->purchase_order_items->count() > $page_break)
         <div class="page-break"></div>
-        <table style="width:100%;" border="1" class="table">
+        <table style="width:100%; margin-top:1cm;" border="1" class="table">
             <thead>
                 <tr>
                     <th class="text-center">#</th>
@@ -171,7 +171,7 @@
             </tbody>
         </table>
     @endif
-    
+
     <div class="row footer">
         <table align="right" border="0" class="table">
             <tbody>

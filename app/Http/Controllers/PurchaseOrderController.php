@@ -97,7 +97,6 @@ class PurchaseOrderController extends Controller
         $carbon = Carbon::now();
         $po = Company::find(Auth::user()->company_id)->purchaseorders->last();
 
-        // $split_year = explode(0,$carbon->year, 2);
         $split_year = substr($carbon->year, 2);
         
         if($po != null){
@@ -120,65 +119,50 @@ class PurchaseOrderController extends Controller
             $code ="PO-". $split_year ."-001";
         }
         //po code end
-
+        
+        
         if($request->has('save')){
             $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
 
             if($tmppo->count() > 0){
-                $purcahse_order = new PurchaseOrder();
-                $purcahse_order->company_id = Auth::user()->company_id;
-                $purcahse_order->supplier_id = $request->supplier_id;
-                $purcahse_order->location_id = 1;
-                $purcahse_order->code = $code;
-
                 foreach($tmppo as $tpo){
                     $net_amount += ($tpo->unit_price * $tpo->quantity);
                 }
-                $purcahse_order->net_amount = $net_amount;
-                $purcahse_order->remarks = "a";
-                $purcahse_order->save();
 
-                $po_id = PurchaseOrder::where('company_id', Auth::user()->company_id)
-                        ->where('code', $code)
-                        ->first();
+                //insert po and get id
+                $po_id = PurchaseOrder::insertGetId([
+                    'company_id' => Auth::user()->company_id,
+                    'supplier_id' => $request->supplier_id,
+                    'location_id' => 1,
+                    'code' => $code,
+                    'net_amount' => $net_amount,
+                    'remarks' => 'a',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]);
 
+                //insert po item with po id
                 foreach($tmppo as $tpo){
-                    $purchase_item = new PurchaseOrderItems();
-                    $purchase_item->purchase_order_id = $po_id->id;
-                    $purchase_item->product_id = $tpo->product_id;
-                    $purchase_item->quantity = $tpo->quantity;
-                    $purchase_item->unit_price = $tpo->unit_price;
-                    $purchase_item->save();
+                    $po_item = new PurchaseOrderItems();
+                    $po_item->purchase_order_id = $po_id;
+                    $po_item->product_id = $tpo->product_id;
+                    $po_item->quantity = $tpo->quantity;
+                    $po_item->unit_price = $tpo->unit_price;
+                    $po_item->save();
                 }
 
-                foreach($tmppo as $tmp){
-                    $del_tmp = tmpPO::where('id', $tmp->id)->get()->first();
-                    if($del_tmp != null){
-                        $del_tmp->delete();
-                    }
-                }
-
-                $po = PurchaseOrder::where('company_id', Auth::user()->company_id)
-                        ->where('code', $code)
-                        ->get()
-                        ->first();
+                //empty item listSS
+                $tmppo_del = tmpPO::where('user_id', Auth::user()->id)->delete();
 
                 return redirect()->back()->with([
                     'success'=> 'Purchase Order Saved',
-                    'print-pdf' => $po->id
+                    'print-pdf' => $po_id
                 ]);
             }else{
                 return redirect()->back()->with('error', 'Empty Item List');
             }
         }else if($request->has('cancel')){
-            $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
-
-            foreach($tmppo as $tmp){
-                $del_tmp = tmpPO::where('id', $tmp->id)->get()->first();
-                if($del_tmp != null){
-                    $del_tmp->delete();
-                }
-            }
+            $tmppo_del = tmpPO::where('user_id', Auth::user()->id)->delete();
 
             return redirect()->back();
         }else if($request->has('pdf')){
@@ -189,12 +173,20 @@ class PurchaseOrderController extends Controller
             $data['po'] = $po;
 
             $pdf = PDF::loadView('reports.rpt_purchase_order',$data);
+
+            // $pdf->output();
+            // $dom_pdf = $pdf->getDomPDF();
+
+            // $canvas = $dom_pdf->get_canvas();
+            // $canvas->page_text(0,0,"Page{PAGE_NUM} of {PAGE_COUNT}",null,10,array(0,0,0));
+
             return $pdf->stream();
             // return $pdf->download($po->code.'.pdf');
         }
 
-
-        dd($request);
+        return redirect()->back()->with([
+            'error'=> 'Oops something went wrong!!'
+        ]);
     }
 
     public function tmpRemove(Request $request){
@@ -214,7 +206,6 @@ class PurchaseOrderController extends Controller
     public function getPO(){
         $po = Company::find(Auth::user()->company_id)->purchaseorders;
 
-        // dd($po);
         return view('home.inventory.po.view-purchase-order')
             ->with(['po' => $po]);
     }

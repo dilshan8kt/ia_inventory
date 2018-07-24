@@ -25,7 +25,6 @@
             <div class="profile-header-content">
                 <!-- BEGIN profile-header-img -->
                 <div class="profile-header-img">
-                    {{-- <img src="../assets/img/user/user-13.jpg" alt=""> --}}
                     <img src="{{ route('image', ['filename' => Auth::user()->id . '-' . Auth::user()->first_name . '.jpg']) }}" alt="" />
                 </div>
                 <!-- END profile-header-img -->
