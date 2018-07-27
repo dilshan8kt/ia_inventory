@@ -57,7 +57,7 @@
         <form id="tmp" method="POST" data-parsley-validate="true">
             @csrf
             <div class="row">
-                <div id="p_code" class="form-group col-md-2 col-sm-12">
+                <div id="p_code" class="form-group col-md-2 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <label class="col-form-label">P.Code</label>
                     <select class="selectpicker form-control" data-live-search="true" id="product_id" name="product_id" data-parsley-required="true">
                         <option value="" selected>Select Product Code</option>
@@ -67,7 +67,7 @@
                     </select>
                 </div>
                 
-                <div id="p_name" class="form-group col-md-3 col-sm-12">
+                <div id="p_name" class="form-group col-md-3 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <label class="col-form-label">P.Name</label>
                     <select class="form-control selectpicker" data-live-search="true" id="product_name" name="product_name" data-parsley-required="true">
                         <option value="" selected>Select Product Name</option>
@@ -76,20 +76,20 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-md-2 col-sm-12">
+                <div class="form-group col-md-2 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <label class="col-form-label">Qty</label>
                     <input type="text" id="quantity" name="quantity" class="form-control" placeholder="0.00" data-parsley-type="number" data-parsley-required="true"/>
                 </div>
-                <div class="form-group col-md-2 col-sm-12">
+                <div class="form-group col-md-2 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <label class="col-form-label">U.Price</label>
                     <input type="text" id="unit_price" name="unit_price" class="form-control" placeholder="0.00" readonly/>
                 </div>
-                <div class="form-group col-md-2 col-sm-12">
+                <div class="form-group col-md-2 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <label class="col-form-label">Total</label>
                     <input type="text" id="total_amount" class="form-control" placeholder="0.00" readonly/>
                 </div>
-                <div class="form-group col-md-1 col-sm-12">
-                    <button type="submit" class="btn btn-success" style="margin-top: 32px;" id="submit">
+                <div class="form-group col-md-1 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
+                    <button type="submit" class="form-control btn btn-success" style="margin-top: 32px;" id="submit">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
                 </div>

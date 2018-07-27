@@ -54,7 +54,7 @@
         {{-- end master details --}}
 
         {{-- begin inventory --}}
-        <li class="has-sub {{ Request::path() == 'purchase-order' ? 'active' : '' }}{{ Request::path() == 'purchase-orders' ? 'active' : '' }}{{ Request::path() == 'opening-stock' ? 'active' : '' }}">
+        <li class="has-sub {{ Request::path() == 'purchase-order' ? 'active' : '' || Request::path() == 'purchase-orders' ? 'active' : '' || Request::path() == 'opening-stock' ? 'active' : '' || Request::path() == 'stock-adjustment' ? 'active' : '' || Request::path() == 'goods-receive-note' ? 'active' : '' }}">
             <a href="javascript:;">
                 <b class="caret"></b>
                 <i class="ion-ios-compose-outline bg-gradient-blue"></i>
@@ -62,17 +62,17 @@
             </a>
             <ul class="sub-menu">
                 <li class="{{ Request::path() == 'opening-stock' ? 'active' : '' }}"><a href="{{ route('opening-stock') }}">Opening Stock <b>[OS]</b></a></li>                
-                <li class="has-sub {{ Request::path() == 'purchase-order' ? 'active' : '' }}{{ Request::path() == 'purchase-orders' ? 'active' : '' }}">
+                <li class="has-sub {{ Request::path() == 'purchase-order' ? 'active' : '' || Request::path() == 'purchase-orders' ? 'active' : '' }}">
                     <a href="javascript:;"><b class="caret"></b>Purchase Order <b>[PO]</b></a>
                     <ul class="sub-menu">
                         <li class="{{ Request::path() == 'purchase-order' ? 'active' : '' }}"><a href="{{ route('purchase-order') }}">New PO</a></li>
                         <li class="{{ Request::path() == 'purchase-orders' ? 'active' : '' }}"><a href="{{ route('purchase-orders') }}">View All PO</a></li>
                     </ul>
                 </li>
-                <li class="has-sub">
+                <li class="has-sub {{ Request::path() == 'goods-receive-note' ? 'active' : '' }}">
                     <a href="javascript:;"><b class="caret"></b>Goods Receive Note <b>[GRN]</b></a>
                     <ul class="sub-menu">
-                        <li><a href="">New GRN</a></li>
+                        <li class="{{ Request::path() == 'goods-receive-note' ? 'active' : '' }}"><a href="{{ route('goods-receive-note') }}">New GRN</a></li>
                         <li><a href="">View All GRN</a></li>
                     </ul>
                 </li>

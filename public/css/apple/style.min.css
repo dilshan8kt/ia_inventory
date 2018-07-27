@@ -10498,7 +10498,7 @@ a.inverse-mode.widget-card {
 
 .invoice-from,
 .invoice-to {
-    padding-right: 20px
+    padding-right: 20px;
 }
 
 .invoice-date .date,
@@ -16642,4 +16642,8 @@ a.text-white:hover {
 .rtl-mode .widget-todolist-item .widget-todolist-input+div {
     padding-left: 15px;
     padding-right: 0
+}
+
+.color{
+	background: red !important
 }

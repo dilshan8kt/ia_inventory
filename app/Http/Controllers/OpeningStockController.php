@@ -124,6 +124,7 @@ class OpeningStockController extends Controller
                     }
     
                     $stock = Stock::where([
+                        'company_id' =>  Auth::user()->company_id,
                         'location_id' =>  $request->location_id,
                         'product_id' => $t->product_id,
                         'price_id' =>  $price_id
@@ -138,6 +139,7 @@ class OpeningStockController extends Controller
                         $stock->update();
                     }else{
                         $stock = new Stock();
+                        $stock->company_id = Auth::user()->company_id;
                         $stock->location_id = $request->location_id;
                         $stock->product_id = $t->product_id;
                         $stock->price_id = $price_id;

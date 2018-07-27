@@ -43,7 +43,7 @@
     }
 
     .mt-2{
-        margin-top: -3cm;
+        margin-top: -2cm;
     }
 
     .header{

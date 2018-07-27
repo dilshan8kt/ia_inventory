@@ -67,14 +67,6 @@ class PurchaseOrderController extends Controller
             }
 
             $tmppo = tmpPO::where('user_id', Auth::user()->id)->get();
-            
-            $total = 0;
-
-            foreach($tmppo as $t){
-                $total += ($t->unit_price * $t->quantity);
-            }
-
-            // dd($total);
 
             if($request->ajax()){
                 return view('shared.ajax.podetails')

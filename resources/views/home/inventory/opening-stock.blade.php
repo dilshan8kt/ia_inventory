@@ -1,7 +1,7 @@
 @extends('shared.layout')
 
 @section('title')
-  Purchase Order
+  Opening Stock
 @endsection
 
 @section('css')
@@ -57,7 +57,7 @@
         <form id="tmp" method="POST" data-parsley-validate="true">
             @csrf
             <div class="row">
-                <div id="product" class="form-group col-md-3 col-sm-12">
+                <div id="product" class="form-group col-md-3 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <label class="col-form-label">P.Name</label>
                     <select class="form-control selectpicker" data-live-search="true" id="product_id" name="product_id" data-parsley-required="true">
                         <option value="" selected>Select Product Name</option>
@@ -66,23 +66,23 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-md-2 col-sm-12">
+                <div class="form-group col-md-2 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <label class="col-form-label">Qty</label>
                     <input type="text" id="quantity" name="quantity" class="form-control" placeholder="0.00" data-parsley-type="number" data-parsley-required="true"/>
                 </div>
-                <div class="form-group col-md-2 col-sm-12">
+                <div class="form-group col-md-2 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <label class="col-form-label">Cost Price</label>
                     <input type="text" id="cost_price" name="cost_price" class="form-control" placeholder="0.00" data-parsley-required="true"/>
                 </div>
-                <div class="form-group col-md-2 col-sm-12">
+                <div class="form-group col-md-2 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <label class="col-form-label">W/S Price</label>
                     <input type="text" id="ws_price" name="ws_price" class="form-control" placeholder="0.00"/>
                 </div>
-                <div class="form-group col-md-2 col-sm-12">
+                <div class="form-group col-md-2 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <label class="col-form-label">Sale Price</label>
                     <input type="text" id="sales_price" name="sales_price" class="form-control" placeholder="0.00" data-parsley-required="true"/>
                 </div>
-                <div class="form-group col-md-1 col-sm-12">
+                <div class="form-group col-md-1 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <button type="submit" class="form-control btn btn-success" style="margin-top: 32px;" id="submit">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
@@ -114,17 +114,17 @@
         </table>
     </div>
     <!-- begin invoice-price -->
-    <div class="invoice-price">
+    {{-- <div class="invoice-price">
         <div class="invoice-price-left">
         </div>
         <div class="invoice-price-right">
             <small>TOTAL</small> 
             <span class="f-w-600" id="total">LKR 
-                {{-- {{ number_format($total,2) }} --}}
+                {{ number_format($total,2) }}
             </span>
             
         </div>
-    </div>
+    </div> --}}
     <!-- end invoice-price -->
 </div>
 <!-- end panel -->

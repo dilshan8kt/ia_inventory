@@ -221,9 +221,9 @@ Route::post('tmp-po', [
 Route::delete('tmp-po', [
     'uses' => 'PurchaseOrderController@tmpRemove',
     'as' => 'tmp-po'
-]);
+    ]);
 
-Route::get('opening-stock',[
+    Route::get('opening-stock',[
     'uses' => 'OpeningStockController@view',
     'as' => 'opening-stock',
     'roles' => ['Admin']
@@ -243,4 +243,26 @@ Route::post('tmp-os', [
 Route::delete('tmp-os', [
     'uses' => 'OpeningStockController@tmpRemove',
     'as' => 'tmp-os'
+]);
+
+Route::get('goods-receive-note',[
+    'uses' => 'GoodsReceiveNoteController@view',
+    'as' => 'goods-receive-note',
+    'roles' => ['Admin']
+]);
+
+Route::post('tmp-grn', [
+    'uses' => 'GoodsReceiveNoteController@tmpInsert',
+    'as' => 'tmp-grn'
+]);
+
+Route::delete('tmp-grn', [
+    'uses' => 'GoodsReceiveNoteController@tmpRemove',
+    'as' => 'tmp-grn'
+]);
+
+Route::post('goods-receive-note',[
+    'uses' => 'GoodsReceiveNoteController@create',
+    'as' => 'goods-receive-note',
+    'roles' => ['Admin','User']
 ]);

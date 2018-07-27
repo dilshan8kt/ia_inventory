@@ -52,4 +52,8 @@ class Company extends Model
     public function purchaseorders(){
         return $this->hasMany(PurchaseOrder::class);
     }
+
+    public function goodsreceivenots(){
+        return $this->hasMany(GoodsReceiveNote::class);
+    }
 }

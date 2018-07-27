@@ -147,7 +147,6 @@ $("#tmp_remove").submit(function(e){
 });
 
 $('#cancel').click(function(){
-    console.log("cancel");
     $('#supplier_id').attr('data-parsley-required','false');
 });
 
