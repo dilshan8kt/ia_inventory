@@ -12,6 +12,7 @@ use App\GoodsReceiveNoteItem;
 use App\tmpGRN;
 use App\Stock;
 use Carbon\Carbon;
+use PDF;
 
 class GoodsReceiveNoteController extends Controller
 {
@@ -94,43 +95,43 @@ class GoodsReceiveNoteController extends Controller
         $net_amount = 0;
 
         //grn code begin
-        $carbon = Carbon::now();
-        $grn = Company::find(Auth::user()->company_id)->goodsreceivenots->last();
-
-        $split_year = substr($carbon->year, 2);
         
-        if($grn != null){
-            $split_code = explode("-",$grn->code, 3);
-
-            if($split_code[1] == $split_year){
-                $code = $split_code[2]+1;
-            }else{
-                $code = "001";
-            }
-            
-            if(strlen($code) === 1){
-                $code = '00'.$code;
-            }else if(strlen($code) === 2){
-                $code = '0'.$code;
-            }
-
-            $code ="GRN-". $split_year ."-". $code;
-        }else{
-            $code ="GRN-". $split_year ."-001";
-        }
-        //grn code end
-    
-
-
+        
         if($request->has('save')){
             $tmpgrn = tmpGRN::where('user_id', Auth::user()->id)->get();
 
             if($tmpgrn->count() > 0){
+                $carbon = Carbon::now();
+                $grn = Company::find(Auth::user()->company_id)->goodsreceivenots->last();
+        
+                $split_year = substr($carbon->year, 2);
+                
+                if($grn != null){
+                    $split_code = explode("-",$grn->code, 3);
+        
+                    if($split_code[1] == $split_year){
+                        $code = $split_code[2]+1;
+                    }else{
+                        $code = "001";
+                    }
+                    
+                    if(strlen($code) === 1){
+                        $code = '00'.$code;
+                    }else if(strlen($code) === 2){
+                        $code = '0'.$code;
+                    }
+        
+                    $code ="GRN-". $split_year ."-". $code;
+                }else{
+                    $code ="GRN-". $split_year ."-001";
+                }
+                //grn code end
+
                 foreach($tmpgrn as $tgrn){
                     $net_amount += (($tgrn->unit_price * $tgrn->qty) - $tgrn->dis_amt);
                 }
 
-                //insert po and get id
+                //insert grn and get id
                 $grn_id = GoodsReceiveNote::insertGetId([
                     'company_id' => Auth::user()->company_id,
                     'location_id' => $request->location_id,
@@ -149,7 +150,7 @@ class GoodsReceiveNoteController extends Controller
                 foreach($tmpgrn as $tgrn){
                     // dd($grn_id);
                     $grn_item = new GoodsReceiveNoteItem();
-                    $grn_item->grn_id = $grn_id;
+                    $grn_item->goods_receive_note_id = $grn_id;
                     $grn_item->product_id = $tgrn->product_id;
                     $grn_item->qty = $tgrn->qty;
                     $grn_item->free_qty = $tgrn->free_qty;
@@ -219,6 +220,30 @@ class GoodsReceiveNoteController extends Controller
             $tmpgrn_del = tmpGRN::where('user_id', Auth::user()->id)->delete();
 
             return redirect()->back();
+        }else if($request->has('pdf')){
+            $grn = GoodsReceiveNote::where('id', $request->id)
+                ->get()
+                ->first();
+            // dd($grn);
+            
+            $data['grn'] = $grn;
+
+            $pdf = PDF::loadView('reports.rpt_goods_receive_note',$data);
+
+            return $pdf->stream();
+            // return $pdf->download($po->code.'.pdf');
         }
+    }
+
+    public function pdf($id){
+        $grn = GoodsReceiveNote::where('id', $id)
+                ->get()
+                ->first();
+
+        $data['grn'] = $grn;
+
+        $pdf = PDF::loadView('reports.rpt_goods_receive_note',$data);
+        return $pdf->stream();
+        // return $pdf->download($po->code.'.pdf');
     }
 }

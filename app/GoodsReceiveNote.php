@@ -10,6 +10,10 @@ class GoodsReceiveNote extends Model
         return $this->belongsTo(Company::class);
     }
 
+    public function goods_receive_note_items(){
+        return $this->hasMany(GoodsReceiveNoteItem::class);
+    }
+
     public function sublocation(){
         return $this->belongsTo(SubLocation::class);
     }

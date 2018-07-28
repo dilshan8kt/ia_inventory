@@ -144,7 +144,7 @@
 <!-- end panel -->
 
 @include('shared.modal.po.remove')
-@include('shared.modal.print-pdf')
+@include('shared.modal.po.print-pdf')
 
 @endsection
 

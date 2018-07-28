@@ -15,7 +15,7 @@ class CreateGoodsReceiveNoteItemsTable extends Migration
     {
         Schema::create('goods_receive_note_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('grn_id');
+            $table->integer('goods_receive_note_id');
             $table->integer('product_id');
             $table->double('qty');
             $table->double('free_qty')->nullable();

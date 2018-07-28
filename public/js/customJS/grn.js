@@ -240,3 +240,7 @@ $('#cancel').click(function(){
     $('#grn_date').attr('data-parsley-required','false');
     $('#invoice_total').attr('data-parsley-required','false');
 });
+
+$("#pdf").click(function(e){
+    $('#pdf').hide();
+});

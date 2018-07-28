@@ -266,3 +266,8 @@ Route::post('goods-receive-note',[
     'as' => 'goods-receive-note',
     'roles' => ['Admin','User']
 ]);
+
+Route::get('goods-receive-note/pdf/{id}',[
+    'uses' => 'GoodsReceiveNoteController@pdf',
+    'roles' => ['Admin','User']
+]);

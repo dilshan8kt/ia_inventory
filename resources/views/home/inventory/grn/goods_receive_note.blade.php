@@ -203,6 +203,7 @@
 <!-- end panel -->
 
 @include('shared.modal.grn.remove')
+@include('shared.modal.grn.print-pdf')
 
 @endsection
 
@@ -217,6 +218,13 @@
 <script>
     $(document).ready(function() {
         App.init();
+        @if(session()->has('print-pdf'))
+            $('#print_pdf').modal({
+                backdrop: 'static',
+                keyboard: false, 
+                show: true
+            });
+        @endif	
     });
 </script>
 @endsection
