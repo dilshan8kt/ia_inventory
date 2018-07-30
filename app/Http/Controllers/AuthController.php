@@ -16,6 +16,11 @@ class AuthController extends Controller
         if(Auth::attempt($data)){
             $user = User::find(Auth::user()->id);
             $company = Company::find(Auth::user()->company_id);
+
+            if($company->id == 1){
+                return redirect()->route('site.dashboard')->with('loggedin','Welcome back');
+            }
+
             if($company->status == 1){
                 if($user->status){
                     return redirect()->route('dashboard')->with('loggedin','Welcome back');

@@ -139,8 +139,8 @@ $('#edit').on('show.bs.modal', function (event) {
 
     modal.find('#product_id').val(id);
     modal.find('#code').val(code);
-    modal.find('#barcode_1').val(barcode1);
-    modal.find('#barcode_2').val(barcode2);
+    modal.find('#barcode_1_edit').val(barcode1);
+    modal.find('#barcode_2_edit').val(barcode2);
     modal.find('#name_eng').val(nameeng);
     modal.find('#name_sin').val(namesin);
     modal.find('select[name="department_id_edit"]').val(depid);

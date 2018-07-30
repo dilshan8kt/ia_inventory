@@ -140,7 +140,7 @@
                 </div>
                 <div class="form-group col-md-1 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <label class="col-form-label">Qty</label>
-                    <input type="text" id="qty" name="qty" class="form-control" placeholder="0.00" data-parsley-type="number" data-parsley-required="true"/>
+                    <input type="text" id="qty" name="qty" class="form-control" placeholder="0.00" data-parsley-type="number" data-parsley-number="true" data-parsley-required="true"/>
                 </div>
                 <div class="form-group col-md-1 col-sm-12" style="padding-left: 3px;padding-right: 3px;">
                     <label class="col-form-label">F.Qty</label>

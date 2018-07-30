@@ -37,9 +37,9 @@
                 <span>Master Details</span> 
             </a>
             <ul class="sub-menu">
-                @if(Auth::user()->hasRole('Admin'))
+                {{-- @if(Auth::user()->hasRole('Admin')) --}}
                     <li class="{{ Request::path() == 'sublocation' ? 'active' : '' }}"><a href="{{ route('sublocation') }}">Sub Locations</a></li>
-                @endif
+                {{-- @endif --}}
                 <li class="{{ Request::path() == 'supplier' ? 'active' : '' }}"><a href="{{ route('supplier') }}">Suppliers</a></li>
                 <li class="has-sub {{ Request::path() == 'department' ? 'active' : '' || Request::path() == 'category' ? 'active' : '' || Request::path() == 'product' ? 'active' : '' }}">
                     <a href="javascript:;"><b class="caret"></b> Products Details</a>

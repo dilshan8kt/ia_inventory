@@ -12,24 +12,14 @@ class CompanyTableSeeder extends Seeder
      */
     public function run()
     {
-        $company1 = new Company();
-        $company1->company_name = 'Intell Access';
-        $company1->address_line1 = '107 China Friendship village';
-        $company1->address_line2 = 'Kurunduwatta';
-        $company1->address_line3 = 'Akmeemana';
-        $company1->telephone_no = '0913122504';
-        $company1->email = 'intelaccess@gmail.com';
-        $company1->status = 1;
-        $company1->save();
-
-        $company2 = new Company();
-        $company2->company_name = 'ColorAdmin';
-        $company2->address_line1 = '556 Matara road';
-        $company2->address_line2 = 'Dewata';
-        $company2->address_line3 = 'Galle';
-        $company2->telephone_no = '0912224633';
-        $company2->email = 'coloradmin@gmail.com';
-        $company2->status = 1;
-        $company2->save();
+        $site_company = new Company();
+        $site_company->company_name = 'Intell Access';
+        $site_company->address_line1 = 'No.107 China Friendship village';
+        $site_company->address_line2 = 'Kurunduwatta';
+        $site_company->address_line3 = 'Akmeemana';
+        $site_company->telephone_no = '0913122504';
+        $site_company->email = 'intelaccess@gmail.com';
+        $site_company->status = 1;
+        $site_company->save();
     }
 }

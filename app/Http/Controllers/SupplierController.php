@@ -15,7 +15,7 @@ class SupplierController extends Controller
     }
 
     public function view(){
-        $suppliers = Company::find(Auth::user()->id)->suppliers;
+        $suppliers = Company::find(Auth::user()->company_id)->suppliers;
         return view('home.master.supplier')->with('suppliers', $suppliers);
     }
 

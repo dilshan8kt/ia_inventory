@@ -48,8 +48,11 @@ class UserController extends Controller
     }
 
     public function view(){
-        $users = Company::find(Auth::user()->company_id)->users;
-        $roles = Role::all();
+        // $users = Company::find(Auth::user()->company_id)->users;
+        $users = User::where('company_id', Auth::user()->company_id)
+            ->where('id', '<>', Auth::user()->id)
+            ->get();
+        $roles = Role::where('id', '<>', 1)->get();
         return view('home.users.users')
             ->with([
                 'users' => $users, 

@@ -6,20 +6,20 @@ Route::view('/login', 'auth.login')->name('login');
 Route::get('dashboard', [
     'uses' => 'HomeController@view',
     'as' => 'dashboard',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 //profile
 Route::get('profile', [
     'uses' => 'UserController@profile',
     'as' => 'profile',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::put('profile', [
     'uses' => 'UserController@edit',
     'as' => 'profile',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 //end profile
 
@@ -27,7 +27,7 @@ Route::put('profile', [
 Route::post('changepassword',[
     'uses' => 'UserController@changePassword',
     'as' => 'changepassword',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::post('signin',[
@@ -42,175 +42,174 @@ Route::get('signout',[
 
 Route::get('userimage/{filename}',[
     'uses' => 'UserController@getUserImage',
-    'as' => 'image',
-    'roles' => ['Admin','User']
+    'as' => 'image'
 ]);
 
 Route::get('sublocation',[
     'uses' => 'SubLocationController@view',
     'as' => 'sublocation',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::post('sublocation',[
     'uses' => 'SubLocationController@insert',
     'as' => 'sublocation',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::put('sublocation',[
     'uses' => 'SubLocationController@update',
     'as' => 'sublocation',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::delete('sublocation',[
     'uses' => 'SubLocationController@delete',
     'as' => 'sublocation',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::get('supplier',[
     'uses' => 'SupplierController@view',
     'as' => 'supplier',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::post('supplier',[
     'uses' => 'SupplierController@insert',
     'as' => 'supplier',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::delete('supplier',[
     'uses' => 'SupplierController@delete',
     'as' => 'supplier',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::put('supplier',[
     'uses' => 'SupplierController@edit',
     'as' => 'supplier',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::get('department',[
     'uses' => 'DepartmentController@view',
     'as' => 'department',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::delete('department',[
     'uses' => 'DepartmentController@delete',
     'as' => 'department',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::put('department',[
     'uses' => 'DepartmentController@edit',
     'as' => 'department',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::post('department',[
     'uses' => 'DepartmentController@insert',
     'as' => 'department',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::get('category',[
     'uses' => 'CategoryController@view',
     'as' => 'category',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::post('category',[
     'uses' => 'CategoryController@insert',
     'as' => 'category',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::delete('category',[
     'uses' => 'CategoryController@delete',
     'as' => 'category',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::put('category',[
     'uses' => 'CategoryController@edit',
     'as' => 'category',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::get('product',[
     'uses' => 'ProductController@view',
     'as' => 'product',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::post('product',[
     'uses' => 'ProductController@insert',
     'as' => 'product',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::put('product',[
     'uses' => 'ProductController@edit',
     'as' => 'product',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::delete('product',[
     'uses' => 'ProductController@delete',
     'as' => 'product',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::get('stock-adjustment',[
     'uses' => 'StockAdjustmentController@view',
     'as' => 'stock-adjustment',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::get('purchase-order',[
     'uses' => 'PurchaseOrderController@view',
     'as' => 'purchase-order',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::get('purchase-orders',[
     'uses' => 'PurchaseOrderController@getPO',
     'as' => 'purchase-orders',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::get('purchase-order/pdf/{id}',[
     'uses' => 'PurchaseOrderController@pdf',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::post('purchase-order',[
     'uses' => 'PurchaseOrderController@create',
     'as' => 'purchase-order',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::get('users',[
     'uses' => 'UserController@view',
     'as' => 'users',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::post('user',[
     'uses' => 'UserController@create',
     'as' => 'user',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::delete('user',[
     'uses' => 'UserController@delete',
     'as' => 'user',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::post('tmp-po', [
@@ -226,13 +225,13 @@ Route::delete('tmp-po', [
     Route::get('opening-stock',[
     'uses' => 'OpeningStockController@view',
     'as' => 'opening-stock',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::post('opening-stock',[
     'uses' => 'OpeningStockController@create',
     'as' => 'opening-stock',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::post('tmp-os', [
@@ -248,7 +247,7 @@ Route::delete('tmp-os', [
 Route::get('goods-receive-note',[
     'uses' => 'GoodsReceiveNoteController@view',
     'as' => 'goods-receive-note',
-    'roles' => ['Admin']
+    'roles' => ['Super Admin','Admin']
 ]);
 
 Route::post('tmp-grn', [
@@ -264,10 +263,27 @@ Route::delete('tmp-grn', [
 Route::post('goods-receive-note',[
     'uses' => 'GoodsReceiveNoteController@create',
     'as' => 'goods-receive-note',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::get('goods-receive-note/pdf/{id}',[
     'uses' => 'GoodsReceiveNoteController@pdf',
-    'roles' => ['Admin','User']
+    'roles' => ['Super Admin','Admin','User']
 ]);
+
+// Route::prefix('site')->group(function(){
+    Route::get('site.dashboard', [
+        'uses' => 'site\HomeController@view',
+        'as' => 'site.dashboard'
+    ]);
+    
+    Route::get('site.clients', [
+        'uses' => 'site\ClientController@view',
+        'as' => 'site.clients'
+    ]);
+    
+    Route::post('site.client', [
+        'uses' => 'site\ClientController@create',
+        'as' => 'site.client'
+    ]);
+// });

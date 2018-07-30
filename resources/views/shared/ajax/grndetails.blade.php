@@ -23,3 +23,15 @@
         </td>
     </tr>
 @endforeach
+    <tr>
+        <td class="text-center" style="border-right-width: 1px;border-right-style: solid;border-bottom-width: 1px;border-bottom-style: solid;">*</td>
+        <td style="border-right-width: 1px;border-right-style: solid;border-bottom-width: 1px;border-bottom-style: solid;"></td>
+        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;border-bottom-width: 1px;border-bottom-style: solid;"></td>
+        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;border-bottom-width: 1px;border-bottom-style: solid;"></td>
+        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;border-bottom-width: 1px;border-bottom-style: solid;"></td>
+        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;border-bottom-width: 1px;border-bottom-style: solid;"></td>
+        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;border-bottom-width: 1px;border-bottom-style: solid;"></td>
+        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;border-bottom-width: 1px;border-bottom-style: solid;"></td>
+        <td class="text-right" style="border-right-width: 1px;border-right-style: solid;border-bottom-width: 1px;border-bottom-style: solid;"></td>
+        <td class="text-center" style="border-bottom-width: 1px;border-bottom-style: solid;"></td>
+    </tr>

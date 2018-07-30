@@ -56,4 +56,8 @@ class Company extends Model
     public function goodsreceivenots(){
         return $this->hasMany(GoodsReceiveNote::class);
     }
+
+    public function package(){
+        return $this->hasOne(Package::class);
+    }
 }

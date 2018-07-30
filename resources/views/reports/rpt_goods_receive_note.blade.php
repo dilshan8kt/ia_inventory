@@ -100,7 +100,7 @@
             <h5 class="m-t-0 m-b-0">{{ $grn->supplier->email }}</h5>
         </div>
         <div>
-            <h1 class="text-right m-t-1 m-b-0 header">Goods Receive Note</h1>
+            <h1 class="text-right m-t-1 m-b-0 header">Goods Received Note</h1>
             <h3 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->company_name }}</h3>
             <h5 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->address_line1 }},</h5>
             <h5 class="text-right m-t-0 m-b-0">{{ Auth::user()->company->address_line2 }},</h5>
