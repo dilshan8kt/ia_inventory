@@ -113,6 +113,7 @@ class OpeningStockController extends Controller
                         $price->update();
                     }else{
                         $price_id = ProductPrice::insertGetId([
+                            'company_id' => Auth::user()->company_id,
                             'product_id' => $t->product_id,
                             'cost_price' => $t->cost_price,
                             'ws_price' => $t->ws_price,

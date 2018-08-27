@@ -22,8 +22,6 @@ class apiAuthController extends Controller
                 'error' => 'Could not create token!'
             ], 500);
         }
-        return response()->json([
-            'token' => $token
-        ], 200);
+        return response()->json(['token' => $token], 200);
     }
 }

@@ -15,6 +15,7 @@ class CreateProductPricesTable extends Migration
     {
         Schema::create('product_prices', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('company_id');
             $table->integer('product_id');
             $table->double('cost_price');
             $table->double('ws_price')->default(0.0);

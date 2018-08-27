@@ -47,6 +47,10 @@ class Company extends Model
     public function products(){
         return $this->hasMany(Product::class);
     }
+    
+    public function prices(){
+        return $this->hasMany(ProductPrice::class);
+    }
 
     //one company has many purchase order
     public function purchaseorders(){

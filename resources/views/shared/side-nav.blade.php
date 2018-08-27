@@ -54,7 +54,7 @@
         {{-- end master details --}}
 
         {{-- begin inventory --}}
-        <li class="has-sub {{ Request::path() == 'purchase-order' ? 'active' : '' || Request::path() == 'purchase-orders' ? 'active' : '' || Request::path() == 'opening-stock' ? 'active' : '' || Request::path() == 'stock-adjustment' ? 'active' : '' || Request::path() == 'goods-receive-note' ? 'active' : '' }}">
+        <li class="has-sub {{ Request::path() == 'purchase-order' ? 'active' : '' || Request::path() == 'purchase-orders' ? 'active' : '' || Request::path() == 'opening-stock' ? 'active' : '' || Request::path() == 'stock-adjustment' ? 'active' : '' || Request::path() == 'goods-receive-note' ? 'active' : '' || Request::path() == 'issue-note' ? 'active' : '' || Request::path() == 'transfer-note' ? 'active' : ''}}">
             <a href="javascript:;">
                 <b class="caret"></b>
                 <i class="ion-ios-compose-outline bg-gradient-blue"></i>
@@ -62,6 +62,7 @@
             </a>
             <ul class="sub-menu">
                 <li class="{{ Request::path() == 'opening-stock' ? 'active' : '' }}"><a href="{{ route('opening-stock') }}">Opening Stock <b>[OS]</b></a></li>                
+                <li class="{{ Request::path() == 'm-product-price' ? 'active' : '' }}"><a href="{{ route('m-product-price') }}">Manual Product Price </a></li>                
                 <li class="has-sub {{ Request::path() == 'purchase-order' ? 'active' : '' || Request::path() == 'purchase-orders' ? 'active' : '' }}">
                     <a href="javascript:;"><b class="caret"></b>Purchase Order <b>[PO]</b></a>
                     <ul class="sub-menu">
@@ -76,10 +77,27 @@
                         <li><a href="">View All GRN</a></li>
                     </ul>
                 </li>
+                <li class="{{ Request::path() == 'issue-note' ? 'active' : '' }}"><a href="{{ route('issue-note') }}">Issue Note <b>[IN]</b></a></li>
+                <li class="{{ Request::path() == 'transfer-note' ? 'active' : '' }}"><a href="{{ route('transfer-note') }}">Transfer Note <b>[TN]</b></a></li>
                 <li class="{{ Request::path() == 'stock-adjustment' ? 'active' : '' }}"><a href="{{ route('stock-adjustment') }}">Stock Adjustment Note <b>[SAN]</b></a></li>
             </ul>
         </li>
         {{-- end inventory --}}
+
+        {{-- begin promotions --}}
+        <li class="has-sub {{ Request::path() == 'discount' ? 'active' : '' }}">
+            <a href="javascript:;">
+                <b class="caret"></b>
+                <i class="ion-ios-calculator-outline"></i>
+                <span>Promotions</span>
+            </a>
+            <ul class="sub-menu">
+                <li class="has-sub {{ Request::path() == 'discount' ? 'active' : '' }}"><a href="{{ route('discount') }}">Discount</a></li>
+            </ul>
+        </li>
+        {{-- end promotions --}}
+
+
 
         {{-- begin reports --}}
         <li class="has-sub">
@@ -131,14 +149,15 @@
         {{-- end user settings --}}
 
         {{-- begin settings --}}
-        <li class="has-sub">
+        <li class="has-sub {{ Request::path() == 'company-settings' ? 'active' : '' }}">
             <a href="javascript:;">
                 <b class="caret"></b>
                 <i class="ion-ios-gear-outline"></i>
                 <span>Settings</span>
             </a>
             <ul class="sub-menu">
-                <li><a href="#">Page with Footer</a></li>
+                <li><a href="">Company Profile</a></li>
+                <li class="{{ Request::path() == 'company-settings' ? 'active' : '' }}"><a href="{{ route('company-settings') }}">Company Settings</a></li>
             </ul>
         </li>
         {{-- end settings --}}

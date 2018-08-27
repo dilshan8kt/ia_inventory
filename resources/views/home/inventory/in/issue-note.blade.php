@@ -1,7 +1,7 @@
 @extends('shared.layout')
 
 @section('title')
-  Stock Adjustment Note
+  Issue Note
 @endsection
 
 @section('css')
@@ -15,12 +15,12 @@
 <!-- begin breadcrumb -->
 <ol class="breadcrumb pull-right">
     <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
-    <li class="breadcrumb-item active">Stock Adjustment Note</li>
+    <li class="breadcrumb-item active">Issue Note</li>
 </ol>
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-<h1 class="page-header">Stock Adjustment Note <small></small></h1>
+<h1 class="page-header">Issue Note <small></small></h1>
 <!-- end page-header -->
 
 <!-- begin panel -->

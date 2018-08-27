@@ -27,8 +27,7 @@ class UserController extends Controller
         return view('home.users.profile');
     }
 
-    public function changePassword(Request $request)
-    {  
+    public function changePassword(Request $request){  
         $current_password = Auth::User()->password;           
         if(Hash::check($request->current_password, $current_password))
         {        
@@ -49,10 +48,17 @@ class UserController extends Controller
 
     public function view(){
         // $users = Company::find(Auth::user()->company_id)->users;
+        
         $users = User::where('company_id', Auth::user()->company_id)
             ->where('id', '<>', Auth::user()->id)
             ->get();
-        $roles = Role::where('id', '<>', 1)->get();
+        
+        if(Auth::user()->role(Auth::user()->id) == 'Super Admin'){
+            $roles = Role::all();   
+        }else{
+            $roles = Role::where('id', '<>', 1)->get();            
+        }
+        
         return view('home.users.users')
             ->with([
                 'users' => $users, 

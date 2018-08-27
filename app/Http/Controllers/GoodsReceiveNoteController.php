@@ -171,6 +171,7 @@ class GoodsReceiveNoteController extends Controller
                         $price_id = $price->id;
                     }else{
                         $price_id = ProductPrice::insertGetId([
+                            'company_id' => Auth::user()->company_id,
                             'product_id' => $tgrn->product_id,
                             'cost_price' => $tgrn->unit_price,
                             'ws_price' => $tgrn->sales_price,

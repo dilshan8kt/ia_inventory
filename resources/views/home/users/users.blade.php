@@ -44,55 +44,109 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($users as $user)
-                <tr class="odd gradeX">
-                    <td>{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</td>
-                    <td>{{ $user->telephone_no }}</td>
-                    <td>{{ $user->role($user->id) }}</td>
-                    <td>
-                        @if($user->status === 1)
-                            <lable class="label label-success">Active</lable>
-                        @elseif($user->status === 0)
-                            <lable class="label label-danger">Deactive</lable>
+                @if(Auth::user()->role(Auth::user()->id) == "Super Admin")
+                    @foreach($users as $user)
+                        <tr class="odd gradeX">
+                            <td>{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</td>
+                            <td>{{ $user->telephone_no }}</td>
+                            <td>{{ $user->role($user->id) }}</td>
+                            <td>
+                                @if($user->status === 1)
+                                    <lable class="label label-success">Active</lable>
+                                @elseif($user->status === 0)
+                                    <lable class="label label-danger">Deactive</lable>
+                                @endif
+                            </td>
+                            <td>
+                                <button type="button"
+                                    class="btn btn-success fa fa-eye"
+                                    data-backdrop="static"
+                                    data-toggle="modal"
+                                    data-target="#view"
+                                    data-fname="{{ $user->first_name }}"
+                                    data-mname="{{ $user->middle_name }}"
+                                    data-lname="{{ $user->last_name }}"
+                                    data-phone="{{ $user->telephone_no }}"
+                                    data-username="{{ $user->username }}"
+                                    data-role="{{ $user->role($user->id) }}"
+                                    data-status="{{ $user->status }}"
+                                ></button>
+                                <button type="button"
+                                    class="btn btn-info fa fa-edit"
+                                    data-backdrop="static"
+                                    data-toggle="modal"
+                                    data-target="#edit"
+                                    data-id="{{ $user->id }}"
+                                    data-fname="{{ $user->first_name }}"
+                                    data-mname="{{ $user->middle_name }}"
+                                    data-lname="{{ $user->last_name }}"
+                                    data-phone="{{ $user->telephone_no }}"
+                                    data-role="{{ $user->roles }}"
+                                    data-status="{{ $user->status }}"
+                                ></button>
+                                <button type="button"
+                                    class="btn btn-danger fa fa-trash"
+                                    data-toggle="modal"
+                                    data-target="#delete"
+                                    data-backdrop="static"
+                                    data-id="{{ $user->id }}"
+                                ></button>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
+                    @foreach($users as $user)
+                        @if($user->role($user->id) != "Super Admin")
+                            <tr class="odd gradeX">
+                                <td>{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</td>
+                                <td>{{ $user->telephone_no }}</td>
+                                <td>{{ $user->role($user->id) }}</td>
+                                <td>
+                                    @if($user->status === 1)
+                                        <lable class="label label-success">Active</lable>
+                                    @elseif($user->status === 0)
+                                        <lable class="label label-danger">Deactive</lable>
+                                    @endif
+                                </td>
+                                <td>
+                                    <button type="button"
+                                        class="btn btn-success fa fa-eye"
+                                        data-backdrop="static"
+                                        data-toggle="modal"
+                                        data-target="#view"
+                                        data-fname="{{ $user->first_name }}"
+                                        data-mname="{{ $user->middle_name }}"
+                                        data-lname="{{ $user->last_name }}"
+                                        data-phone="{{ $user->telephone_no }}"
+                                        data-username="{{ $user->username }}"
+                                        data-role="{{ $user->role($user->id) }}"
+                                        data-status="{{ $user->status }}"
+                                    ></button>
+                                    <button type="button"
+                                        class="btn btn-info fa fa-edit"
+                                        data-backdrop="static"
+                                        data-toggle="modal"
+                                        data-target="#edit"
+                                        data-id="{{ $user->id }}"
+                                        data-fname="{{ $user->first_name }}"
+                                        data-mname="{{ $user->middle_name }}"
+                                        data-lname="{{ $user->last_name }}"
+                                        data-phone="{{ $user->telephone_no }}"
+                                        data-role="{{ $user->roles }}"
+                                        data-status="{{ $user->status }}"
+                                    ></button>
+                                    <button type="button"
+                                        class="btn btn-danger fa fa-trash"
+                                        data-toggle="modal"
+                                        data-target="#delete"
+                                        data-backdrop="static"
+                                        data-id="{{ $user->id }}"
+                                    ></button>
+                                </td>
+                            </tr>
                         @endif
-                    </td>
-                    <td>
-                        <button type="button"
-                            class="btn btn-success fa fa-eye"
-                            data-backdrop="static"
-                            data-toggle="modal"
-                            data-target="#view"
-                            data-fname="{{ $user->first_name }}"
-                            data-mname="{{ $user->middle_name }}"
-                            data-lname="{{ $user->last_name }}"
-                            data-phone="{{ $user->telephone_no }}"
-                            data-username="{{ $user->username }}"
-                            data-role="{{ $user->role($user->id) }}"
-                            data-status="{{ $user->status }}"
-                        ></button>
-                        <button type="button"
-                            class="btn btn-info fa fa-edit"
-                            data-backdrop="static"
-                            data-toggle="modal"
-                            data-target="#edit"
-                            data-id="{{ $user->id }}"
-                            data-fname="{{ $user->first_name }}"
-                            data-mname="{{ $user->middle_name }}"
-                            data-lname="{{ $user->last_name }}"
-                            data-phone="{{ $user->telephone_no }}"
-                            data-role="{{ $user->roles }}"
-                            data-status="{{ $user->status }}"
-                        ></button>
-                        <button type="button"
-                            class="btn btn-danger fa fa-trash"
-                            data-toggle="modal"
-                            data-target="#delete"
-                            data-backdrop="static"
-                            data-id="{{ $user->id }}"
-                        ></button>
-                    </td>
-                </tr>
-                @endforeach
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

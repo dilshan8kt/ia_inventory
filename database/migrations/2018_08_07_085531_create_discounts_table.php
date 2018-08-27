@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSettingsTable extends Migration
+class CreateDiscountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('discounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id');
-            $table->boolean('has_sublocation');
-            $table->boolean('has_Product_department');
-            $table->boolean('has_Product_category');
+            $table->integer('product_id');
+            $table->string('formular');
+            $table->double('free_qty');
+            $table->double('dis_%');
+            $table->double('dis_amt');
+            $table->boolean('regular');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('discounts');
     }
 }

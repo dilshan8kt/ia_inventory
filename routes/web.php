@@ -1,5 +1,6 @@
 <?php
 
+
 Route::view('/', 'index');
 Route::view('/login', 'auth.login')->name('login');
 
@@ -10,6 +11,7 @@ Route::get('dashboard', [
 ]);
 
 //profile
+
 Route::get('profile', [
     'uses' => 'UserController@profile',
     'as' => 'profile',
@@ -27,7 +29,7 @@ Route::put('profile', [
 Route::post('changepassword',[
     'uses' => 'UserController@changePassword',
     'as' => 'changepassword',
-    'roles' => ['Super Admin','Admin']
+    'roles' => ['Super Admin','Admin','User']
 ]);
 
 Route::post('signin',[
@@ -271,6 +273,23 @@ Route::get('goods-receive-note/pdf/{id}',[
     'roles' => ['Super Admin','Admin','User']
 ]);
 
+
+Route::get('issue-note',[
+    'uses' => 'IssueNoteController@view',
+    'as' => 'issue-note'
+]);
+
+Route::get('transfer-note',[
+    'uses' => 'TransferNoteController@view',
+    'as' => 'transfer-note'
+]);
+
+
+Route::get('company-settings',[
+    'uses' => 'SettingsController@view',
+    'as' => 'company-settings'
+]);
+
 // Route::prefix('site')->group(function(){
     Route::get('site.dashboard', [
         'uses' => 'site\HomeController@view',
@@ -287,3 +306,20 @@ Route::get('goods-receive-note/pdf/{id}',[
         'as' => 'site.client'
     ]);
 // });
+
+Route::get('discount',[
+    'uses' => 'DiscountController@view',
+    'as' => 'discount',
+    'roles' => ['Super Admin','Admin']
+]);
+
+Route::get('m-product-price',[
+    'uses' => 'MProductPriceController@view',
+    'as' => 'm-product-price',
+    'roles' => ['Super Admin', 'Admin', 'User']
+]);
+
+Route::get('product-price/{id}',[
+    'uses' => 'MProductPriceController@prices',
+    'roles' => ['Super Admin', 'Admin', 'User']
+]);
